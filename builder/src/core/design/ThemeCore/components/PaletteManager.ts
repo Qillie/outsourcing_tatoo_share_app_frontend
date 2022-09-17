@@ -7,6 +7,9 @@ import TConvertableColor from '../interfaces/palette/TConvertableColor';
 import { IColorObject, TColorFormat, TColorSpace } from '../interfaces/palette/IColorObject';
 
 class PaletteManager {
+    //* Members
+    public palette?: IPalette
+
     private clamp(value: number, min = 0, max = 1) {
         if (value < min || value > max) {
             throw new Error(`The value provided ${value} is out of range [${min}, ${max}].`)
@@ -153,7 +156,7 @@ class PaletteManager {
             }
         }
         
-        return palette
+        this.palette = palette
     }
 }
 

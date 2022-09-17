@@ -26,7 +26,7 @@ const MainView = (props: IMainView) => {
             <Grid role="container">
                 <Grid role="item" xs={4}>
                     <Box alignX="center">
-                        <Typography>
+                        <Typography variant="body2">
                             hello
                         </Typography>
                     </Box>

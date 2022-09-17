@@ -17,15 +17,15 @@ const Typography = (props: ITypography) => {
 
     //* Functions
     const setFontSize = (variant?: TFontVariant) => {
-        
+        return ThemeCoreSingleton.typograhpyManager.getFontSize(variant)
     }
 
     const setStyle = () => {
         let style:{ default: TextStyle } = { default: {} }
         
-        // style.default.fontSize = setFontSize(props.variant)
+        style.default.fontSize = setFontSize(props.variant)
 
-        StyleSheet.create(style)
+        return StyleSheet.create(style).default
     }
 
     //* Life cycles
@@ -34,7 +34,7 @@ const Typography = (props: ITypography) => {
     }, [])
 
     return (
-        <Text>
+        <Text style={setStyle()}>
             {props.children}
         </Text>
     )

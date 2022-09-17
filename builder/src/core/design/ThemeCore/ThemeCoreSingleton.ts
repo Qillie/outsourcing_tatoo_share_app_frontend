@@ -13,26 +13,18 @@ import ITheme from './interfaces/theme/ITheme';
 
 class ThemeCore {
     //* Members
-    private typograhpyManager = new TypographyManager()
-    private paletteManager = new PaletteManager()
-    private theme: ITheme | undefined
-
-    private async setPaletteConfigs() {
-        
-    }
-
-    private async setTypographyConfigs() {
-        // paletteConfig: Palette, breakpointsConfig: Breakpoints, themeConfigBasePath?: string, loadedTypographyConfig?: any
-    }
+    public typograhpyManager = new TypographyManager()
+    public paletteManager = new PaletteManager()
+    public theme: ITheme | undefined
 
     public setTheme(themeSheet: IThemeSheet) {
         //* Set palette
-        const palette = this.paletteManager.createPalette(themeSheet.palette)
-        const typography = this.typograhpyManager.createTypograhpy(themeSheet.typography)
+        this.paletteManager.createPalette(themeSheet.palette)
+        this.typograhpyManager.createTypograhpy(themeSheet.typography)
 
         this.theme = {
-            palette,
-            typography
+            palette: this.paletteManager.palette,
+            typography: this.typograhpyManager.typography
         }
 
         console.log(this.theme)

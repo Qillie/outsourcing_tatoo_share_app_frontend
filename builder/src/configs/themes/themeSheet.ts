@@ -14,7 +14,7 @@ const themeSheet : IThemeSheet = {
     },
     typography: {
         body1: 0,
-        body2: 0,
+        body2: 30,
         button: 0,
         caption: 0,
         h1: 0,
