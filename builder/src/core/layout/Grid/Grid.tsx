@@ -9,7 +9,13 @@ import { ThemeCoreSingleton } from "../../design"
 import IGrid from "./interfaces/IGrid"
 import IRegularBreakpoints from "./interfaces/IRegularBreakpoints"
 
+//* Import styles
+import GridStyles from "./styles/GridStyles"
+
 const Grid = (props: IGrid & IRegularBreakpoints) => {
+    //* Constants
+    const space = 14
+    
     //* States
     // const [typographyStyle, setTypographyStyle
 
@@ -18,9 +24,29 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         
     // }
 
+    const setSpacing = (style: { default: ViewStyle }, role: "item" | "container", direction?: "row" | "column") => {
+        if (props.spacing !== undefined) {
+            
+            
+            if ( 0 < props.spacing && props.spacing <= 12 ) {
+                if (role == "container") {
+                    style.default.width = `calc(100% + ${props.spacing * space}px)`
+                } else {
+
+                }
+
+            } else if (12 < props.spacing) {
+
+            }
+        }
+    }
+
     const setGridContainerStyle = (style: { default: ViewStyle }) => {
         //* Set display
         style.default.display = "flex"
+
+        //* Set flex wrap
+        style.default.flexWrap = "wrap"
 
         //* Set justify contents
         style.default.justifyContent = props.justifyContent
@@ -30,7 +56,10 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
     }
 
     const setGridItemStyle = (style: { default: ViewStyle }) => {
-
+        //* Set base style
+        if (typeof props.xs == "number") {
+            style.default = Object.assign(GridStyles[`grid-item-${props.xs}`])
+        }
     }
 
     const setStyle = () => {
@@ -47,7 +76,7 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
     //* Life cycles
     React.useEffect(() => {
-
+        console.log(React.Children.toArray(props.children))
     }, [])
 
     return (

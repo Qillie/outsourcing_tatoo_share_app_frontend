@@ -24,7 +24,7 @@ interface IGrid {
      * It can only be used on a type `container` component.
      * @default 0
      */
-    spacing?: number | string;
+    spacing?: number;
 
     justifyContent?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around" | "space-evenly"
     alignItems?: "flex-start" | "center" | "flex-end" | "stretch" | "baseline"
