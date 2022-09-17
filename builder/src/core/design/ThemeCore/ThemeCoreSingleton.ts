@@ -10,7 +10,7 @@ import IThemeSheet from './interfaces/theme/IThemeSheet';
 
 class ThemeCore {
     //* Members
-    private palette = new PaletteManager()
+    private paletteManager = new PaletteManager()
 
     private theme: {} = {}
 
@@ -29,7 +29,10 @@ class ThemeCore {
     }
 
     public setTheme(themeSheet: IThemeSheet) {
+        //* Set palette
+        const palette = this.paletteManager.createPalette(themeSheet.palette)
 
+        console.log(palette)
     }
 }
 

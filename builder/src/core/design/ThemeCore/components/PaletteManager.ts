@@ -3,6 +3,7 @@
 //* Import interfaces
 import IPalette from '../interfaces/palette/IPalette';
 import IPaletteSheet from '../interfaces/palette/IPaletteSheet';
+import TConvertableColor from '../interfaces/palette/TConvertableColor';
 import { IColorObject, TColorFormat, TColorSpace } from '../interfaces/palette/IColorObject';
 
 class PaletteManager {
@@ -95,16 +96,16 @@ class PaletteManager {
         coefficient = this.clamp(coefficient);
       
         if (decomposedColor.type.indexOf('hsl') !== -1) {
-            decomposedColor.values[2] += (100 - Number(decomposedColor.values[2])) * coefficient;
+            decomposedColor.values[2] = String(Number(decomposedColor.values[2]) + ((100 - Number(decomposedColor.values[2])) * coefficient)) ;
 
         } else if (decomposedColor.type.indexOf('rgb') !== -1) {
             for (let i = 0; i < 3; i += 1) {
-                decomposedColor.values[i] += (255 - Number(decomposedColor.values[i])) * coefficient;
+                decomposedColor.values[i] = String(Number(decomposedColor.values[i]) + ((255 - Number(decomposedColor.values[i])) * coefficient));
             }
             
         } else if (decomposedColor.type.indexOf('color') !== -1) {
             for (let i = 0; i < 3; i += 1) {
-                decomposedColor.values[i] += (1 - Number(decomposedColor.values[i])) * coefficient;
+                decomposedColor.values[i] = String(Number(decomposedColor.values[i]) + ((1 - Number(decomposedColor.values[i])) * coefficient));
             }
         }
       
@@ -128,7 +129,31 @@ class PaletteManager {
     }
 
     public createPalette(paletteSheet: IPaletteSheet) {
+        let palette: IPalette = {
+            black: paletteSheet.black,
+            background: paletteSheet.background,
+        }
 
+        const coefficient = 0.3
+
+        if (paletteSheet.primary !== undefined) {
+            palette.primary = {
+                main: paletteSheet.primary,
+                light: this.lighten(paletteSheet.primary, coefficient)
+            }
+        }
+
+        for (const target of ["primary", "secondary", "error", "warning", "info", "success"]) {
+            if (paletteSheet[target as TConvertableColor] !== undefined) {
+                palette[target as TConvertableColor] = {
+                    main: paletteSheet[target as TConvertableColor] as string,
+                    light: this.lighten(paletteSheet[target as TConvertableColor] as string, coefficient),
+                    dark: this.darken(paletteSheet[target as TConvertableColor] as string, coefficient)
+                }
+            }
+        }
+        
+        return palette
     }
 }
 
