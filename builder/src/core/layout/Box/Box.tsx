@@ -95,30 +95,38 @@ const Box = (props: IBox) => {
 
     const setAlign = (style: { default: ViewStyle }) => {
         //* Set x align
-        if (props.xAlign !== undefined) {
-            if (props.xAlign == "left") {
-                style.default.justifyContent = "flex-start"
+        if (props.alignX !== undefined) {
+            if (props.alignX == "left") {
+                style.default.alignItems = "flex-start"
 
-            } else if (props.xAlign == "center") {
-                style.default.justifyContent = "center"
+            } else if (props.alignX == "center") {
+                style.default.alignItems = "center"
 
-            } else if (props.xAlign == "right") {
-                style.default.justifyContent = "flex-end"
+            } else if (props.alignX == "right") {
+                style.default.alignItems = "flex-end"
             } 
         }
 
         //* Set y align
-        if (props.yAlign !== undefined) {
-            if (props.yAlign == "top") {
-                style.default.alignItems = "flex-start"
+        if (props.alignY !== undefined) {
+            if (props.alignY == "top") {
+                style.default.justifyContent = "flex-start"
 
-            } else if (props.yAlign == "middle") {
-                style.default.alignItems = "center"
+            } else if (props.alignY == "middle") {
+                style.default.justifyContent = "center"
 
-            } else if (props.yAlign == "bottom") {
-                style.default.alignItems = "flex-end"
+            } else if (props.alignY == "bottom") {
+                style.default.justifyContent = "flex-end"
             } 
         }
+    }
+
+    const setBackground = (style: { default: ViewStyle }) => {
+        style.default.backgroundColor = props.backgroundColor
+    }
+
+    const setBoxShadow = (style: { default: ViewStyle }) => {
+
     }
 
     const setStyle = () => {
@@ -131,6 +139,7 @@ const Box = (props: IBox) => {
         setPadding(style)
         setSize(style)
         setAlign(style)
+        setBackground(style)
 
         return StyleSheet.create(style).default
     }

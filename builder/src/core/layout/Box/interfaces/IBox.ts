@@ -67,8 +67,13 @@ interface IBox {
     /**
      * Alignment style props
      */
-    xAlign?: "left" | "center" | "right"
-    yAlign?: "top" | "middle" | "bottom"
+    alignX?: "left" | "center" | "right"
+    alignY?: "top" | "middle" | "bottom"
+
+    /**
+     * Background style props
+     */
+    backgroundColor?: string
 }
 
 export default IBox

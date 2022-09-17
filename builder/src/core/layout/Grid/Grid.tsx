@@ -75,14 +75,14 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
             setGridItemStyle(style)
         }
 
-        console.log(StyleSheet.create(style).default)
+        // console.log(StyleSheet.create(style).default)
 
         return StyleSheet.create(style).default
     }
 
     //* Life cycles
     React.useEffect(() => {
-        console.log(React.Children.toArray(props.children))
+        // console.log(React.Children.toArray(props.children))
     }, [])
 
     return (
