@@ -3,7 +3,7 @@
 import TGridDirection from './TGridDirection';
 
 interface IGrid {
-    children: React.ReactElement[]
+    children: React.ReactElement[] | React.ReactElement
 
     role: "container" | "item"
 

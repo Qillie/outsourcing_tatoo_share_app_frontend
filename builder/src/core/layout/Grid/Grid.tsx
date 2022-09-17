@@ -42,6 +42,10 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
     }
 
     const setGridContainerStyle = (style: { default: ViewStyle }) => {
+        style.default.flexDirection = "row"
+
+        style.default.width = "100%"
+
         //* Set display
         style.default.display = "flex"
 
@@ -70,6 +74,8 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         } else {
             setGridItemStyle(style)
         }
+
+        console.log(StyleSheet.create(style).default)
 
         return StyleSheet.create(style).default
     }

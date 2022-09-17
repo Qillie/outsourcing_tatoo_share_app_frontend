@@ -23,7 +23,7 @@ const Typography = (props: ITypography) => {
     const setStyle = () => {
         let style:{ default: TextStyle } = { default: {} }
         
-        style.default.fontSize = setFontSize(props.variant)
+        // style.default.fontSize = setFontSize(props.variant)
 
         StyleSheet.create(style)
     }

@@ -33,8 +33,8 @@ const GridStyles: {[key: string]: ViewStyle} = {
     },
     "grid-item-4": {
         flexGrow: 0,
-        flexBasis: "33.333333%%",
-        maxWidth: "33.333333%%"
+        flexBasis: "33.333333%",
+        maxWidth: "33.333333%"
     },
     "grid-item-5": {
         flexGrow: 0,

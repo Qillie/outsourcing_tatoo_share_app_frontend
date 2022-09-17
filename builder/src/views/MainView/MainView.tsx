@@ -5,6 +5,7 @@ import { Link } from "react-router-native";
 
 //* Import modules
 import { Typography } from "../../core/display";
+import { Grid } from "../../core/layout";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -20,6 +21,24 @@ const MainView = (props: IMainView) => {
             <Typography>
                 hello
             </Typography>
+
+            <Grid role="container">
+                <Grid role="item" xs={4}>
+                    <Typography>
+                        hello
+                    </Typography>
+                </Grid>
+                <Grid role="item" xs={4}>
+                    <Typography>
+                        hello
+                    </Typography>
+                </Grid>
+                <Grid role="item" xs={4}>
+                    <Typography>
+                        hello
+                    </Typography>
+                </Grid>
+            </Grid>
             
 			<Link to="/settings">
                 <Text>
