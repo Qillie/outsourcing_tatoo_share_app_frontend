@@ -3,18 +3,19 @@
 
 //* Import modules
 import PaletteManager from './components/PaletteManager';
+import TypographyManager from './components/TypographyManager';
 
 //* Import interface
 import IThemeSheet from './interfaces/theme/IThemeSheet';
+import ITheme from './interfaces/theme/ITheme';
+
 
 
 class ThemeCore {
     //* Members
+    private typograhpyManager = new TypographyManager()
     private paletteManager = new PaletteManager()
-
-    private theme: {} = {}
-
-    constructor() {}
+    private theme: ITheme | undefined
 
     private async setPaletteConfigs() {
         
@@ -24,15 +25,17 @@ class ThemeCore {
         // paletteConfig: Palette, breakpointsConfig: Breakpoints, themeConfigBasePath?: string, loadedTypographyConfig?: any
     }
 
-    private async loadPresetThemes() {
-
-    }
-
     public setTheme(themeSheet: IThemeSheet) {
         //* Set palette
         const palette = this.paletteManager.createPalette(themeSheet.palette)
+        const typography = this.typograhpyManager.createTypograhpy(themeSheet.typography)
 
-        console.log(palette)
+        this.theme = {
+            palette,
+            typography
+        }
+
+        console.log(this.theme)
     }
 }
 
