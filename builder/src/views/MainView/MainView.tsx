@@ -6,6 +6,7 @@ import { Link } from "react-router-native";
 //* Import modules
 import { Typography } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
+import { Button } from "../../core/input";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -31,9 +32,10 @@ const MainView = (props: IMainView) => {
                     </Box>
                 </Grid>
                 <Grid role="item" xs={4}>
-                    <Typography>
+                    <Button>
                         hello
-                    </Typography>
+                    </Button>
+                    
                 </Grid>
                 <Grid role="item" xs={4}>
                     <Typography>

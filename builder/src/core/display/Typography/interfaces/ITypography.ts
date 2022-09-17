@@ -2,7 +2,7 @@
 import TFontVariant from './TFontVariant';
 
 interface ITypography {
-    children: string | React.ReactElement
+    children?: string | React.ReactElement
     variant?: TFontVariant
 }
 

@@ -112,7 +112,7 @@ const Box = (props: IBox) => {
             if (props.alignY == "top") {
                 style.default.justifyContent = "flex-start"
 
-            } else if (props.alignY == "middle") {
+            } else if (props.alignY == "center") {
                 style.default.justifyContent = "center"
 
             } else if (props.alignY == "bottom") {
