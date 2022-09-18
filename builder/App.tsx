@@ -20,7 +20,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 //* Import modules
-import { RouterCore } from './src/core/navigate';
+import { RouterCore, TopNavigator } from './src/core/navigate';
 import { ThemeCoreSingleton } from './src/core/design';
 import { BottomNavigator } from './src/core/navigate';
 
@@ -46,18 +46,21 @@ const App = () => {
 			barStyle={isDarkMode ? 'light-content' : 'dark-content'}
 			backgroundColor={backgroundStyle.backgroundColor}
 		/>
-		
-		<MemoryRouter>
-			<ScrollView style={{height: "100%"}}>
-				<RouterCore 
-					routeTree={routeConfig}
-				/>
-			</ScrollView>
-			
 
-			<BottomNavigator 
-				menu={navigatorConfig.menu}
-			/>
+		<MemoryRouter>
+			<View style={{flex: 1}}>
+				<TopNavigator />
+
+				<ScrollView style={{height: "100%"}}>
+					<RouterCore 
+						routeTree={routeConfig}
+					/>
+				</ScrollView>
+
+				<BottomNavigator 
+					menu={navigatorConfig.menu}
+				/>
+			</View>
 		</MemoryRouter>
 	</SafeAreaView>
 	

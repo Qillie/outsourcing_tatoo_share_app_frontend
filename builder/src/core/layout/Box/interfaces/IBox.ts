@@ -59,10 +59,10 @@ interface IBox {
     /**
      * Size style props
      */
-    width?: string
-    height?: string
-    minWidth?: string
-    minHeight?: string
+    width?: string | number
+    height?: string | number
+    minWidth?: string | number
+    minHeight?: string | number
 
     /**
      * Alignment style props

@@ -51,25 +51,25 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
         //* Set flex wrap
         style.default.flexWrap = "wrap"
-
-        //* Set justify contents
-        style.default.justifyContent = props.justifyContent
-
-        //* Set align items
-        style.default.alignItems = props.alignItems
     }
 
     const setGridItemStyle = (style: { default: ViewStyle }) => {
         //* Set base style
         if (typeof props.xs == "number") {
-            style.default = Object.assign(GridStyles[`grid-item-${props.xs}`])
+            style.default = Object.assign(GridStyles[`grid-item-${props.xs}`], style.default)
         } else if (props.xs == true) {
-            style.default  = Object.assign(GridStyles[`grid-item-auto`])
+            style.default  = Object.assign(GridStyles[`grid-item-auto`], style.default)
         }
     }
 
     const setStyle = () => {
-        let style:{ default: ViewStyle } = { default: {} }
+        let style:{ default: ViewStyle } = {default: {
+            //* Set justify contents
+            justifyContent: props.justifyContent,
+
+            //* Set align items
+            alignItems: props.alignItems
+        }}
 
         if (props.role == "container") {
             setGridContainerStyle(style)
@@ -77,7 +77,7 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
             setGridItemStyle(style)
         }
 
-        // console.log(StyleSheet.create(style).default)
+        console.log(StyleSheet.create(style).default)
 
         return StyleSheet.create(style).default
     }

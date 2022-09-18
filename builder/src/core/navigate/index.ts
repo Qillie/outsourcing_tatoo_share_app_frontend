@@ -6,3 +6,6 @@ export * from './RouterCore'
 
 export { default as BottomNavigator } from './BottomNavigator'
 export * from './BottomNavigator'
+
+export { default as TopNavigator } from './TopNavigator'
+export * from './TopNavigator'
