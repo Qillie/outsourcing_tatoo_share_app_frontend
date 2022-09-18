@@ -6,7 +6,7 @@ import { Link } from "react-router-native";
 //* Import modules
 import { Typography } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
-import { Button } from "../../core/input";
+import { Button, TextField } from "../../core/input";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -15,6 +15,7 @@ const MainView = (props: IMainView) => {
     //* Modules
 
     //* States
+    const [text, setText] = React.useState<string>("")
     const [pickedPanel, setPickedPanel] = React.useState<string>("planning")
 
     return (
@@ -38,9 +39,11 @@ const MainView = (props: IMainView) => {
                     
                 </Grid>
                 <Grid role="item" xs={4}>
-                    <Typography>
-                        hello
-                    </Typography>
+                    <TextField
+                        value={text}
+                        setValue={setText}
+                        placeholder={"asdf"}
+                    />
                 </Grid>
             </Grid>
             

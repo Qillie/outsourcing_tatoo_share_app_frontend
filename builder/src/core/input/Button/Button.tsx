@@ -95,7 +95,12 @@ const Button = (props: IButton) => {
     }, [])
 
     return (
-        <Pressable 
+        <Pressable
+            onPress={
+                (event) => {
+                    
+                }
+            }
             style={
                 ({pressed}) => [
                     {

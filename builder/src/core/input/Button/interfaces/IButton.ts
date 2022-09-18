@@ -1,4 +1,5 @@
-import { ViewProps } from "react-native";
+//* Import libraries
+import { GestureResponderEvent, ViewProps } from "react-native";
 
 interface IButton {
     children?: string
@@ -36,6 +37,11 @@ interface IButton {
     py?: number | string
 
     icon?: React.ReactElement
+
+    /**
+     * Callbacks
+     */
+    onClick?: (event: GestureResponderEvent) => void
 }
 
 export default IButton
