@@ -17,12 +17,12 @@ const themeSheet : IThemeSheet = {
         body2: 30,
         button: 0,
         caption: 0,
-        h1: 33,
-        h2: 30,
-        h3: 27,
-        h4: 24,
-        h5: 21,
-        h6: 18,
+        h1: 27,
+        h2: 25,
+        h3: 23,
+        h4: 21,
+        h5: 19,
+        h6: 17,
         subtitle1: 0,
         subtitle2: 0
     }

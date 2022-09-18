@@ -24,6 +24,8 @@ const Typography = (props: ITypography) => {
         let style:{ default: TextStyle } = { default: {} }
         
         style.default.fontSize = setFontSize(props.variant)
+        style.default.fontWeight = props.fontWeight
+        style.default.color = (props.color !== undefined) ? props.color : ThemeCoreSingleton.paletteManager.palette?.black
 
         return StyleSheet.create(style).default
     }

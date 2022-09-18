@@ -2,7 +2,7 @@
 import React from "react"
 import { Text, View } from 'react-native';
 import { Link } from "react-router-native";
-import { Typography } from "../../core/display";
+import { Divider, Typography } from "../../core/display";
 import { Box } from "../../core/layout";
 
 //* Import modules
@@ -68,22 +68,26 @@ const SettingsView = (props: ISettingsView) => {
             </Box>
 
             {/* Contents */}
-            <Box flexDirection="column">
+            <Box flexDirection="column" mb={25}>
                 <Box>
-                    <Typography variant="h5">
+                    <Typography variant="h5" fontWeight="700">
                         더 보기
                     </Typography>
                 </Box>
 
+                <Divider my={20} />
+
                 <Box flexDirection="column">
                     {
                         contents.map((content) => (
-                            <Box>
+                            <Box flexDirection="column">
                                 <Typography variant="body1">
                                     {
                                         content.title
                                     }
                                 </Typography>
+
+                                <Divider my={20} />
                             </Box>
                         ))
                     }
@@ -93,20 +97,24 @@ const SettingsView = (props: ISettingsView) => {
             {/* Configs */}
             <Box flexDirection="column">
                 <Box>
-                    <Typography variant="h5">
+                    <Typography variant="h5" fontWeight="700">
                         설정
                     </Typography>
                 </Box>
 
+                <Divider my={20} />
+
                 <Box flexDirection="column">
                     {
                         configs.map((config) => (
-                            <Box>
+                            <Box flexDirection="column">
                                 <Typography variant="body1">
                                     {
                                         config.title
                                     }
                                 </Typography>
+
+                                <Divider my={20} />
                             </Box>
                         ))
                     }
