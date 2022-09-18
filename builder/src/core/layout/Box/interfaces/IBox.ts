@@ -74,6 +74,12 @@ interface IBox {
      * Background style props
      */
     backgroundColor?: string
+
+    /**
+     * Flex styles
+     */
+    flexGrow?: number
+    flexDirection?: "row" | "column"
 }
 
 export default IBox

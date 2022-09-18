@@ -22,10 +22,12 @@ import {
 //* Import modules
 import { RouterCore } from './src/core/navigate';
 import { ThemeCoreSingleton } from './src/core/design';
+import { BottomNavigator } from './src/core/navigate';
 
 //* Import configs
 import routeConfig from './src/configs/routeConfig';
 import themeSheet from './src/configs/themes/themeSheet';
+import navigatorConfig from './src/configs/navigatorConfig';
 
 //* Init themeCore
 ThemeCoreSingleton.setTheme(themeSheet)
@@ -35,27 +37,28 @@ const App = () => {
 	const isDarkMode = useColorScheme() === 'dark';
 
 	const backgroundStyle = {
-		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+		backgroundColor: "red",
 	};
 
 	return (
-	<SafeAreaView style={backgroundStyle}>
+	<SafeAreaView style={{backgroundColor: "white", height: "100%"}}>
 		<StatusBar
 			barStyle={isDarkMode ? 'light-content' : 'dark-content'}
 			backgroundColor={backgroundStyle.backgroundColor}
 		/>
-
-		<Header />
 		
-		<ScrollView
-			style={backgroundStyle}
-		>
-			<MemoryRouter>
+		<MemoryRouter>
+			<ScrollView style={{height: "100%"}}>
 				<RouterCore 
 					routeTree={routeConfig}
 				/>
-			</MemoryRouter>
-		</ScrollView>
+			</ScrollView>
+			
+
+			<BottomNavigator 
+				menu={navigatorConfig.menu}
+			/>
+		</MemoryRouter>
 	</SafeAreaView>
 	
 	);

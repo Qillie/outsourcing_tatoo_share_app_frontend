@@ -97,32 +97,40 @@ const Box = (props: IBox) => {
         //* Set x align
         if (props.alignX !== undefined) {
             if (props.alignX == "left") {
-                style.default.alignItems = "flex-start"
+                style.default.justifyContent = "flex-start"
 
             } else if (props.alignX == "center") {
-                style.default.alignItems = "center"
+                style.default.justifyContent = "center"
 
             } else if (props.alignX == "right") {
-                style.default.alignItems = "flex-end"
-            } 
+                style.default.justifyContent = "flex-end"
+            
+            }
         }
 
         //* Set y align
         if (props.alignY !== undefined) {
             if (props.alignY == "top") {
-                style.default.justifyContent = "flex-start"
+                style.default.alignItems = "flex-start"
 
             } else if (props.alignY == "center") {
-                style.default.justifyContent = "center"
+                style.default.alignItems = "center"
 
             } else if (props.alignY == "bottom") {
-                style.default.justifyContent = "flex-end"
+                style.default.alignItems = "flex-end"
             } 
         }
+
+        // style.default.justifyContent = "space-around"
     }
 
     const setBackground = (style: { default: ViewStyle }) => {
         style.default.backgroundColor = props.backgroundColor
+    }
+
+    const setFlex = (style: { default: ViewStyle }) => {
+        style.default.flexDirection = (props.flexDirection !== undefined) ? props.flexDirection : "row"
+        style.default.flexGrow = props.flexGrow
     }
 
     const setBoxShadow = (style: { default: ViewStyle }) => {
@@ -130,7 +138,7 @@ const Box = (props: IBox) => {
     }
 
     const setStyle = () => {
-        let style:{ default: ViewStyle } = { default: {} }
+        let style:{ default: ViewStyle } = { default: {}}
         
         setBorder(style)
         setHidden(style)
@@ -140,6 +148,7 @@ const Box = (props: IBox) => {
         setSize(style)
         setAlign(style)
         setBackground(style)
+        setFlex(style)
 
         return StyleSheet.create(style).default
     }

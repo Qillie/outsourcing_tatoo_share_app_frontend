@@ -13,6 +13,7 @@ interface IButton {
     elevation?: boolean
 
     size?: "small" | "medium" | "large"
+    fullWidth?: boolean
 
     /**
      * Margin style props

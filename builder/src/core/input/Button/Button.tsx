@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { StyleSheet, Pressable, PressableProps } from "react-native"
+import { StyleSheet, Pressable, PressableProps, ViewStyle } from "react-native"
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -10,10 +10,41 @@ import { Box } from "../../layout"
 //* Import interfaces
 import IButton from "./interfaces/IButton"
 
-const Button = (props: IButton) => {    
-    //* States
-
+const Button = (props: IButton) => { 
     //* Functions
+    const setStyle = () => {
+        //* Set base style
+        let baseStyle: ViewStyle = setBaseStyle()
+
+        let style:{ 
+            default: ViewStyle,
+            hover: ViewStyle,
+            action: ViewStyle,
+            disabled: ViewStyle,
+            activate: ViewStyle
+        } = {
+            default: {},
+            hover: {},
+            action: {},
+            disabled: {},
+            activate: {}
+        }
+
+        //* Set default
+        style.default = setDefault(Object.assign(style.default, baseStyle))
+
+        //* Set hover
+        style.hover = setHover(Object.assign(style.hover, baseStyle))
+
+        //* Set action
+        style.action = setAction(Object.assign(style.action, baseStyle))
+
+        //* Set disabled
+        style.disabled = setDisabled(Object.assign(style.disabled, baseStyle))
+
+        return StyleSheet.create(style)
+    }
+    
     const setSize = () => {
         const size = (props.size !== undefined) ? props.size : "medium"
 
@@ -36,62 +67,45 @@ const Button = (props: IButton) => {
     const setVariation = () => {
 
     }
+    
+    const setDefault = (style: ViewStyle) => {
+        return style
+    }
+
+    const setHover = (style: ViewStyle) => {
+        return style
+    }
+
+    const setAction = (style: ViewStyle) => {
+        return style
+    }
+
+    const setDisabled = (style: ViewStyle) => {
+        return style
+    }
 
     const setBaseStyle = () => {
+        let baseStyle: ViewStyle = {}
 
-    }
-    
-    const setDefault = () => {
-
-    }
-
-    const setHover = () => {
-        
-    }
-
-    const setAction = () => {
-        
-    }
-
-    const setDisabled = () => {
-        
-    }
-
-    const setStyle = () => {
-        let style:{ 
-            default: PressableProps,
-            hover: PressableProps,
-            action: PressableProps,
-            disabled: PressableProps,
-            activate: PressableProps
-        } = {
-            default: {},
-            hover: {},
-            action: {},
-            disabled: {},
-            activate: {}
+        if (props.fullWidth == true) {
+            baseStyle.width = "100%"
         }
 
-        //* Set base style
-        let baseStyle: PressableProps = {} 
-
-        //* Set default
-        setDefault()
-
-        //* Set hover
-        setHover()
-
-        //* Set action
-        setAction()
-
-        //* Set disabled
-        setDisabled()
-
-        return StyleSheet.create(style).default
+        return baseStyle
     }
+
+    //* States
+    const [buttonStyle, setButtonStyle] = React.useState<{default: ViewStyle, hover: ViewStyle, action: ViewStyle, disabled: ViewStyle, activate: ViewStyle}>({
+        default: {},
+        hover: {},
+        action: {},
+        disabled: {},
+        activate: {}
+    })
 
     //* Life cycles
     React.useEffect(() => {
+        setButtonStyle(setStyle())
     }, [])
 
     return (
@@ -106,7 +120,7 @@ const Button = (props: IButton) => {
                     {
                         backgroundColor: pressed ? "red" : "white"
                     },
-                    {} 
+                    buttonStyle.default 
                 ]
             }
         >

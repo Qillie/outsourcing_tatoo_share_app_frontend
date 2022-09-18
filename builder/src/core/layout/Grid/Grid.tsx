@@ -63,6 +63,8 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         //* Set base style
         if (typeof props.xs == "number") {
             style.default = Object.assign(GridStyles[`grid-item-${props.xs}`])
+        } else if (props.xs == true) {
+            style.default  = Object.assign(GridStyles[`grid-item-auto`])
         }
     }
 
