@@ -4,7 +4,7 @@ import IThemeSheet from "../../core/design/ThemeCore/interfaces/theme/IThemeShee
 const themeSheet : IThemeSheet = {
     palette: {
         black: "#222",
-        primary: "#ECAACE",
+        primary: "#4831D4",
         secondary: "#ce93d8",
         error: "#f44336",
         warning: "#ffa726",
@@ -17,12 +17,12 @@ const themeSheet : IThemeSheet = {
         body2: 30,
         button: 0,
         caption: 0,
-        h1: 27,
-        h2: 25,
-        h3: 23,
-        h4: 21,
-        h5: 19,
-        h6: 17,
+        h1: 24,
+        h2: 22.5,
+        h3: 21,
+        h4: 19.5,
+        h5: 18,
+        h6: 16.5,
         subtitle1: 0,
         subtitle2: 0
     }

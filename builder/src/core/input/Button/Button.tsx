@@ -144,7 +144,7 @@ const Button = (props: IButton) => {
                 px={props.px}
                 py={(props.py !== undefined) ? props.py : setSize()}
             >
-                <Typography>
+                <Typography {...props.typographyProps}>
                     { props.children }
                 </Typography>
             </Box>

@@ -179,6 +179,28 @@ class PaletteManager {
         
         this.palette = palette
     }
+
+    public getColor(target: TConvertableColor, role: "main" | "light" | "dark") {
+        let targetColor: string | undefined
+
+        if (this.palette !== undefined) {
+            if (this.palette[target] !== undefined) {
+                const color = this.palette[target]
+                
+                if (color !== undefined) {
+                    if (color[role] !== undefined) {
+                        targetColor = color[role]
+                    }
+                }
+            }
+        }
+
+        if (targetColor === undefined) {
+            return "#000"
+        } else {
+            return targetColor
+        }
+    }
 }
 
 export default PaletteManager

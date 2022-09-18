@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
 import { Divider, Typography } from "../../core/display";
 import { Box } from "../../core/layout";
@@ -61,7 +61,7 @@ const SettingsView = (props: ISettingsView) => {
     ])
 
     return (
-        <View>
+        <ScrollView style={{height: "100%"}}>
             {/* Thumbnail */}
             <Box>
                 
@@ -125,7 +125,7 @@ const SettingsView = (props: ISettingsView) => {
             <Box>
                 
             </Box>
-        </View>
+        </ScrollView>
     )
 }
 

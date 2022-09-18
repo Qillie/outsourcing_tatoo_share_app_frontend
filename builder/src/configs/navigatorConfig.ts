@@ -38,7 +38,7 @@ const navigatorConfig: {
                 sub: "관심목록"
             },
             show: true,
-            link: "favorite",
+            link: "favorites",
             childLeafs: []
         },
         {

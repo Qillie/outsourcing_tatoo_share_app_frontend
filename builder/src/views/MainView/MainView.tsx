@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { Text, View } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { Link } from "react-router-native";
 
 //* Import modules
@@ -19,7 +19,7 @@ const MainView = (props: IMainView) => {
     const [pickedPanel, setPickedPanel] = React.useState<string>("planning")
 
     return (
-        <View>
+        <ScrollView style={{height: "100%"}}>
             <Typography>
                 hello
             </Typography>
@@ -52,7 +52,7 @@ const MainView = (props: IMainView) => {
                     to settings
                 </Text>
 			</Link>
-        </View>
+        </ScrollView>
     )
 }
 

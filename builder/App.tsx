@@ -53,11 +53,9 @@ const ReduxContainer = () => {
 				label={label}
 			/>
 
-			<ScrollView style={{height: "100%"}}>
-				<RouterCore 
-					routeTree={routeConfig}
-				/>
-			</ScrollView>
+			<RouterCore 
+				routeTree={routeConfig}
+			/>
 
 			<BottomNavigator 
 				menu={navigatorConfig.menu}

@@ -40,7 +40,7 @@ const TopNavigator = (props: ITopNavigator) => {
                 </Grid>
 
                 <Grid role={"item"} xs={6} alignItems={"center"}>
-                    <Typography variant="h4" fontWeight="700">
+                    <Typography variant="h3" fontWeight="700">
                         {props.label}
                     </Typography>
                 </Grid>
