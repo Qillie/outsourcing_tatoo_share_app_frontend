@@ -18,6 +18,7 @@ const BottomNavigator = (props: IBottomNavigator) => {
     //* Functions
     const onClickNavBtn = (link: string) => {
         navigate(link)
+        console.log(link)
     }
 
     return (
@@ -30,7 +31,7 @@ const BottomNavigator = (props: IBottomNavigator) => {
             <Grid role={"container"} alignItems={"center"}>
             {
                 props.menu.map((element) => (
-                    <Grid role={"item"} xs={true}>
+                    <Grid role={"item"} xs={true} key={element.link}>
                         <Button
                             fullWidth={true}
                             onClick={

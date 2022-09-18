@@ -112,7 +112,9 @@ const Button = (props: IButton) => {
         <Pressable
             onPress={
                 (event) => {
-                    
+                    if (props.onClick !== undefined) {
+                        props.onClick(event)
+                    }
                 }
             }
             style={

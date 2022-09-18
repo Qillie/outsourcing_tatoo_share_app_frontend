@@ -8,7 +8,7 @@ const navigatorConfig: {
         {
             text: "검색",
             show: true,
-            link: "search",
+            link: "",
             childLeafs: []
         },
         {
@@ -32,7 +32,7 @@ const navigatorConfig: {
         {
             text: "더보기",
             show: true,
-            link: "more",
+            link: "settings",
             childLeafs: []
         }
     ]

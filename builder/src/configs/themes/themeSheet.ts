@@ -13,16 +13,16 @@ const themeSheet : IThemeSheet = {
         background: "#fff",
     },
     typography: {
-        body1: 0,
+        body1: 15,
         body2: 30,
         button: 0,
         caption: 0,
-        h1: 0,
-        h2: 0,
-        h3: 0,
-        h4: 0,
-        h5: 0,
-        h6: 0,
+        h1: 33,
+        h2: 30,
+        h3: 27,
+        h4: 24,
+        h5: 21,
+        h6: 18,
         subtitle1: 0,
         subtitle2: 0
     }
