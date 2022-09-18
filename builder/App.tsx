@@ -18,6 +18,8 @@ import {
 	LearnMoreLinks,
 	ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { ReduxStore } from './src/core/base/ReduxCore';
 
 //* Import modules
 import { RouterCore, TopNavigator } from './src/core/navigate';
@@ -28,9 +30,46 @@ import { BottomNavigator } from './src/core/navigate';
 import routeConfig from './src/configs/routeConfig';
 import themeSheet from './src/configs/themes/themeSheet';
 import navigatorConfig from './src/configs/navigatorConfig';
+import { TReduxRootState } from './src/core/base/ReduxCore/ReduxCore';
+import TopNavigatorSlice from './src/core/navigate/TopNavigator/components/TopNavigatorSlice';
 
 //* Init themeCore
 ThemeCoreSingleton.setTheme(themeSheet)
+
+const ReduxContainer = () => {
+	//* Modules
+	const dispatch = useDispatch()
+	const topNavigatorState = useSelector<TReduxRootState>(state => state.topNavigator)
+	
+	const label = useSelector((state: TReduxRootState) => {
+		return state.topNavigator.label
+	})
+	
+	const actions = TopNavigatorSlice.actions
+
+	return (
+		<View style={{flex: 1}}>
+			<TopNavigator 
+				label={label}
+			/>
+
+			<ScrollView style={{height: "100%"}}>
+				<RouterCore 
+					routeTree={routeConfig}
+				/>
+			</ScrollView>
+
+			<BottomNavigator 
+				menu={navigatorConfig.menu}
+				onClickNavBtnCallback={
+					(label) => {
+						dispatch(actions.setLabel({label: label}))
+					}
+				}
+			/>
+		</View>
+	)
+}
 
 //* App
 const App = () => {
@@ -48,19 +87,9 @@ const App = () => {
 		/>
 
 		<MemoryRouter>
-			<View style={{flex: 1}}>
-				<TopNavigator />
-
-				<ScrollView style={{height: "100%"}}>
-					<RouterCore 
-						routeTree={routeConfig}
-					/>
-				</ScrollView>
-
-				<BottomNavigator 
-					menu={navigatorConfig.menu}
-				/>
-			</View>
+			<Provider store={ReduxStore}>
+				<ReduxContainer />
+			</Provider>
 		</MemoryRouter>
 	</SafeAreaView>
 	

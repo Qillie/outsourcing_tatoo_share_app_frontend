@@ -2,7 +2,10 @@
 import React from "react"
 
 interface IDropdownLeafNode {
-    text: string
+    label: {
+        main: string,
+        sub: string
+    },
     iconElement?: React.ReactElement
     show: boolean
     link: string

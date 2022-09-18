@@ -6,31 +6,46 @@ const navigatorConfig: {
 } = {
     menu: [
         {
-            text: "검색",
+            label: {
+                main: "검색",
+                sub: "메인"
+            },
             show: true,
             link: "",
             childLeafs: []
         },
         {
-            text: "맞춤 견적",
+            label: {
+                main: "맞춤 견적",
+                sub: "맞춤 견적"
+            },
             show: true,
             link: "estimate",
             childLeafs: []
         },
         {
-            text: "리뷰",
+            label: {
+                main: "리뷰",
+                sub: "리뷰"
+            },
             show: true,
             link: "review",
             childLeafs: []
         },
         {
-            text: "관심",
+            label: {
+                main: "관심",
+                sub: "관심목록"
+            },
             show: true,
             link: "favorite",
             childLeafs: []
         },
         {
-            text: "더보기",
+            label: {
+                main: "더보기",
+                sub: "더보기"
+            },
             show: true,
             link: "settings",
             childLeafs: []

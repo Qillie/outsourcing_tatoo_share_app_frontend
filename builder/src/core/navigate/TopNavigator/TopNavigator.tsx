@@ -8,14 +8,24 @@ import { Grid } from "../../layout"
 import ITopNavigator from "./interfaces/ITopNavigator"
 import { useNavigate } from "react-router-native"
 import { Typography } from "../../display"
+import { useDispatch } from "react-redux"
+import TopNavigatorSlice from "./components/TopNavigatorSlice"
 
 const TopNavigator = (props: ITopNavigator) => {
     //* Modules
+    // const dispatch = useDispatch()
+    // const actions = TopNavigatorSlice.actions
+
     // const navigate = useNavigate()
     
     //* States
 
     //* Functions
+
+    //* Life cycles
+    React.useEffect(() => {
+
+    }, [])
 
     return (
         <Box
@@ -31,7 +41,7 @@ const TopNavigator = (props: ITopNavigator) => {
 
                 <Grid role={"item"} xs={6} alignItems={"center"}>
                     <Typography variant="h4" fontWeight="700">
-                        안녕
+                        {props.label}
                     </Typography>
                 </Grid>
 

@@ -36,12 +36,18 @@ const BottomNavigator = (props: IBottomNavigator) => {
                             fullWidth={true}
                             onClick={
                                 () => {
+                                    //* Basic
                                     onClickNavBtn(element.link)
+
+                                    //* Callback
+                                    if (props.onClickNavBtnCallback !== undefined) {
+                                        props.onClickNavBtnCallback(element.label.sub)
+                                    }
                                 }
                             }
                         >
                             {
-                                element.text
+                                element.label.main
                             }
                         </Button>
                     </Grid>
