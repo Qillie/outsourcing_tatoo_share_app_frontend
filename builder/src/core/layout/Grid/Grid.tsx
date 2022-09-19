@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { StyleSheet, View, ViewStyle } from "react-native"
+import { StyleSheet, View, ViewStyle, Dimensions } from "react-native"
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -14,7 +14,7 @@ import GridStyles from "./styles/GridStyles"
 
 const Grid = (props: IGrid & IRegularBreakpoints) => {
     //* Constants
-    const space = 14
+    const space = 30
     
     //* States
     // const [typographyStyle, setTypographyStyle
@@ -24,41 +24,62 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         
     // }
 
-    const setSpacing = (style: { default: ViewStyle }, role: "item" | "container", direction?: "row" | "column") => {
+    const setItemSpacing = (index: number) => {
+        let itemStyle: {pt?: number | string, pl?: number | string} = {}
+
         if (props.spacing !== undefined) {
-            
-            
-            if ( 0 < props.spacing && props.spacing <= 12 ) {
-                if (role == "container") {
-                    style.default.width = `calc(100% + ${props.spacing * space}px)`
-                } else {
-
-                }
-
-            } else if (12 < props.spacing) {
-
-            }
+            itemStyle.pt = 1 * props.spacing * space
+            itemStyle.pl = 1 * props.spacing * space
         }
+
+        return itemStyle
+    }
+
+    const setContainerSpacing = (style: { default: ViewStyle }) => {
+        
     }
 
     const setGridContainerStyle = (style: { default: ViewStyle }) => {
         style.default.flexDirection = "row"
 
-        style.default.width = "100%"
+        if (props.spacing !== undefined) {
+            
+
+            
+            style.default.flex = 1.5
+            style.default.marginTop = -1 * props.spacing * space
+            style.default.marginLeft = -1 * props.spacing * space
+        } // else {
+        //     style.default.width = 420
+        // }
+
+        const screenWidth = Dimensions.get('window').width;
+
+        style.default.width = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
+
+        console.log(style.default.width)
+        // style.default.maxWidth = screenWidth + (props.spacing * space)
+
+        // console.log(style.default)
 
         //* Set display
         style.default.display = "flex"
 
         //* Set flex wrap
         style.default.flexWrap = "wrap"
+
+        
     }
 
     const setGridItemStyle = (style: { default: ViewStyle }) => {
+        //* Set spaces
+        let spaces: {paddingLeft?: number | string, paddingTop?: number | string} = {paddingLeft: props.pl, paddingTop: props.pt}
+
         //* Set base style
         if (typeof props.xs == "number") {
-            style.default = Object.assign(GridStyles[`grid-item-${props.xs}`], style.default)
+            style.default = Object.assign(GridStyles[`grid-item-${props.xs}`], style.default, spaces)
         } else if (props.xs == true) {
-            style.default  = Object.assign(GridStyles[`grid-item-auto`], style.default)
+            style.default  = Object.assign(GridStyles[`grid-item-auto`], style.default, spaces)
         }
     }
 
@@ -73,16 +94,28 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
         if (props.role == "container") {
             setGridContainerStyle(style)
+            setContainerSpacing(style)
+            const screenWidth = Dimensions.get('window').width;
+            style.default.width = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
+            
+            // console.log(style)
         } else {
             setGridItemStyle(style)
+            
         }
+
+        if (props.id == "asdf") {
+            console.log(props.id)
+        }
+
+        console.log(style.default)
 
         return StyleSheet.create(style).default
     }
 
     //* Life cycles
     React.useEffect(() => {
-        // console.log(React.Children.toArray(props.children))
+        console.log(<View style={setStyle()}></View>)
     }, [])
 
     return (
@@ -90,8 +123,8 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
             {/* {props.children} */}
             {
                 (props.role == "container") ?
-                    React.Children.toArray(props.children).map((child) => (
-                        React.cloneElement(child as React.ReactElement, {xs: 2})
+                    React.Children.toArray(props.children).map((child, childIndex) => (
+                        React.cloneElement(child as React.ReactElement, setItemSpacing(childIndex))
                     ))
                 :
                     props.children

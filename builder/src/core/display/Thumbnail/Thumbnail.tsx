@@ -83,16 +83,6 @@ const Thumbnail = (props: IThumbnail) => {
 
     //* Life cycles
     React.useEffect(() => {
-        console.log(<View
-            style={setRatio()}
-        >
-            <Image
-                style={setStyle()}
-                source={{
-                    uri: props.src
-                }}
-            />
-        </View>)
     }, [])
 
     return (
