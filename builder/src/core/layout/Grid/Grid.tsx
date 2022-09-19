@@ -77,8 +77,6 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
             setGridItemStyle(style)
         }
 
-        console.log(StyleSheet.create(style).default)
-
         return StyleSheet.create(style).default
     }
 
@@ -89,7 +87,15 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
     return (
         <View style={setStyle()}>
-            {props.children}
+            {/* {props.children} */}
+            {
+                (props.role == "container") ?
+                    React.Children.toArray(props.children).map((child) => (
+                        React.cloneElement(child as React.ReactElement, {xs: 2})
+                    ))
+                :
+                    props.children
+            }
         </View>
     )
 }

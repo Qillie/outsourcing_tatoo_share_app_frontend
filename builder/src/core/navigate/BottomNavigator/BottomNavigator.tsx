@@ -18,7 +18,6 @@ const BottomNavigator = (props: IBottomNavigator) => {
     //* Functions
     const onClickNavBtn = (link: string) => {
         navigate(link)
-        console.log(link)
     }
 
     return (

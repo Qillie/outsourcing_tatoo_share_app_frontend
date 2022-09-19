@@ -6,3 +6,6 @@ export * from './Divider'
 
 export { default as Tab } from './Tab'
 export * from './Tab'
+
+export { default as Thumbnail } from './Thumbnail'
+export * from './Thumbnail'

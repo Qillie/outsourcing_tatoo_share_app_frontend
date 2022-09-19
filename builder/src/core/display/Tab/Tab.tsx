@@ -41,8 +41,6 @@ const Tab = (props: ITab) => {
     const renderSelected = () => {
         const selected = (props.injectedSelectedTabIndexConfig !== undefined) ? props.injectedSelectedTabIndexConfig.selectedTabIndex : selectedTabIndex
 
-        console.log(props.tabContents[selected])
-
         return props.tabContents[selected].element
     }
 

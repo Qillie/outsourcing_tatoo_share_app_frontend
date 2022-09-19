@@ -7,6 +7,7 @@ import { Link } from "react-router-native";
 import { Typography, Tab } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
+import { ThumbnailTypePost } from "../../modules";
 
 //* Import interfaces
 import IFavoritesView from "./interfaces/IFavoritesView"
@@ -15,6 +16,7 @@ const FavoritesView = (props: IFavoritesView) => {
     //* Modules
 
     //* States
+    const [items, setItems] = React.useState<number[]>([0, 1, 2, 3, 4, 5, 6])
 
     return (
         <Box>
@@ -24,9 +26,18 @@ const FavoritesView = (props: IFavoritesView) => {
                         title: "최근 본",
                         element: (
                             <Box>
-                                <Typography>
-                                    AasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfgAasdasdasdasfdfggsdfgsdfgfg
-                                </Typography>
+                                <Grid role={"container"}>
+                                    {
+                                        items.map((item) => (
+                                            <Grid role={"item"} xs={6}>
+                                                <ThumbnailTypePost 
+                                                    direction="column"
+                                                />
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
+                                
                             </Box>
                         )
                     },
