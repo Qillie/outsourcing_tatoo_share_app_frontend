@@ -3,6 +3,7 @@ interface IThumbnail {
     height?: number | string
     maxWidth?: number | string
     maxHeight?: number | string
+    borderRadius?: number
     ratio?: "1:1" | "4:3" | "3:2" | "8:5" | "16:9"
     src: string
 }

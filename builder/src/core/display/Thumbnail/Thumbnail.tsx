@@ -78,6 +78,9 @@ const Thumbnail = (props: IThumbnail) => {
         style.default.bottom = 0
         style.default.right = 0
 
+        //* Set border
+        style.default.borderRadius = props.borderRadius
+
         return StyleSheet.create(style).default
     }
 

@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { StyleSheet, Text } from "react-native"
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 //* Import modules
 import { Thumbnail, Typography } from "../../core/display"
@@ -13,13 +13,20 @@ const ThumbnailTypePost = (props: IThumbnailTypePost) => {
     //* States
 
     //* Functions
-
-    const setStyle = () => {
-        // let style:{ default: TextStyle } = { default: {} }
+    const setChildrenViewStyle = () => {
+        let style:{ childrenView: ViewStyle } = { childrenView: {} }
         
-        // style.default.fontSize = setFontSize(props.variant)
+        if (props.gap !== undefined) {
+            if (props.direction == "row") {
+                style.childrenView.marginTop = props.gap
+                
+            } else if (props.direction == "column") {
+                style.childrenView.marginLeft = props.gap
 
-        // return StyleSheet.create(style).default
+            }
+        }
+
+        return StyleSheet.create(style).childrenView
     }
 
     //* Life cycles
@@ -28,18 +35,21 @@ const ThumbnailTypePost = (props: IThumbnailTypePost) => {
     }, [])
 
     return (
-        <Box backgroundColor="blue" width={"100%"}>
+        <Box width={"100%"}>
             <Thumbnail
+                borderRadius={props.borderRadius}
                 src="https://reactnative.dev/img/tiny_logo.png"
-                ratio={"1:1"}
-                width={"100%"}
+                ratio={(props.ratio !== undefined) ? props.ratio : "1:1"}
+                width={"40%"}
             />
 
-            <Box>
+            <View
+                style={setChildrenViewStyle()}
+            >
                 {
                     props.children
                 }
-            </Box>
+            </View>
         </Box>
     )
 }
