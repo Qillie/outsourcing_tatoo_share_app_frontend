@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { StyleSheet, View, ViewStyle, Dimensions } from "react-native"
+import { StyleSheet, View, ViewStyle, Dimensions, Text } from "react-native"
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -16,15 +16,8 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
     //* Constants
     const space = 30
     
-    //* States
-    // const [typographyStyle, setTypographyStyle
-
     //* Functions
-    // const setFontSize = (variant?: TFontVariant) => {
-        
-    // }
-
-    const setItemSpacing = (index: number) => {
+    const setItemSpacing = () => {
         let itemStyle: {pt?: number | string, pl?: number | string} = {}
 
         if (props.spacing !== undefined) {
@@ -35,32 +28,13 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         return itemStyle
     }
 
-    const setContainerSpacing = (style: { default: ViewStyle }) => {
-        
-    }
-
     const setGridContainerStyle = (style: { default: ViewStyle }) => {
         style.default.flexDirection = "row"
 
         if (props.spacing !== undefined) {
-            
-
-            
-            style.default.flex = 1.5
             style.default.marginTop = -1 * props.spacing * space
             style.default.marginLeft = -1 * props.spacing * space
-        } // else {
-        //     style.default.width = 420
-        // }
-
-        const screenWidth = Dimensions.get('window').width;
-
-        style.default.width = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
-
-        console.log(style.default.width)
-        // style.default.maxWidth = screenWidth + (props.spacing * space)
-
-        // console.log(style.default)
+        }
 
         //* Set display
         style.default.display = "flex"
@@ -68,16 +42,18 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         //* Set flex wrap
         style.default.flexWrap = "wrap"
 
-        
+        //* Set width
+        style.default.width = "100%"
     }
 
     const setGridItemStyle = (style: { default: ViewStyle }) => {
         //* Set spaces
-        let spaces: {paddingLeft?: number | string, paddingTop?: number | string} = {paddingLeft: props.pl, paddingTop: props.pt}
+        let spaces: {paddingLeft?: number | string, paddingTop?: number | string, height?: string, background: string} = {paddingLeft: props.pl, paddingTop: props.pt, background: "red"}
 
         //* Set base style
         if (typeof props.xs == "number") {
             style.default = Object.assign(GridStyles[`grid-item-${props.xs}`], style.default, spaces)
+
         } else if (props.xs == true) {
             style.default  = Object.assign(GridStyles[`grid-item-auto`], style.default, spaces)
         }
@@ -89,42 +65,45 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
             justifyContent: props.justifyContent,
 
             //* Set align items
-            alignItems: props.alignItems
+            alignItems: props.alignItems,
         }}
 
         if (props.role == "container") {
             setGridContainerStyle(style)
-            setContainerSpacing(style)
-            const screenWidth = Dimensions.get('window').width;
-            style.default.width = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
-            
-            // console.log(style)
+
         } else {
             setGridItemStyle(style)
             
         }
-
-        if (props.id == "asdf") {
-            console.log(props.id)
-        }
-
-        console.log(style.default)
 
         return StyleSheet.create(style).default
     }
 
     //* Life cycles
     React.useEffect(() => {
-        console.log(<View style={setStyle()}></View>)
+        if (props.spacing !== undefined) {
+            const screenWidth = Dimensions.get('window').width;
+
+            const targetWidth = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
+
+            let clone = {...viewStyle}
+            clone.width = targetWidth
+
+            setViewStyle(clone)
+        }
+
+        console.log(viewStyle)
     }, [])
 
+    //* States
+    const [viewStyle, setViewStyle] = React.useState<ViewStyle>(setStyle())
+
     return (
-        <View style={setStyle()}>
-            {/* {props.children} */}
+        <View style={viewStyle}>
             {
                 (props.role == "container") ?
-                    React.Children.toArray(props.children).map((child, childIndex) => (
-                        React.cloneElement(child as React.ReactElement, setItemSpacing(childIndex))
+                    React.Children.toArray(props.children).map((child) => (
+                        React.cloneElement(child as React.ReactElement, setItemSpacing())
                     ))
                 :
                     props.children

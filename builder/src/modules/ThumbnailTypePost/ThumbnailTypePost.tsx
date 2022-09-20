@@ -28,7 +28,7 @@ const ThumbnailTypePost = (props: IThumbnailTypePost) => {
     }, [])
 
     return (
-        <Box height={"40%"} backgroundColor="blue" width={"100%"} flexDirection={props.direction}>
+        <Box backgroundColor="blue" width={"100%"}>
             <Thumbnail
                 src="https://reactnative.dev/img/tiny_logo.png"
                 ratio={"1:1"}

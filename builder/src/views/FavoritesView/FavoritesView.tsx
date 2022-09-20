@@ -29,8 +29,7 @@ const FavoritesView = (props: IFavoritesView) => {
                                 <Grid id={"asdf"} role={"container"} spacing={1}>
                                     {
                                         items.map((item) => (
-                                            
-                                            <Grid role={"item"} xs={6}>
+                                            <Grid role={"item"} xs={4}>
                                                 <ThumbnailTypePost 
                                                     direction="column"
                                                 />

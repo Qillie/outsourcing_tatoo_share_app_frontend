@@ -7,6 +7,7 @@ import { Link } from "react-router-native";
 import { Typography } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
+import { GridV2 } from "../../core/layout";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -46,6 +47,8 @@ const MainView = (props: IMainView) => {
                     />
                 </Grid>
             </Grid>
+
+            <GridV2></GridV2>
             
 			<Link to="/settings">
                 <Text>
