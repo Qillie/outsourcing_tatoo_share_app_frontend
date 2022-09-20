@@ -4,7 +4,7 @@ import { ScrollView, Text } from 'react-native';
 import { Link } from "react-router-native";
 
 //* Import modules
-import { Typography, Tab, Divider } from "../../core/display";
+import { Typography, Tab, Divider, Badge } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
 import { ThumbnailTypePost } from "../../modules";
@@ -59,7 +59,7 @@ const FavoritesView = (props: IFavoritesView) => {
                                 <Grid id={"asdf"} role={"container"}>
                                     {
                                         items.map((item) => (
-                                            <Grid role={"item"} xs={12}>
+                                            <Grid key={item.title} role={"item"} xs={12}>
                                                 <Divider my={15} />
 
                                                 <Box pl={15} pr={15}>
@@ -101,7 +101,17 @@ const FavoritesView = (props: IFavoritesView) => {
                                                             </Box>
 
                                                             {/* Tags */}
-                                                            <Box></Box>
+                                                            <Box>
+                                                                {
+                                                                    item.tags.map((tag) => (
+                                                                        <Box mr={7} key={tag}>
+                                                                            <Badge>
+                                                                                {tag}
+                                                                            </Badge>
+                                                                        </Box>
+                                                                    ))
+                                                                }
+                                                            </Box>
 
                                                             {/* Price */}
                                                             <Box>
