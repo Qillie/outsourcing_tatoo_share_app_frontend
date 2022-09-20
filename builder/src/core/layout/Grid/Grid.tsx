@@ -14,7 +14,7 @@ import GridStyles from "./styles/GridStyles"
 
 const Grid = (props: IGrid & IRegularBreakpoints) => {
     //* Constants
-    const space = 30
+    const space = 14
     
     //* Functions
     const setItemSpacing = () => {
@@ -91,8 +91,6 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
             setViewStyle(clone)
         }
-
-        console.log(viewStyle)
     }, [])
 
     //* States
@@ -102,8 +100,12 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         <View style={viewStyle}>
             {
                 (props.role == "container") ?
-                    React.Children.toArray(props.children).map((child) => (
-                        React.cloneElement(child as React.ReactElement, setItemSpacing())
+                    React.Children.toArray(props.children).map((child, childIndex) => (
+                        <React.Fragment key={childIndex}>
+                            {
+                                React.cloneElement(child as React.ReactElement, setItemSpacing())
+                            }
+                        </React.Fragment>
                     ))
                 :
                     props.children
