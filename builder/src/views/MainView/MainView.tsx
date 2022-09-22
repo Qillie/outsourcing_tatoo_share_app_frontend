@@ -4,6 +4,7 @@ import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
 
 //* Import modules
+import HorizontalThumbnails from "./components/HorizontalThumbnails";
 import { Typography } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
@@ -16,10 +17,57 @@ import IMainView from "./interfaces/IMainView"
 const MainView = (props: IMainView) => {
     //* Modules
 
-    //* States
-    const [thumbnailWidth, setThumbnailWidth] = React.useState<number>(0)
-
-    const [genreItems, setGenreItems] = React.useState<{src: string, label: string, link: string}[]>([
+    const [viewItems, setViewItems] = React.useState<{src: string, label: string, link: string}[]>([
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
+        {
+            src: "https://reactnative.dev/img/tiny_logo.png",
+            label: "둘러보기",
+            link: "/abc"
+        },
         {
             src: "https://reactnative.dev/img/tiny_logo.png",
             label: "둘러보기",
@@ -49,82 +97,26 @@ const MainView = (props: IMainView) => {
 
     return (
         <Box>
-            <View>
-            <ScrollView horizontal alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false}>
-                <Box 
-                    pl={16} 
-                    pr={16} 
-                    flexDirection="column" 
-                    flex={1}
-                    width={(thumbnailWidth * 5) + 16}
-                >
-                    <Box mb={16}>
-                        <Grid
-                            wrap="nowrap"
-                            role="container"
-                            spacing={1}
-                        >
+            {/* <View>
+                <HorizontalThumbnails 
+                    itemPerRow={10}
+                    maxRowLength={2}
+                    viewItems={viewItems}
+                />
+            </View> */}
 
-                            {
-                                genreItems.map((genreItem) => (
-                                    <Grid role="item" xs={4} onLayout={
-                                        (e) => {
-                                            setThumbnailWidth(e.nativeEvent.layout.width)
-                                        }
-                                    }>
-                                        <Link to={genreItem.link}>
-                                            <Thumbnail
-                                                src={"https://reactnative.dev/img/tiny_logo.png"}
-                                                borderRadius={10}
-                                                label={genreItem.label}
-                                                labelBackgroundOpacity={0.5}
-                                            />
-                                        </Link>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
-                        
-                    </Box>
-
-                    <Box>
-                        <Grid
-                            wrap="nowrap"
-                            role="container"
-                            spacing={1}
-                        >
-
-                            {
-                                genreItems.map((genreItem) => (
-                                    <Grid role="item" xs={4}>
-                                        <Link to={genreItem.link}>
-                                            <Thumbnail
-                                                src={"https://reactnative.dev/img/tiny_logo.png"}
-                                                borderRadius={10}
-                                                label={genreItem.label}
-                                                labelBackgroundOpacity={0.5}
-                                            />
-                                        </Link>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
-                        
-                    </Box>
-                </Box>
-                
-            </ScrollView>
-            </View>
-
-            {/* <Tab
+            <Tab
                 // contentsDirection="horizontal"
                 tabContents={[
                     {
                         title: "장르",
                         element: (
-                            <Box backgroundColor="red">
-                                
-                                
+                            <Box>
+                                <HorizontalThumbnails 
+                                    itemPerRow={10}
+                                    maxRowLength={2}
+                                    viewItems={viewItems}
+                                />
                             </Box>
                         )
                     },
@@ -132,15 +124,16 @@ const MainView = (props: IMainView) => {
                         title: "주제",
                         element: (
                             <Box>
-                                <Thumbnail
-                                    src={"https://reactnative.dev/img/tiny_logo.png"}
-                                    borderRadius={10}
+                                <HorizontalThumbnails 
+                                    itemPerRow={10}
+                                    maxRowLength={2}
+                                    viewItems={viewItems}
                                 />
                             </Box>
                         )
                     }
                 ]}
-            /> */}
+            />
         </Box>
     )
 }

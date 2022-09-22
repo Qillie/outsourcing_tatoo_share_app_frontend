@@ -67,8 +67,6 @@ const Thumbnail = (props: IThumbnail) => {
         } else if (selectedRatio == "8:5") {
             style.ratio.paddingTop = "62.5%"
         }
-        
-        style.ratio.backgroundColor = "red"
 
         return StyleSheet.create(style).ratio
     }
@@ -109,10 +107,6 @@ const Thumbnail = (props: IThumbnail) => {
                         uri: props.src
                     }}
                 />
-
-                
-                
-                
             </View>
             
             {
