@@ -1,11 +1,11 @@
 //* Import intefaces
+import TTypographyWeights from '../../../design/ThemeCore/interfaces/typography/TTypographyWeights';
 import TFontVariant from './TFontVariant';
-import TFontWeight from './TFontWeight';
 
 interface ITypography {
     children?: string | React.ReactElement
     variant?: TFontVariant
-    fontWeight?: TFontWeight
+    fontWeight?: TTypographyWeights
     color?: string
 }
 

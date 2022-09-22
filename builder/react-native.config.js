@@ -1,1 +1,3 @@
-module.exports = { assets: ['./src/assets/fonts'], };
+module.exports = { 
+    assets: ['./assets/fonts'],
+};
