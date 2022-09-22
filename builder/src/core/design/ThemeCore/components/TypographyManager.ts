@@ -58,7 +58,7 @@ class TypographyManager {
     }
 
     public getFontFamily(weight?: string) {
-        let defaultFontFamily: string | undefined = "NanumMyeongjo"
+        let defaultFontFamily: string | undefined = "NotoSansKR-Regular"
 
         if (weight !== undefined && this.typography !== undefined) {
             if (this.typography.fonts !== undefined) {

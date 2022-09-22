@@ -30,7 +30,7 @@ const themeSheet : IThemeSheet = {
         fonts: {
             "100": "NotoSansKR-Thin",
             "300": "NotoSansKR-Light",
-            "400": "NanumMyeongjo",
+            "400": "NotoSansKR-Regular",
             "500": "NotoSansKR-Medium",
             "700": "NotoSansKR-Bold",
             "900": "NotoSansKR-Black",
