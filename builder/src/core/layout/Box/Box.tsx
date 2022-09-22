@@ -59,6 +59,14 @@ const Box = (props: IBox) => {
         style.default.zIndex = props.zIndex
     }
 
+    const setTransform = (style: { default: ViewStyle }) => {
+        if (props.translateX !== undefined) {
+            style.default.transform = [{translateX: props.translateX}]
+        }
+
+        
+    }
+
     const setMargin = (style: { default: ViewStyle }) => {
         //* Base margin
         style.default.margin = props.m
@@ -121,6 +129,30 @@ const Box = (props: IBox) => {
             } 
         }
 
+        if (props.alignSelfY !== undefined) {
+            // if (props.alignSelfY == "top") {
+            //     style.default. = "flex-start"
+
+            // } else if (props.alignSelfY == "center") {
+            //     style.default.alignSelf = "center"
+
+            // } else if (props.alignSelfY == "bottom") {
+            //     style.default.alignSelf = "flex-end"
+            // } 
+        }
+
+        if (props.alignSelfY !== undefined) {
+            if (props.alignSelfY == "top") {
+                style.default.alignSelf = "flex-start"
+
+            } else if (props.alignSelfY == "center") {
+                style.default.alignSelf = "center"
+
+            } else if (props.alignSelfY == "bottom") {
+                style.default.alignSelf = "flex-end"
+            } 
+        }
+
         // style.default.justifyContent = "space-around"
     }
 
@@ -129,6 +161,7 @@ const Box = (props: IBox) => {
     }
 
     const setFlex = (style: { default: ViewStyle }) => {
+        style.default.flex = props.flex
         style.default.flexDirection = (props.flexDirection !== undefined) ? props.flexDirection : "row"
         style.default.flexGrow = props.flexGrow
     }
@@ -149,6 +182,7 @@ const Box = (props: IBox) => {
         setAlign(style)
         setBackground(style)
         setFlex(style)
+        setTransform(style)
 
         return StyleSheet.create(style).default
     }
@@ -158,7 +192,14 @@ const Box = (props: IBox) => {
     }, [])
 
     return (
-        <View style={setStyle()}>
+        <View 
+            onLayout={(e) => {
+                if (props.onLayout !== undefined) {
+                    props.onLayout(e)
+                }
+            }}
+            style={setStyle()}
+        >
             {
                 props.children
             }

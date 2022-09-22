@@ -1,5 +1,6 @@
 
 //* Import intefaces
+import { LayoutChangeEvent } from 'react-native';
 import TGridDirection from './TGridDirection';
 
 interface IGrid {
@@ -33,6 +34,13 @@ interface IGrid {
     pt?: number | string
 
     id?: string
+
+    wrap?: "wrap" | "nowrap" | "wrap-reverse"
+
+    /**
+     * Callbacks
+     */
+     onLayout?: (event: LayoutChangeEvent) => void
 }
 
 export default IGrid

@@ -40,7 +40,7 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         style.default.display = "flex"
 
         //* Set flex wrap
-        style.default.flexWrap = "wrap"
+        style.default.flexWrap = (props.wrap !== undefined) ? props.wrap : "wrap"
 
         //* Set width
         style.default.width = "100%"
@@ -97,7 +97,14 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
     const [viewStyle, setViewStyle] = React.useState<ViewStyle>(setStyle())
 
     return (
-        <View style={viewStyle}>
+        <View 
+            style={viewStyle}
+            onLayout={(e) => {
+                if (props.onLayout !== undefined) {
+                    props.onLayout(e)
+                }
+            }}
+        >
             {
                 (props.role == "container") ?
                     React.Children.toArray(props.children).map((child, childIndex) => (

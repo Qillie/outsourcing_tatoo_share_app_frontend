@@ -44,6 +44,14 @@ const Tab = (props: ITab) => {
         return props.tabContents[selected].element
     }
 
+    const setViewDirection = () => {
+        if (props.contentsDirection == "horizontal") {
+            return true
+        } else {
+            return false
+        }
+    }
+
     //* Life cycles
     React.useEffect(() => {
 
@@ -85,7 +93,7 @@ const Tab = (props: ITab) => {
             </Box>
             
 
-            <ScrollView style={{height: "100%"}}>
+            <ScrollView horizontal={setViewDirection()} style={{width: "100%"}}>
                 {
                     renderSelected()
                 }

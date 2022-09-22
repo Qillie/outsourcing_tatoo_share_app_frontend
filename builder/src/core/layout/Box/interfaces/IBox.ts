@@ -1,4 +1,4 @@
-import { ViewProps } from "react-native";
+import { LayoutChangeEvent, ViewProps } from "react-native";
 
 interface IBox {
     children?: React.ReactElement[] | React.ReactElement
@@ -27,10 +27,10 @@ interface IBox {
     /**
      * Position style props
      */
-    left?: string
-    right?: string
-    top?: string
-    bottom?: string
+    left?: string | number
+    right?: string | number
+    top?: string | number
+    bottom?: string | number
     position?: "absolute" | "relative"
     zIndex?: number
 
@@ -69,6 +69,8 @@ interface IBox {
      */
     alignX?: "left" | "center" | "right"
     alignY?: "top" | "center" | "bottom"
+    alignSelfX?: "left" | "center" | "right"
+    alignSelfY?: "top" | "center" | "bottom"
 
     /**
      * Background style props
@@ -80,6 +82,17 @@ interface IBox {
      */
     flexGrow?: number
     flexDirection?: "row" | "column"
+    flex?: number
+
+    /**
+     * Transforms
+     */
+    translateX?: number
+
+    /**
+     * Callbacks
+     */
+    onLayout?: (event: LayoutChangeEvent) => void
 }
 
 export default IBox

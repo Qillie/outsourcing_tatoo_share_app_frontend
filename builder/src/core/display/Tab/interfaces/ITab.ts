@@ -21,6 +21,11 @@ interface ITab {
      * Tab contents
      */
     tabContents: ITabContent_ABC[]
+
+    /**
+     * Contents direction
+     */
+    contentsDirection?: "horizontal" | "vertical"
 }
 
 export default ITab
