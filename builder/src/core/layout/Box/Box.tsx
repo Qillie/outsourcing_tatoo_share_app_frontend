@@ -194,7 +194,7 @@ const Box = (props: IBox) => {
     }, [])
 
     return (
-        <View 
+        <View
             onLayout={(e) => {
                 if (props.onLayout !== undefined) {
                     props.onLayout(e)

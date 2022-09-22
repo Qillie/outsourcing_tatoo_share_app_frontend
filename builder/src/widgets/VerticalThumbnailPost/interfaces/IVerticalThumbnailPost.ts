@@ -3,6 +3,7 @@ interface IVerticalThumbnailPost {
         title: string,
         shopName: string,
         location: string,
+        link: string,
         tags: string[],
         price: {
             original: number,

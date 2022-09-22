@@ -104,6 +104,7 @@ const MainView = (props: IMainView) => {
     const [items, setItems] = React.useState<{
         title: string,
         shopName: string,
+        link: string,
         location: string,
         tags: string[],
         price: {
@@ -114,6 +115,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
@@ -124,6 +126,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
@@ -133,6 +136,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
@@ -143,6 +147,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
@@ -152,6 +157,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
@@ -162,6 +168,7 @@ const MainView = (props: IMainView) => {
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
+            link: "/item",
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {

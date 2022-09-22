@@ -5,6 +5,7 @@ import IRouteLeaf from "../core/navigate/RouterCore/interfaces/IRouteLeaf"
 import { MainView } from "../views/MainView"
 import { SettingsView } from "../views/SettingsView"
 import { FavoritesView } from "../views/FavoritesView"
+import { ItemDetailsView } from "../views/ItemDetailsView"
 
 const routeConfig: IRouteLeaf[] = [
     {
@@ -26,6 +27,13 @@ const routeConfig: IRouteLeaf[] = [
         description: "관심목록 화면",
         path: "/favorites",
         element: <FavoritesView />,
+        children: []
+    },
+    {
+        name: "아이템",
+        description: "아이템 상세 화면",
+        path: "/item",
+        element: <ItemDetailsView />,
         children: []
     }
 ]
