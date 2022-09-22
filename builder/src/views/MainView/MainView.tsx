@@ -5,7 +5,7 @@ import { Link } from "react-router-native";
 
 //* Import modules
 import HorizontalThumbnails from "./components/HorizontalThumbnails";
-import { Badge, Typography } from "../../core/display";
+import { Badge, Divider, Typography } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
 import { Tab } from "../../core/display";
@@ -15,6 +15,7 @@ import { ThumbnailTypePost } from "../../modules";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
+import VerticalThumbnailPost from "../../widgets/VerticalThumbnailPost";
 
 
 const MainView = (props: IMainView) => {
@@ -169,15 +170,7 @@ const MainView = (props: IMainView) => {
 
     return (
         <ScrollView>
-            <Box flexDirection="column">
-                {/* <View>
-                    <HorizontalThumbnails 
-                        itemPerRow={10}
-                        maxRowLength={2}
-                        viewItems={viewItems}
-                    />
-                </View> */}
-
+            <Box pb={200} flexDirection="column">
                 <Tab
                     // contentsDirection="horizontal"
                     tabContents={[
@@ -223,71 +216,19 @@ const MainView = (props: IMainView) => {
                     </Box>
 
                     <Box>
-                        <Grid id={"asdf"} role={"container"}>
-                            {
-                                items.map((item) => (
-                                    <Grid key={item.title} role={"item"} xs={6}>
-                                        <Box pl={15} pr={15}>
-                                            <ThumbnailTypePost 
-                                                thumbnailWidth="100%"
-                                                direction="column"
-                                                borderRadius={7}
-                                                ratio={"1:1"}
-                                                gap={15}
-                                            >
-                                                <Box flexDirection="column">
-                                                    {/* Title */}
-                                                    <Box mb={6}>
-                                                        <Typography
-                                                            variant="h5"
-                                                            fontWeight="700"
-                                                        >
-                                                            {item.title}
-                                                        </Typography>
-                                                    </Box>
+                        <VerticalThumbnailPost
+                            items={items}
+                        />
+                    </Box>
+                    
+                    <Divider my={10}></Divider>
 
-                                                    {/* Location */}
-                                                    <Box mb={5}>
-                                                        <Typography
-                                                            variant="body1"
-                                                            fontWeight="400"
-                                                        >
-                                                            {item.location}
-                                                        </Typography>
-                                                    </Box>
-
-                                                    {/* Price */}
-                                                    <Box alignX="left">
-                                                        <Box alignY="center">
-                                                            <Typography variant="h3" fontWeight="700">
-                                                                {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
-                                                            </Typography>
-
-                                                            <React.Fragment>
-                                                            {
-                                                                (item.price.sale !== undefined) && (
-                                                                    <Box alignY="center">
-
-                                                                        <Box>
-                                                                            <Typography variant="body1" fontWeight="400">
-                                                                                {`${item.price.original}만원`}
-                                                                            </Typography>
-                                                                        </Box>
-                                                                    </Box>
-                                                                )
-                                                            }
-                                                            </React.Fragment>
-                                                            
-                                                            
-                                                        </Box>
-                                                    </Box>
-                                                </Box>
-                                            </ThumbnailTypePost>
-                                        </Box>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
+                    <Box>
+                        <Box width={"100%"} alignX="center">
+                            <Typography>
+                                + 다른 타투 더보기
+                            </Typography>
+                        </Box>
                     </Box>
                 </Box>
             </Box>
