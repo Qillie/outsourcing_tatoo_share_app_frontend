@@ -3,3 +3,6 @@ export * from './Button'
 
 export { default as TextField } from './TextField'
 export * from './TextField'
+
+export { default as IconButton } from './IconButton'
+export * from './IconButton'

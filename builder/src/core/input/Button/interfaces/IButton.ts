@@ -1,5 +1,5 @@
 //* Import libraries
-import { GestureResponderEvent, ViewProps } from "react-native";
+import { GestureResponderEvent } from "react-native";
 import ITypography from "../../../display/Typography/interfaces/ITypography";
 
 interface IButton {

@@ -67,7 +67,7 @@ interface IBox {
     /**
      * Alignment style props
      */
-    alignX?: "left" | "center" | "right"
+    alignX?: "left" | "center" | "right" | "space-between"
     alignY?: "top" | "center" | "bottom"
     alignSelfX?: "left" | "center" | "right"
     alignSelfY?: "top" | "center" | "bottom"

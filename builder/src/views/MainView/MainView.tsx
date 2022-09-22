@@ -3,6 +3,7 @@ import React from "react"
 import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
 
+
 //* Import modules
 import HorizontalThumbnails from "./components/HorizontalThumbnails";
 import { Badge, Divider, Typography } from "../../core/display";
@@ -12,6 +13,7 @@ import { Tab } from "../../core/display";
 import { Thumbnail } from "../../core/display";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ThumbnailTypePost } from "../../modules";
+import { IconButton } from "../../core/input";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -203,7 +205,7 @@ const MainView = (props: IMainView) => {
 
                 <Box flexDirection="column">
                     {/* Title */}
-                    <Box>
+                    <Box alignX={"space-between"} alignY={"center"}>
                         <Box flexDirection="column">
                             <Typography>
                                 레터링
@@ -213,6 +215,8 @@ const MainView = (props: IMainView) => {
                                 엄마도 레터링은 괜찮다고 하셨어
                             </Typography>
                         </Box>
+
+                        <IconButton />
                     </Box>
 
                     <Box>

@@ -113,6 +113,8 @@ const Box = (props: IBox) => {
             } else if (props.alignX == "right") {
                 style.default.justifyContent = "flex-end"
             
+            } else if (props.alignX == "space-between") {
+                style.default.justifyContent = "space-between"
             }
         }
 
