@@ -64,7 +64,9 @@ const FavoritesView = (props: IFavoritesView) => {
 
                                                 <Box pl={15} pr={15}>
                                                     <ThumbnailTypePost 
-                                                        direction="column"
+                                                        
+                                                        thumbnailWidth={"40%"}
+                                                        direction="row"
                                                         borderRadius={7}
                                                         ratio={"4:3"}
                                                         gap={15}

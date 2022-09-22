@@ -17,10 +17,10 @@ const ThumbnailTypePost = (props: IThumbnailTypePost) => {
         let style:{ childrenView: ViewStyle } = { childrenView: {} }
         
         if (props.gap !== undefined) {
-            if (props.direction == "row") {
+            if (props.direction == "column") {
                 style.childrenView.marginTop = props.gap
                 
-            } else if (props.direction == "column") {
+            } else if (props.direction == "row") {
                 style.childrenView.marginLeft = props.gap
 
             }
@@ -35,12 +35,12 @@ const ThumbnailTypePost = (props: IThumbnailTypePost) => {
     }, [])
 
     return (
-        <Box width={"100%"}>
+        <Box width={"100%"} flexDirection={props.direction}>
             <Thumbnail
                 borderRadius={props.borderRadius}
-                src="https://reactnative.dev/img/tiny_logo.png"
+                src="https://picsum.photos/200/300"
                 ratio={(props.ratio !== undefined) ? props.ratio : "1:1"}
-                width={"40%"}
+                width={props.thumbnailWidth}
             />
 
             <View

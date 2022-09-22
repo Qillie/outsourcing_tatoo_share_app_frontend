@@ -41,6 +41,12 @@ const Thumbnail = (props: IThumbnail) => {
         return StyleSheet.create(style).size
     }
 
+    const calcRatio = (ratioString: string) => {
+        let splitRatio = ratioString.split(":")
+
+        return `${Number(splitRatio[1]) / Number(splitRatio[0]) * 100}%`
+    }
+
     const setRatio = () => {
         let style:{ ratio: ViewStyle } = {ratio: {}}
 
@@ -52,21 +58,7 @@ const Thumbnail = (props: IThumbnail) => {
         style.ratio.width = "100%"
         style.ratio.position = "relative"
 
-        if (selectedRatio == "1:1") {
-            style.ratio.paddingTop = "100%"
-
-        } else if (selectedRatio == "16:9") {
-            style.ratio.paddingTop = "56.25%"
-
-        } else if (selectedRatio == "4:3") {
-            style.ratio.paddingTop = "75%"
-            
-        } else if (selectedRatio == "3:2") {
-            style.ratio.paddingTop = "66.66%"
-            
-        } else if (selectedRatio == "8:5") {
-            style.ratio.paddingTop = "62.5%"
-        }
+        style.ratio.paddingTop = calcRatio(selectedRatio)
 
         return StyleSheet.create(style).ratio
     }
