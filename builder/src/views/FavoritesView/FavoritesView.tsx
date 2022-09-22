@@ -8,6 +8,7 @@ import { Typography, Tab, Divider, Badge } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
 import { ThumbnailTypePost } from "../../modules";
+import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
 
 //* Import interfaces
 import IFavoritesView from "./interfaces/IFavoritesView"
@@ -42,8 +43,7 @@ const FavoritesView = (props: IFavoritesView) => {
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
-                original: 15,
-                sale: 12
+                original: 15
             }
         }
     ])
@@ -101,7 +101,7 @@ const FavoritesView = (props: IFavoritesView) => {
                                                             </Box>
 
                                                             {/* Tags */}
-                                                            <Box>
+                                                            <Box mb={12}>
                                                                 {
                                                                     item.tags.map((tag) => (
                                                                         <Box mr={7} key={tag}>
@@ -114,10 +114,37 @@ const FavoritesView = (props: IFavoritesView) => {
                                                             </Box>
 
                                                             {/* Price */}
-                                                            <Box>
-                                                                <Typography>
-                                                                    {`${item.price.original}만원`}
-                                                                </Typography>
+                                                            <Box alignX="right">
+                                                                <Box alignY="center">
+                                                                    <React.Fragment>
+                                                                    {
+                                                                        (item.price.sale !== undefined) && (
+                                                                            <Box alignY="center">
+                                                                                <Badge 
+                                                                                    fontColor="white" 
+                                                                                    background={ThemeCoreSingleton.paletteManager.getColor("primary", "main")}
+                                                                                    fontVariant={"body1"}
+                                                                                    px={8}
+                                                                                    py={5}
+                                                                                    borderRadius={20}
+                                                                                >
+                                                                                    할인
+                                                                                </Badge>
+
+                                                                                <Box ml={4} mr={4}>
+                                                                                    <Typography variant="body1" fontWeight="400">
+                                                                                        {`${item.price.original}만원`}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                            </Box>
+                                                                        )
+                                                                    }
+                                                                    </React.Fragment>
+                                                                    
+                                                                    <Typography variant="h3" fontWeight="700">
+                                                                        {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
+                                                                    </Typography>
+                                                                </Box>
                                                             </Box>
                                                         </Box>
                                                     </ThumbnailTypePost>

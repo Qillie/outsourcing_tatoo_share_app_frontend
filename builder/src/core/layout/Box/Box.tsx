@@ -159,7 +159,9 @@ const Box = (props: IBox) => {
 
     return (
         <View style={setStyle()}>
-            {props.children}
+            {
+                props.children
+            }
         </View>
     )
 }
