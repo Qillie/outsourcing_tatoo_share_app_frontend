@@ -180,16 +180,21 @@ class PaletteManager {
         this.palette = palette
     }
 
-    public getColor(target: TConvertableColor, role: "main" | "light" | "dark") {
+    public getColor(target: TConvertableColor | "black", role?: "main" | "light" | "dark") {
         let targetColor: string | undefined
 
         if (this.palette !== undefined) {
             if (this.palette[target] !== undefined) {
-                const color = this.palette[target]
-                
-                if (color !== undefined) {
-                    if (color[role] !== undefined) {
-                        targetColor = color[role]
+                if (target == "black") {
+                    return this.palette[target]
+
+                } else {
+                    const color = this.palette[target]
+
+                    if (color !== undefined && role !== undefined) {
+                        if (color[role] !== undefined) {
+                            targetColor = color[role]
+                        }
                     }
                 }
             }

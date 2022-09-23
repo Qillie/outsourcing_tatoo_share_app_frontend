@@ -181,7 +181,6 @@ const MainView = (props: IMainView) => {
         <ScrollView>
             <Box pb={200} flexDirection="column">
                 <Tab
-                    // contentsDirection="horizontal"
                     tabContents={[
                         {
                             title: "장르",
@@ -206,6 +205,30 @@ const MainView = (props: IMainView) => {
                                     />
                                 </Box>
                             )
+                        },
+                        {
+                            title: "부위",
+                            element: (
+                                <Box>
+                                    <HorizontalThumbnails 
+                                        itemPerRow={10}
+                                        maxRowLength={2}
+                                        viewItems={viewItems}
+                                    />
+                                </Box>
+                            )
+                        },
+                        {
+                            title: "지역",
+                            element: (
+                                <Box>
+                                    <HorizontalThumbnails 
+                                        itemPerRow={10}
+                                        maxRowLength={2}
+                                        viewItems={viewItems}
+                                    />
+                                </Box>
+                            )
                         }
                     ]}
                 />
@@ -214,7 +237,7 @@ const MainView = (props: IMainView) => {
                     {/* Title */}
                     <Box alignX={"space-between"} alignY={"center"}>
                         <Box flexDirection="column">
-                            <Typography>
+                            <Typography variant={"h4"} fontWeight={"500"}>
                                 레터링
                             </Typography>
 

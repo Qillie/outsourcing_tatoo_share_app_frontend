@@ -65,14 +65,14 @@ const Tab = (props: ITab) => {
                         props.tabContents.map((element, elementIndex) => (
                             <Grid role={"item"} xs={true} key={element.title}>
                                 <Box
-                                    borderBottomWidth={2}
-                                    borderColor={(checkActive(elementIndex)) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.palette?.grey?.[500]}
+                                    borderBottomWidth={3}
+                                    borderColor={(checkActive(elementIndex)) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : "transparent"}
                                 >
                                     <Button
                                         typographyProps={{
-                                            color: (checkActive(elementIndex)) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.palette?.grey?.[500],
-                                            variant: "h4",
-                                            fontWeight: "400"
+                                            color: (checkActive(elementIndex)) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("black"),
+                                            variant: "h5",
+                                            fontWeight: "500"
                                         }}
                                         fullWidth={true}
                                         onClick={
