@@ -46,7 +46,6 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
                                             <Box>
                                                 <Typography
                                                     variant="h6"
-                                                    color={ThemeCoreSingleton.paletteManager.getColor("grey")}
                                                 >
                                                     {item.title}
                                                 </Typography>
@@ -57,6 +56,7 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
                                                 <Typography
                                                     variant="body1"
                                                     fontWeight="400"
+                                                    color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
                                                 >
                                                     {item.location}
                                                 </Typography>
