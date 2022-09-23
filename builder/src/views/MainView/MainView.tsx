@@ -235,19 +235,21 @@ const MainView = (props: IMainView) => {
 
                 <Box flexDirection="column">
                     {/* Title */}
-                    <Box alignX={"space-between"} alignY={"center"}>
-                        <Box flexDirection="column">
-                            <Typography variant={"h4"} fontWeight={"500"}>
-                                레터링
-                            </Typography>
+                    <Link to="">
+                        <Box px={16} py={16} alignX={"space-between"} alignY={"center"}>
+                            <Box flexDirection="column">
+                                <Typography variant={"h4"} fontWeight={"500"}>
+                                    레터링
+                                </Typography>
 
-                            <Typography>
-                                엄마도 레터링은 괜찮다고 하셨어
-                            </Typography>
+                                <Typography variant={"h5"}>
+                                    엄마도 레터링은 괜찮다고 하셨어
+                                </Typography>
+                            </Box>
+
+                            <IconButton iconSize={25} iconName="arrow-forward-ios" fontColor={ThemeCoreSingleton.paletteManager.getColor("black")} />
                         </Box>
-
-                        <IconButton />
-                    </Box>
+                    </Link>
 
                     <Box>
                         <VerticalThumbnailPost

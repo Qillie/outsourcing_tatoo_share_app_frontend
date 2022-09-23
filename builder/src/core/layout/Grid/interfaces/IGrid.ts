@@ -26,6 +26,7 @@ interface IGrid {
      * @default 0
      */
     spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    spacingWrap?: boolean
 
     justifyContent?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around" | "space-evenly"
     alignItems?: "flex-start" | "center" | "flex-end" | "stretch" | "baseline"

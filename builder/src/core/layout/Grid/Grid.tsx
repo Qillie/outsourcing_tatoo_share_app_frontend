@@ -33,7 +33,7 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
 
         if (props.spacing !== undefined) {
             style.default.marginTop = -1 * props.spacing * space
-            style.default.marginLeft = -1 * props.spacing * space
+            style.default.marginLeft =((props.spacingWrap == true) ? 0 : -1) * props.spacing * space
         }
 
         //* Set display
@@ -84,7 +84,7 @@ const Grid = (props: IGrid & IRegularBreakpoints) => {
         if (props.spacing !== undefined) {
             const screenWidth = Dimensions.get('window').width;
 
-            const targetWidth = screenWidth + ((props.spacing !== undefined) ? props.spacing  * space : 0)
+            const targetWidth = screenWidth + ((props.spacing !== undefined) ? props.spacing * space * ((props.spacingWrap == true) ? -1 : 1) : 0)
 
             let clone = {...viewStyle}
             clone.width = targetWidth

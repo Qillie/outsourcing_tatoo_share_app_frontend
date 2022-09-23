@@ -119,14 +119,13 @@ const IconButton = (props: IIconButton) => {
             style={
                 ({pressed}) => [
                     {
-                        backgroundColor: pressed ? "red" : "white"
+                        backgroundColor: pressed ? "white" : "white"
                     },
                     buttonStyle.default 
                 ]
             }
         >
-            <Box 
-                backgroundColor="yellow"
+            <Box
                 alignX="center" 
                 alignY="center"
                 m={props.m}
@@ -144,8 +143,8 @@ const IconButton = (props: IIconButton) => {
                 px={props.px}
                 py={(props.py !== undefined) ? props.py : setSize()}
             >
-                <Box backgroundColor="blue">
-                    <Icon name="360" size={30} color="#4F8EF7" />
+                <Box>
+                    <Icon name={props.iconName} size={(props.iconSize !== undefined) ? props.iconSize : 30} color={props.fontColor} />
                 </Box>
                 
             </Box>

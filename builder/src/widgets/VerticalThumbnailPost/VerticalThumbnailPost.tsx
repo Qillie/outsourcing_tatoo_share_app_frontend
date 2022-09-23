@@ -15,84 +15,86 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
     const navigate = useNavigate()
 
     return (
-        <Grid role={"container"} spacing={1}>
-            {
-                props.items.map((item) => (
-                    <Grid key={item.title} role={"item"} xs={6}>
-                        <Box 
-                            mb={25}
-                        >
-                            <Pressable 
-                                onPress={
-                                    () => {
-                                        navigate(item.link)
-                                    }
-                                }
-                                style={{
-                                    width: "100%"
-                                }}
+        <Box>
+            <Grid role={"container"} spacing={1}>
+                {
+                    props.items.map((item) => (
+                        <Grid key={item.title} role={"item"} xs={6}>
+                            <Box 
+                                mb={25}
                             >
-                                <ThumbnailTypePost
-                                    thumbnailWidth="100%"
-                                    direction="column"
-                                    borderRadius={7}
-                                    ratio={"1:1"}
-                                    gap={15}
+                                <Pressable 
+                                    onPress={
+                                        () => {
+                                            navigate(item.link)
+                                        }
+                                    }
+                                    style={{
+                                        width: "100%"
+                                    }}
                                 >
-                                    <Box flexDirection="column">
-                                        {/* Title */}
-                                        <Box mb={6}>
-                                            <Typography
-                                                variant="h5"
-                                                fontWeight="700"
-                                            >
-                                                {item.title}
-                                            </Typography>
-                                        </Box>
-
-                                        {/* Location */}
-                                        <Box mb={5}>
-                                            <Typography
-                                                variant="body1"
-                                                fontWeight="400"
-                                            >
-                                                {item.location}
-                                            </Typography>
-                                        </Box>
-
-                                        {/* Price */}
-                                        <Box alignX="left">
-                                            <Box alignY="center">
-                                                <Typography variant="h3" fontWeight="700">
-                                                    {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
+                                    <ThumbnailTypePost
+                                        thumbnailWidth="100%"
+                                        direction="column"
+                                        borderRadius={7}
+                                        ratio={"1:1"}
+                                        gap={15}
+                                    >
+                                        <Box flexDirection="column">
+                                            {/* Title */}
+                                            <Box mb={6}>
+                                                <Typography
+                                                    variant="h6"
+                                                    fontWeight="700"
+                                                >
+                                                    {item.title}
                                                 </Typography>
+                                            </Box>
 
-                                                <React.Fragment>
-                                                {
-                                                    (item.price.sale !== undefined) && (
-                                                        <Box alignY="center">
+                                            {/* Location */}
+                                            <Box mb={5}>
+                                                <Typography
+                                                    variant="body1"
+                                                    fontWeight="400"
+                                                >
+                                                    {item.location}
+                                                </Typography>
+                                            </Box>
 
-                                                            <Box>
-                                                                <Typography variant="body1" fontWeight="400">
-                                                                    {`${item.price.original}만원`}
-                                                                </Typography>
+                                            {/* Price */}
+                                            <Box alignX="left">
+                                                <Box alignY="center">
+                                                    <Typography variant="h3" fontWeight="700">
+                                                        {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
+                                                    </Typography>
+
+                                                    <React.Fragment>
+                                                    {
+                                                        (item.price.sale !== undefined) && (
+                                                            <Box alignY="center">
+
+                                                                <Box>
+                                                                    <Typography variant="body1" fontWeight="400">
+                                                                        {`${item.price.original}만원`}
+                                                                    </Typography>
+                                                                </Box>
                                                             </Box>
-                                                        </Box>
-                                                    )
-                                                }
-                                                </React.Fragment>
-                                                
-                                                
+                                                        )
+                                                    }
+                                                    </React.Fragment>
+                                                    
+                                                    
+                                                </Box>
                                             </Box>
                                         </Box>
-                                    </Box>
-                                </ThumbnailTypePost>
-                            </Pressable>
-                        </Box>
-                    </Grid>
-                ))
-            }
-        </Grid>
+                                    </ThumbnailTypePost>
+                                </Pressable>
+                            </Box>
+                        </Grid>
+                    ))
+                }
+            </Grid>
+        </Box>
     )
 }
 

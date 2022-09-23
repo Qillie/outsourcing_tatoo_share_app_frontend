@@ -2,8 +2,10 @@
 import { GestureResponderEvent } from "react-native";
 
 interface IIconButton {
+    iconName: string
     background?: string
     fontColor?: string
+    iconSize?: number
     /**
      * Margin style props
      */
