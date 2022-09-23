@@ -6,6 +6,7 @@ import IPaletteSheet from '../interfaces/palette/IPaletteSheet';
 import TConvertableColor from '../interfaces/palette/TConvertableColor';
 import { IColorObject, TColorFormat, TColorSpace } from '../interfaces/palette/IColorObject';
 import IColor from '../interfaces/palette/IColor';
+import TColorLevel from '../interfaces/palette/TColorLevel';
 
 class PaletteManager {
     //* Members
@@ -180,14 +181,18 @@ class PaletteManager {
         this.palette = palette
     }
 
-    public getColor(target: TConvertableColor | "black", role?: "main" | "light" | "dark") {
+    public getColor(target: TConvertableColor | "black" | "grey", role?: "main" | "light" | "dark", level?: TColorLevel) {
         let targetColor: string | undefined
 
         if (this.palette !== undefined) {
             if (this.palette[target] !== undefined) {
                 if (target == "black") {
-                    return this.palette[target]
+                    targetColor = this.palette[target]
 
+                } else if (target == "grey") {
+                    if (level !== undefined && this.palette["grey"] !== undefined) {
+                        targetColor = this.palette["grey"][level]
+                    }
                 } else {
                     const color = this.palette[target]
 
