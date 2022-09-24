@@ -259,13 +259,28 @@ const MainView = (props: IMainView) => {
                     
                     <Divider my={10}></Divider>
 
-                    <Box>
-                        <Box width={"100%"} alignX="center">
-                            <Typography>
-                                + 다른 타투 더보기
-                            </Typography>
+                    <Link to="">
+                        <Box my={6}>
+                            <Box width={"100%"} alignX="center">
+                                <Box mr={4}>
+                                    <Typography
+                                        color={ThemeCoreSingleton.paletteManager.getColor("primary", "main")}
+                                        variant={"h6"}
+                                        fontWeight={"500"}
+                                    >
+                                        + 다른 타투
+                                    </Typography>
+                                </Box>
+
+                                <Typography
+                                    variant={"h6"}
+                                    fontWeight={"500"}
+                                >
+                                    더보기
+                                </Typography>
+                            </Box>
                         </Box>
-                    </Box>
+                    </Link>
                 </Box>
             </Box>
         </ScrollView>

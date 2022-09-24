@@ -109,8 +109,6 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
                                                         )
                                                     }
                                                     </React.Fragment>
-                                                    
-                                                    
                                                 </Box>
                                             </Box>
                                         </Box>
