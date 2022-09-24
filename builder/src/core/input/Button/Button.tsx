@@ -1,6 +1,7 @@
 //* Import libraries
 import React from "react"
 import { StyleSheet, Pressable, PressableProps, ViewStyle } from "react-native"
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -126,7 +127,8 @@ const Button = (props: IButton) => {
                 ]
             }
         >
-            <Box 
+            <Box
+                flexDirection={(props.iconDirection !== undefined) ? props.iconDirection : "row"}
                 alignX="center" 
                 alignY="center"
                 m={props.m}
@@ -144,6 +146,19 @@ const Button = (props: IButton) => {
                 px={props.px}
                 py={(props.py !== undefined) ? props.py : setSize()}
             >
+                <Box
+                    mr={(props.iconDirection === undefined || props.iconDirection == "row") ? props.iconGap : undefined}
+                    mb={(props.iconDirection == "column") ? props.iconGap : undefined}
+                >
+                    <React.Fragment>
+                        {
+                            (props.iconName !== undefined) && (
+                                <Icon name={props.iconName} size={(props.iconSize !== undefined) ? props.iconSize : 30} />
+                            )
+                        }
+                    </React.Fragment>
+                </Box>
+                
                 <Typography {...props.typographyProps}>
                     { props.children }
                 </Typography>

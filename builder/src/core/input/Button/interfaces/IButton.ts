@@ -3,6 +3,11 @@ import { GestureResponderEvent } from "react-native";
 import ITypography from "../../../display/Typography/interfaces/ITypography";
 
 interface IButton {
+    iconName?: string
+    iconSize?: number
+    iconDirection?: "row" | "column"
+    iconGap?: number
+
     children?: string
 
     /**

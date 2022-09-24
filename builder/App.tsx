@@ -74,21 +74,23 @@ const App = () => {
 	const isDarkMode = useColorScheme() === 'dark';
 
 	const backgroundStyle = {
-		backgroundColor: "red",
+		backgroundColor: "white",
 	};
 
 	return (
-	<SafeAreaView style={{backgroundColor: "white", height: "100%"}}>
-		<StatusBar
-			barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-			backgroundColor={backgroundStyle.backgroundColor}
-		/>
+	<SafeAreaView style={{backgroundColor: ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200"), height: "100%"}}>
+		<View style={{backgroundColor: "white", width: "100%", height: "100%"}}>
+			<StatusBar
+				barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+				backgroundColor={backgroundStyle.backgroundColor}
+			/>
 
-		<MemoryRouter>
-			<Provider store={ReduxStore}>
-				<ReduxContainer />
-			</Provider>
-		</MemoryRouter>
+			<MemoryRouter>
+				<Provider store={ReduxStore}>
+					<ReduxContainer />
+				</Provider>
+			</MemoryRouter>
+		</View>
 	</SafeAreaView>
 	
 	);

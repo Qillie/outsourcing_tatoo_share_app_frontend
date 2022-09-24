@@ -146,7 +146,6 @@ const IconButton = (props: IIconButton) => {
                 <Box>
                     <Icon name={props.iconName} size={(props.iconSize !== undefined) ? props.iconSize : 30} color={props.fontColor} />
                 </Box>
-                
             </Box>
         </Pressable>
     )
