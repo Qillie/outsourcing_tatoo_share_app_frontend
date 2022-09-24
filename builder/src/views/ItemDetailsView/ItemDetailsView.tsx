@@ -324,6 +324,29 @@ const ItemDetailsView = (props: IItemDetailsView) => {
                     </Box>
                 </Box>
             </Box>
+
+            {/* Feeds */}
+            <Box flexDirection="column" pb={200}>
+                {/* Feed owner introduce section */}
+                <Box>
+                    <Grid role="container">
+                        <Grid role="item" xs={3}>
+                            <Thumbnail
+                                src="https://picsum.photos/200/300"
+                            />
+                        </Grid>
+
+                        <Grid role="item" xs={6}>
+                            
+                        </Grid>
+
+                        <Grid role="item" xs={3}>
+                            
+                        </Grid>
+                    </Grid>
+                </Box>
+
+            </Box>
         </ScrollView>
     )
 }

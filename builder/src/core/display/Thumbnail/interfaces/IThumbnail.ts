@@ -1,6 +1,6 @@
 //* Import interfaces
 import TFontVariant from "../../Typography/interfaces/TFontVariant"
-import TFontWeight from "../../Typography/interfaces/TFontWeight"
+import TTypographyWeights from '../../../design/ThemeCore/interfaces/typography/TTypographyWeights';
 import TBoxRatio from "./TBoxRatio"
 
 interface IThumbnail {
@@ -15,7 +15,7 @@ interface IThumbnail {
     labelBackgroundOpacity?: number
     labelVariant?: TFontVariant
     labelColor?: string
-    labelFontWeight?: TFontWeight
+    labelFontWeight?: TTypographyWeights
 }
 
 export default IThumbnail
