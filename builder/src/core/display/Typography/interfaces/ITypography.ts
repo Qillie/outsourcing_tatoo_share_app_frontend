@@ -7,6 +7,7 @@ interface ITypography {
     variant?: TFontVariant
     fontWeight?: TTypographyWeights
     color?: string
+    decorationLine?: "none" | "underline" | "line-through" | "underline line-through"
 }
 
 export default ITypography

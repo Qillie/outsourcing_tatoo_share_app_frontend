@@ -25,6 +25,10 @@ const Typography = (props: ITypography) => {
         return ThemeCoreSingleton.typograhpyManager.getFontFamily(fontWeight)
     }
 
+    const setDecoration = (style: { default: TextStyle }) => {
+        style.default.textDecorationLine = props.decorationLine
+    }
+
     const setStyle = () => {
         let style:{ default: TextStyle } = { default: {} }
         
@@ -32,6 +36,9 @@ const Typography = (props: ITypography) => {
         style.default.fontWeight = props.fontWeight
         style.default.color = (props.color !== undefined) ? props.color : ThemeCoreSingleton.paletteManager.palette?.black
         style.default.fontFamily = setFontFamily(props.fontWeight)
+
+        //* Set decoration
+        setDecoration(style)
 
         return StyleSheet.create(style).default
     }

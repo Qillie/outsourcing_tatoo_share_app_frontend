@@ -52,7 +52,7 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
                                             </Box>
 
                                             {/* Location */}
-                                            <Box mb={5}>
+                                            <Box mb={1}>
                                                 <Typography
                                                     variant="body1"
                                                     fontWeight="400"
@@ -64,10 +64,31 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
 
                                             {/* Price */}
                                             <Box alignX="left">
-                                                <Box alignY="center">
-                                                    <Typography variant="h3" fontWeight="700">
-                                                        {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
-                                                    </Typography>
+                                                <Box alignY="bottom">
+                                                    {/* Sale */}
+                                                    <React.Fragment>
+                                                    {
+                                                        (item.price.sale !== undefined) && (
+                                                            <Box mr={5}>
+                                                                <Typography
+                                                                    variant="h5"
+                                                                    fontWeight="500"
+                                                                    color={ThemeCoreSingleton.paletteManager.getColor("primary", "main")}
+                                                                >
+                                                                    {
+                                                                        `${100 - parseInt(String(item.price.sale / item.price.original * 100))}%`
+                                                                    }
+                                                                </Typography>
+                                                            </Box>
+                                                        )
+                                                    }
+                                                    </React.Fragment>
+
+                                                    <Box mr={5}>
+                                                        <Typography variant="h5" fontWeight="500">
+                                                            {`${(item.price.sale !== undefined) ? item.price.sale : item.price.original}만원`}
+                                                        </Typography>
+                                                    </Box>
 
                                                     <React.Fragment>
                                                     {
@@ -75,7 +96,12 @@ const VerticalThumbnailPost = (props: IVerticalThumbnailPost) => {
                                                             <Box alignY="center">
 
                                                                 <Box>
-                                                                    <Typography variant="body1" fontWeight="400">
+                                                                    <Typography 
+                                                                        variant="body1" 
+                                                                        fontWeight="500"
+                                                                        color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                                                                        decorationLine={"line-through"}
+                                                                    >
                                                                         {`${item.price.original}만원`}
                                                                     </Typography>
                                                                 </Box>

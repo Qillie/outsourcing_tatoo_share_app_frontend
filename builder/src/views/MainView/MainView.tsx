@@ -119,8 +119,8 @@ const MainView = (props: IMainView) => {
             location: "경기/수원",
             tags: ["당일예약", "주차가능"],
             price: {
-                original: 15,
-                sale: 12
+                original: 16,
+                sale: 5
             }
         },
         {
