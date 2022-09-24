@@ -15,7 +15,7 @@ const themeSheet : IThemeSheet = {
     typography: {
         variants: {
             body1: 15,
-            body2: 30,
+            body2: 13.5,
             button: 0,
             caption: 10.5,
             h1: 24,
@@ -24,8 +24,8 @@ const themeSheet : IThemeSheet = {
             h4: 19.5,
             h5: 18,
             h6: 16.5,
-            subtitle1: 13.5,
-            subtitle2: 12
+            subtitle1: 12,
+            subtitle2: 9
         },
         fonts: {
             "100": "NotoSansKR-Thin",
