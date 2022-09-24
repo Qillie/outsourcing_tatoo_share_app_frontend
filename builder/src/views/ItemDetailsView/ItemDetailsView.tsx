@@ -3,9 +3,10 @@ import React from "react"
 import { Dimensions, Image, LogBox, ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
 import Carousel from 'react-native-reanimated-carousel';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 //* Import modules
-import { Typography, Tab, Divider, Badge, Thumbnail } from "../../core/display";
+import { Typography, Tab, Divider, Badge, Thumbnail, Avatar } from "../../core/display";
 import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
 import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
@@ -41,6 +42,20 @@ const ItemDetailsView = (props: IItemDetailsView) => {
     const [timeTaken, setTimeTaken] = React.useState<number>(1)
     const [ment, setMent] = React.useState<string>("비의료인의 타투 시술은 '보건범죄 단속에 대한 특별조치법'에 따른 형사 처벌의 대상이 될 수 있습니다. 비의료인은 타투 도안 디자인에 관한 서비스만 제공할 수 있습니다.")
     const [warning, setWarning] = React.useState<string>("비의료인의 타투 시술은 '보건범죄 단속에 대한 특별조치법'에 따른 형사 처벌의 대상이 될 수 있습니다. 비의료인은 타투 도안 디자인에 관한 서비스만 제공할 수 있습니다.")
+    const [tattooistUserName, setTattooistUserName] = React.useState<string>("cyma_tattooer")
+    const [sumOfViews, setSumOfViews] = React.useState<number>(5000)
+    const [sumOfCounsels, setSumOfCounsels] = React.useState<number>(1000)
+    const [sumOfReviews, setSumOfReviews] = React.useState<number>(224)
+    const [rateAverage, setRateAverage] = React.useState<number>(4.0)
+
+    //* Functions
+    const formatNumOverThousand = (target: number) => {
+        if (target >= 1000) {
+            return `${parseInt(String(target / 1000))}K`
+        } else {
+            return target
+        }
+    }
 
     return (
         <ScrollView>
@@ -328,24 +343,70 @@ const ItemDetailsView = (props: IItemDetailsView) => {
             {/* Feeds */}
             <Box flexDirection="column" pb={200}>
                 {/* Feed owner introduce section */}
-                <Box>
-                    <Grid role="container">
-                        <Grid role="item" xs={3}>
-                            <Thumbnail
-                                src="https://picsum.photos/200/300"
-                            />
-                        </Grid>
+                <Box px={14} alignY="center">
+                    <Box mr={20} alignX="center" alignY="center">
+                        <Avatar
+                            diameter={70}
+                            src="https://picsum.photos/200/300"
+                        />
+                    </Box>
 
-                        <Grid role="item" xs={6}>
-                            
-                        </Grid>
+                    <Box flexDirection="column">
+                        <Box>
+                            <Typography
+                                variant={"h4"} 
+                                fontWeight={"500"}
+                            >
+                                {tattooistUserName}
+                            </Typography>
+                        </Box>
 
-                        <Grid role="item" xs={3}>
+                        <Box>
+                            <Typography
+                                variant={"body2"} 
+                                fontWeight={"400"}
+                                color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                            >
+                                {location}
+                            </Typography>
+                        </Box>
+
+                        <Box>
+                            <Typography
+                                variant={"body2"} 
+                                fontWeight={"400"}
+                                color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                            >
+                                {`누적 조회수 ${formatNumOverThousand(sumOfViews)} | 누적 상담수 ${formatNumOverThousand(sumOfCounsels)}`}
+                            </Typography>
+                        </Box>
+
+                        <Box alignY="center">
+                            <Box mr={8} alignY="center">
+                                <Icon name={"star"} size={18} color={ThemeCoreSingleton.paletteManager.getColor("primary", "main")} />
                             
-                        </Grid>
-                    </Grid>
+                                <Typography
+                                    variant={"body1"} 
+                                    fontWeight={"500"}
+                                >
+                                    {rateAverage.toFixed(1)}
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <Typography
+                                    variant={"body2"} 
+                                    fontWeight={"400"}
+                                    color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                                >
+                                    {`리뷰 ${formatNumOverThousand(sumOfReviews)}`}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
                 </Box>
-
+                
+                <Divider my={20} />
             </Box>
         </ScrollView>
     )

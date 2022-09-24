@@ -3,7 +3,7 @@ import TTypographyWeights from '../../../design/ThemeCore/interfaces/typography/
 import TFontVariant from './TFontVariant';
 
 interface ITypography {
-    children?: string | React.ReactElement
+    children?: string | React.ReactElement | number
     variant?: TFontVariant
     fontWeight?: TTypographyWeights
     color?: string

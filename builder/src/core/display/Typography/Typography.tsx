@@ -50,7 +50,7 @@ const Typography = (props: ITypography) => {
 
     return (
         <Text style={setStyle()}>
-            {props.children}
+            {(typeof props.children == "number") ? props.children.toString() : props.children}
         </Text>
     )
 }
