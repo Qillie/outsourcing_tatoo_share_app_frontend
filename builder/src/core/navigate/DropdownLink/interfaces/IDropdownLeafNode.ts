@@ -6,7 +6,7 @@ interface IDropdownLeafNode {
         main: string,
         sub: string
     },
-    iconElement?: React.ReactElement
+    iconName?: string
     show: boolean
     link: string
     childLeafs: IDropdownLeafNode[]

@@ -40,7 +40,7 @@ const BottomNavigator = (props: IBottomNavigator) => {
                             }}
                             iconGap={6}
                             iconDirection={"column"}
-                            iconName="arrow-forward-ios"
+                            iconName={element.iconName}
                             fullWidth={true}
                             onClick={
                                 () => {

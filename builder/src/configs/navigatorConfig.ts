@@ -10,6 +10,7 @@ const navigatorConfig: {
                 main: "검색",
                 sub: "메인"
             },
+            iconName: "search",
             show: true,
             link: "",
             childLeafs: []
@@ -19,8 +20,9 @@ const navigatorConfig: {
                 main: "맞춤 견적",
                 sub: "맞춤 견적"
             },
+            iconName: "published-with-changes",
             show: true,
-            link: "estimate",
+            link: "",
             childLeafs: []
         },
         {
@@ -28,6 +30,7 @@ const navigatorConfig: {
                 main: "리뷰",
                 sub: "리뷰"
             },
+            iconName: "rate-review",
             show: true,
             link: "review",
             childLeafs: []
@@ -37,6 +40,7 @@ const navigatorConfig: {
                 main: "관심",
                 sub: "관심목록"
             },
+            iconName: "favorite-border",
             show: true,
             link: "favorites",
             childLeafs: []
@@ -46,6 +50,7 @@ const navigatorConfig: {
                 main: "더보기",
                 sub: "더보기"
             },
+            iconName: "menu",
             show: true,
             link: "settings",
             childLeafs: []
