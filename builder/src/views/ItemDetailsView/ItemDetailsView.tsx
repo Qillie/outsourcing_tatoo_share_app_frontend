@@ -39,7 +39,7 @@ const ItemDetailsView = (props: IItemDetailsView) => {
     const [size, setSize] = React.useState<string>("5")
     const [numOfOperations, setNumOfOperations] = React.useState<number>(1)
     const [timeTaken, setTimeTaken] = React.useState<number>(1)
-    const [ment, setMent] = React.useState<string>("ㅎㅇㅎㅇㅇㅎ")
+    const [ment, setMent] = React.useState<string>("비의료인의 타투 시술은 '보건범죄 단속에 대한 특별조치법'에 따른 형사 처벌의 대상이 될 수 있습니다. 비의료인은 타투 도안 디자인에 관한 서비스만 제공할 수 있습니다.")
     const [warning, setWarning] = React.useState<string>("비의료인의 타투 시술은 '보건범죄 단속에 대한 특별조치법'에 따른 형사 처벌의 대상이 될 수 있습니다. 비의료인은 타투 도안 디자인에 관한 서비스만 제공할 수 있습니다.")
 
     return (
@@ -161,7 +161,7 @@ const ItemDetailsView = (props: IItemDetailsView) => {
                 </Box>
                 
                 {/* Details */}
-                <Box flexDirection="column">
+                <Box flexDirection="column" mb={40}>
                     <Box flexDirection="column" mb={16}>
                         <Box px={14} mb={16}>
                             <Typography
@@ -292,7 +292,7 @@ const ItemDetailsView = (props: IItemDetailsView) => {
                     </Box>
 
                     {/* Warning */}
-                    <Box px={16} mb={30}>
+                    <Box px={16}>
                         <Typography
                             variant="body2"
                             fontWeight="400"
@@ -301,20 +301,26 @@ const ItemDetailsView = (props: IItemDetailsView) => {
                             {warning}
                         </Typography>
                     </Box>
-                    
-                    {/* Words */}
-                    <Box flexDirection="column">
-                        <Box>
-                            <Typography>
-                                타투이스트 한마디
-                            </Typography>
-                        </Box>
+                </Box>
 
-                        <Box>
-                            <Typography>
-                                {ment}
-                            </Typography>
-                        </Box>
+                {/* Words */}
+                <Box px={14} flexDirection="column" mb={40}>
+                    <Box mb={16}>
+                        <Typography
+                            variant={"h4"} 
+                            fontWeight={"500"}
+                        >
+                            타투이스트 한마디
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <Typography
+                            variant="h6"
+                            fontWeight="400"
+                        >
+                            {ment}
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
