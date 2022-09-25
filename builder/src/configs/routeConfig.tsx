@@ -7,6 +7,7 @@ import { SettingsView } from "../views/SettingsView"
 import { FavoritesView } from "../views/FavoritesView"
 import { ItemDetailsView } from "../views/ItemDetailsView"
 import { PlannedContentView } from "../views/PlannedContentView"
+import { PlannedContentDetailsView } from "../views/PlannedContentDetailsView"
 import { MagazineContentView } from "../views/MagazineContentView"
 import { RankingsView } from "../views/RankingsView"
 
@@ -44,6 +45,13 @@ const routeConfig: IRouteLeaf[] = [
         description: "기획전 화면",
         path: "/planned",
         element: <PlannedContentView />,
+        children: []
+    },
+    {
+        name: "기획전 상세",
+        description: "기획전 상세 화면",
+        path: "/planned_detail",
+        element: <PlannedContentDetailsView />,
         children: []
     },
     {

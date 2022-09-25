@@ -169,7 +169,18 @@ const Box = (props: IBox) => {
     }
 
     const setBoxShadow = (style: { default: ViewStyle }) => {
+        if (props.shadowType !== undefined) {
+            style.default.shadowColor = "black"
 
+            if (props.shadowType == "0") {
+                style.default.shadowOpacity = 0.2
+                style.default.shadowRadius = 5
+                style.default.shadowOffset = {
+                    width: 7,
+                    height: 7
+                }
+            }
+        }
     }
 
     const setStyle = () => {
@@ -185,6 +196,7 @@ const Box = (props: IBox) => {
         setBackground(style)
         setFlex(style)
         setTransform(style)
+        setBoxShadow(style)
 
         return StyleSheet.create(style).default
     }

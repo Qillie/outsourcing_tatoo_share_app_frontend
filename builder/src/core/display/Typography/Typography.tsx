@@ -36,6 +36,7 @@ const Typography = (props: ITypography) => {
         style.default.fontWeight = props.fontWeight
         style.default.color = (props.color !== undefined) ? props.color : ThemeCoreSingleton.paletteManager.palette?.black
         style.default.fontFamily = setFontFamily(props.fontWeight)
+        style.default.textAlign = props.textAlign
 
         //* Set decoration
         setDecoration(style)

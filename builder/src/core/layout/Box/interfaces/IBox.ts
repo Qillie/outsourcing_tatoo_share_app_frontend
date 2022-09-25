@@ -93,6 +93,11 @@ interface IBox {
      * Callbacks
      */
     onLayout?: (event: LayoutChangeEvent) => void
+
+    /**
+     * Shadow
+     */
+    shadowType?: "0"
 }
 
 export default IBox

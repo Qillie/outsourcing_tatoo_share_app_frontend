@@ -7,6 +7,7 @@ interface ITypography {
     variant?: TFontVariant
     fontWeight?: TTypographyWeights
     color?: string
+    textAlign?: "auto" | "center" | "justify" | "left" | "right"
     decorationLine?: "none" | "underline" | "line-through" | "underline line-through"
 }
 
