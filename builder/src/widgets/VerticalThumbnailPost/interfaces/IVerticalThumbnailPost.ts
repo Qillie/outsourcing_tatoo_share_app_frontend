@@ -1,15 +1,8 @@
+//* Import interfaces
+import IProduct from '../../CardProductPost/interfaces/IProduct';
+
 interface IVerticalThumbnailPost {
-    items: {
-        title: string,
-        shopName: string,
-        location: string,
-        link: string,
-        tags: string[],
-        price: {
-            original: number,
-            sale?: number
-        }
-    }[]
+    items: IProduct[]
 }
 
 export default IVerticalThumbnailPost

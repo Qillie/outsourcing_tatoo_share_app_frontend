@@ -21,7 +21,75 @@ const PlannedContentDetailsView = (props: IPlannedContentDetailsView) => {
     const [subtitle, setSubtitle] = React.useState<string>("어떤 소재가 있을까?")
     const [introduce, setIntroduce] = React.useState<string>("연예인들에게 선택받은 타투\n무엇이 있을까?")
     const [products, setProducts] = React.useState<IProduct[]>([
-
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 16,
+                sale: 5
+            }
+        },
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 15
+            }
+        },
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 15,
+                sale: 12
+            }
+        },
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 15
+            }
+        },
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 15,
+                sale: 12
+            }
+        },
+        {
+            title: "가족 생일 타투",
+            shopName: "Black hands tatoo",
+            link: "/item",
+            location: "경기/수원",
+            src: "https://picsum.photos/200/300",
+            tags: ["당일예약", "주차가능"],
+            price: {
+                original: 15
+            }
+        }
     ])
 
     return (

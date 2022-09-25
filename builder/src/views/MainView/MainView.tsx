@@ -3,7 +3,6 @@ import React from "react"
 import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
 
-
 //* Import modules
 import HorizontalThumbnails from "./components/HorizontalThumbnails";
 import { Badge, Divider, Typography } from "../../core/display";
@@ -18,6 +17,7 @@ import { IconButton } from "../../core/input";
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
 import VerticalThumbnailPost from "../../widgets/VerticalThumbnailPost";
+import IProduct from "../../widgets/CardProductPost/interfaces/IProduct";
 
 
 const MainView = (props: IMainView) => {
@@ -101,22 +101,13 @@ const MainView = (props: IMainView) => {
         }
     ])
 
-    const [items, setItems] = React.useState<{
-        title: string,
-        shopName: string,
-        link: string,
-        location: string,
-        tags: string[],
-        price: {
-            original: number,
-            sale?: number
-        }
-    }[]>([
+    const [items, setItems] = React.useState<IProduct[]>([
         {
             title: "가족 생일 타투",
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 16,
@@ -128,6 +119,7 @@ const MainView = (props: IMainView) => {
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 15
@@ -138,6 +130,7 @@ const MainView = (props: IMainView) => {
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 15,
@@ -149,6 +142,7 @@ const MainView = (props: IMainView) => {
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 15
@@ -159,6 +153,7 @@ const MainView = (props: IMainView) => {
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 15,
@@ -170,6 +165,7 @@ const MainView = (props: IMainView) => {
             shopName: "Black hands tatoo",
             link: "/item",
             location: "경기/수원",
+            src: "https://picsum.photos/200/300",
             tags: ["당일예약", "주차가능"],
             price: {
                 original: 15
