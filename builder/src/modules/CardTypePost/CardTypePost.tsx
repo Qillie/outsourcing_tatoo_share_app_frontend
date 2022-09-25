@@ -26,36 +26,30 @@ const CardTypePost = (props: ICardTypePost) => {
 
     return (
         <Box shadowType="0" width={"100%"} flexDirection={"column"}>
-            <Box
-                borderTopLeftRadius={10}
-                borderTopRightRadius={10}
-            >
+            <Box>
                 <Thumbnail
-                    borderRadius={props.borderRadius}
-                    src="https://picsum.photos/200/300"
+                    borderTopLeftRadius={props.borderRadius}
+                    borderTopRightRadius={props.borderRadius}
+                    src={(props.src !== undefined) ? props.src : "https://picsum.photos/200/300"} 
                     ratio={(props.ratio !== undefined) ? props.ratio : "16:9"}
                     width={props.thumbnailWidth}
                 />
             </Box>
 
             <Box
-                borderBottomLeftRadius={10}
-                borderBottomRightRadius={10}
+                py={10}
+                backgroundColor={"white"}
+                borderBottomLeftRadius={props.borderRadius}
+                borderBottomRightRadius={props.borderRadius}
             >
-                <Box>
-                    <Typography>
-                        Hello
-                    </Typography>
-                </Box>
+                <View
+                    style={setChildrenViewStyle()}
+                >
+                    {
+                        props.children
+                    }
+                </View>
             </Box>
-
-            {/* <View
-                style={setChildrenViewStyle()}
-            >
-                {
-                    props.children
-                }
-            </View> */}
         </Box>
     )
 }

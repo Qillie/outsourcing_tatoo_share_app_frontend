@@ -10,6 +10,8 @@ import { CardTypePost } from "../../modules";
 
 //* Import interfaces
 import IPlannedContentDetailsView from "./interfaces/IPlannedContentDetailsView"
+import IProduct from "../../widgets/CardProductPost/interfaces/IProduct";
+import CardProductPost from "../../widgets/CardProductPost";
 
 
 const PlannedContentDetailsView = (props: IPlannedContentDetailsView) => {
@@ -18,38 +20,8 @@ const PlannedContentDetailsView = (props: IPlannedContentDetailsView) => {
     const [title, setTitle] = React.useState<string>("연예인들에게 선택받은 타투")
     const [subtitle, setSubtitle] = React.useState<string>("어떤 소재가 있을까?")
     const [introduce, setIntroduce] = React.useState<string>("연예인들에게 선택받은 타투\n무엇이 있을까?")
+    const [products, setProducts] = React.useState<IProduct[]>([
 
-
-    const [contents, setContents] = React.useState<{
-        src: string, 
-        title: string,
-        subtitle: string,
-        link: string
-    }[]>([
-        {
-            src: "https://picsum.photos/200/300",
-            title: "연예인들에게 선택받은 타투",
-            subtitle: "어떤 소재가 있을까?",
-            link: ""
-        },
-        {
-            src: "https://picsum.photos/200/300",
-            title: "연예인들에게 선택받은 타투",
-            subtitle: "어떤 소재가 있을까?",
-            link: ""
-        },
-        {
-            src: "https://picsum.photos/200/300",
-            title: "연예인들에게 선택받은 타투",
-            subtitle: "어떤 소재가 있을까?",
-            link: ""
-        },
-        {
-            src: "https://picsum.photos/200/300",
-            title: "연예인들에게 선택받은 타투",
-            subtitle: "어떤 소재가 있을까?",
-            link: ""
-        }
     ])
 
     return (
@@ -137,12 +109,14 @@ const PlannedContentDetailsView = (props: IPlannedContentDetailsView) => {
                 </Box>
 
                 {/* List */}
-                <Box flexDirection="column">
+                <Box flexDirection="column" px={14}>
                     {
-                        contents.map((content) => (
-                            <CardTypePost
-                                thumbnailWidth={"100%"}
-                            />
+                        products.map((product) => (
+                            <Box mb={20}>
+                                <CardProductPost
+                                    {...product}
+                                />
+                            </Box>
                         ))
                     }
                 </Box>

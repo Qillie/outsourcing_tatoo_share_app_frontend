@@ -9,6 +9,10 @@ interface IThumbnail {
     maxWidth?: number | string
     maxHeight?: number | string
     borderRadius?: number
+    borderBottomLeftRadius?: number
+    borderBottomRightRadius?: number
+    borderTopLeftRadius?: number
+    borderTopRightRadius?: number
     ratio?: TBoxRatio
     src: string
     label?: string
