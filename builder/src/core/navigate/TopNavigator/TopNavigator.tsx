@@ -30,11 +30,11 @@ const TopNavigator = (props: ITopNavigator) => {
     return (
         <Box
             backgroundColor="white"
-            height={50}
-            mb={20}
             alignY={"center"}
+            pt={15}
+            pb={15}
         >
-            <Grid role={"container"} justifyContent={"center"} alignItems={"center"}>
+            <Grid role={"container"}>
                 <Grid role={"item"} xs={3} alignItems={"center"}>
                     
                 </Grid>

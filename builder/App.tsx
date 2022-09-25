@@ -33,6 +33,7 @@ import navigatorConfig from './src/configs/navigatorConfig';
 import { TReduxRootState } from './src/core/base/ReduxCore/ReduxCore';
 import TopNavigatorSlice from './src/core/navigate/TopNavigator/components/TopNavigatorSlice';
 
+
 //* Init themeCore
 ThemeCoreSingleton.setTheme(themeSheet)
 
@@ -53,6 +54,7 @@ const ReduxContainer = () => {
 				label={label}
 			/>
 
+			
 			<RouterCore 
 				routeTree={routeConfig}
 			/>

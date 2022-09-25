@@ -2,7 +2,7 @@
 import React from "react"
 import { ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
-import { Divider, Typography } from "../../core/display";
+import { Avatar, Divider, Typography } from "../../core/display";
 import { Box } from "../../core/layout";
 
 //* Import modules
@@ -60,70 +60,86 @@ const SettingsView = (props: ISettingsView) => {
         }
     ])
 
+    const [userName, setUserName] = React.useState<string>("JSA1231")
+
     return (
-        <ScrollView style={{height: "100%"}}>
-            {/* Thumbnail */}
-            <Box>
-                
-            </Box>
+        <ScrollView style={{height: "100%", paddingTop: 20}}>
+            <Box px={14} pb={250} flexDirection="column">
+                {/* Thumbnail */}
+                <Box alignY="center">
+                        <Box mr={15} alignX="center" alignY="center">
+                            <Avatar
+                                diameter={60}
+                                src="https://picsum.photos/200/300"
+                            />
+                        </Box>
 
-            {/* Contents */}
-            <Box flexDirection="column" mb={25}>
-                <Box>
-                    <Typography variant="h5" fontWeight="700">
-                        더 보기
-                    </Typography>
+                        <Box>
+                            <Typography
+                                variant={"h4"} 
+                                fontWeight={"500"}
+                            >
+                                {userName}
+                            </Typography>
+                        </Box>
                 </Box>
 
                 <Divider my={20} />
 
-                <Box flexDirection="column">
-                    {
-                        contents.map((content) => (
-                            <Box flexDirection="column">
-                                <Typography variant="body1">
-                                    {
-                                        content.title
-                                    }
-                                </Typography>
+                {/* Contents */}
+                <Box flexDirection="column" mb={25} mt={10}>
+                    <Box mb={25}>
+                        <Typography variant="h5" fontWeight="500">
+                            더 보기
+                        </Typography>
+                    </Box>
 
-                                <Divider my={20} />
-                            </Box>
-                        ))
-                    }
+                    <Box flexDirection="column">
+                        {
+                            contents.map((content) => (
+                                <Box flexDirection="column">
+                                    <Typography variant="body1">
+                                        {
+                                            content.title
+                                        }
+                                    </Typography>
+
+                                    <Divider my={20} />
+                                </Box>
+                            ))
+                        }
+                    </Box>
                 </Box>
-            </Box>
 
-            {/* Configs */}
-            <Box flexDirection="column">
+                {/* Configs */}
+                <Box flexDirection="column">
+                    <Box mb={25}>
+                        <Typography variant="h5" fontWeight="500">
+                            설정
+                        </Typography>
+                    </Box>
+
+                    <Box flexDirection="column">
+                        {
+                            configs.map((config) => (
+                                <Box flexDirection="column">
+                                    <Typography variant="body1">
+                                        {
+                                            config.title
+                                        }
+                                    </Typography>
+
+                                    <Divider my={20} />
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                </Box>
+
+                {/* Outer links */}
                 <Box>
-                    <Typography variant="h5" fontWeight="700">
-                        설정
-                    </Typography>
+                    
                 </Box>
-
-                <Divider my={20} />
-
-                <Box flexDirection="column">
-                    {
-                        configs.map((config) => (
-                            <Box flexDirection="column">
-                                <Typography variant="body1">
-                                    {
-                                        config.title
-                                    }
-                                </Typography>
-
-                                <Divider my={20} />
-                            </Box>
-                        ))
-                    }
-                </Box>
-            </Box>
-
-            {/* Outer links */}
-            <Box>
-                
             </Box>
         </ScrollView>
     )
