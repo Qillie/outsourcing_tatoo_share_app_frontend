@@ -153,7 +153,7 @@ const Button = (props: IButton) => {
                     <React.Fragment>
                         {
                             (props.iconName !== undefined) && (
-                                <Icon name={props.iconName} size={(props.iconSize !== undefined) ? props.iconSize : 30} />
+                                <Icon color={props.typographyProps?.color} name={props.iconName} size={(props.iconSize !== undefined) ? props.iconSize : 30} />
                             )
                         }
                     </React.Fragment>

@@ -31,36 +31,40 @@ const BottomNavigator = (props: IBottomNavigator) => {
             backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}
         >
             <Grid role={"container"} alignItems={"center"}>
-            {
-                props.menu.map((element) => (
-                    <Grid role={"item"} xs={true} key={element.link}>
-                        <Button
-                            typographyProps={{
-                                fontWeight: "500"
-                            }}
-                            iconGap={6}
-                            iconDirection={"column"}
-                            iconName={element.iconName}
-                            fullWidth={true}
-                            onClick={
-                                () => {
-                                    //* Basic
-                                    onClickNavBtn(element.link)
+                {
+                    props.menu.map((element, elementIndex) => (
+                        <Grid role={"item"} xs={true} key={element.link}>
+                            <Button
+                                typographyProps={{
+                                    fontWeight: "500",
+                                    color: (activated == elementIndex) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "600")
+                                }}
+                                iconGap={6}
+                                iconDirection={"column"}
+                                iconName={element.iconName}
+                                fullWidth={true}
+                                onClick={
+                                    () => {
+                                        //* Set activated
+                                        setActivated(elementIndex)
 
-                                    //* Callback
-                                    if (props.onClickNavBtnCallback !== undefined) {
-                                        props.onClickNavBtnCallback(element.label.sub)
+                                        //* Basic
+                                        onClickNavBtn(element.link)
+
+                                        //* Callback
+                                        if (props.onClickNavBtnCallback !== undefined) {
+                                            props.onClickNavBtnCallback(element.label.sub)
+                                        }
                                     }
                                 }
-                            }
-                        >
-                            {
-                                element.label.main
-                            }
-                        </Button>
-                    </Grid>
-                ))
-            }
+                            >
+                                {
+                                    element.label.main
+                                }
+                            </Button>
+                        </Grid>
+                    ))
+                }
             </Grid>
         </Box>
     )
