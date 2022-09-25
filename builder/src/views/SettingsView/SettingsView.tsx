@@ -17,15 +17,15 @@ const SettingsView = (props: ISettingsView) => {
     const [contents, setContents] = React.useState<{title: string, link: string}[]>([
         {
             title: "기획전",
-            link: ""
+            link: "/planned"
         },
         {
             title: "매거진",
-            link: ""
+            link: "/magazine"
         },
         {
             title: "타투랭킹",
-            link: ""
+            link: "/rankings"
         },
         {
             title: "고객센터",
@@ -98,11 +98,13 @@ const SettingsView = (props: ISettingsView) => {
                         {
                             contents.map((content) => (
                                 <Box flexDirection="column">
-                                    <Typography variant="body1">
-                                        {
-                                            content.title
-                                        }
-                                    </Typography>
+                                    <Link to={content.link}>
+                                        <Typography variant="body1">
+                                            {
+                                                content.title
+                                            }
+                                        </Typography>
+                                    </Link>
 
                                     <Divider my={20} />
                                 </Box>
