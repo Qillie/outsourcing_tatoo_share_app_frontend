@@ -15,37 +15,38 @@ const CardProductPost = (props: ICardProductPost) => {
             src={props.src} 
             thumbnailWidth={"100%"}
         >
-            <Box flexDirection="column">
+            <Box flexDirection="column" pl={14} pb={5}>
                 {/* Title */}
                 <Box>
                     <Typography
-                        variant="h6"
+                        variant="h3"
+                        fontWeight="500"
                     >
                         {props.title}
                     </Typography>
                 </Box>
 
                 {/* Location */}
-                <Box mb={1}>
+                <Box mb={6}>
                     <Typography
                         variant="body1"
                         fontWeight="400"
                         color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
                     >
-                        {props.location}
+                        {`${props.shopName} · ${props.location}`}
                     </Typography>
                 </Box>
 
                 {/* Price */}
                 <Box alignX="left">
-                    <Box alignY="bottom">
+                    <Box alignY="center">
                         {/* Sale */}
                         <React.Fragment>
                         {
                             (props.price.sale !== undefined) && (
-                                <Box mr={5}>
+                                <Box mr={10}>
                                     <Typography
-                                        variant="h5"
+                                        variant="h4"
                                         fontWeight="500"
                                         color={ThemeCoreSingleton.paletteManager.getColor("primary", "main")}
                                     >
@@ -58,8 +59,8 @@ const CardProductPost = (props: ICardProductPost) => {
                         }
                         </React.Fragment>
 
-                        <Box mr={5}>
-                            <Typography variant="h5" fontWeight="500">
+                        <Box mr={10}>
+                            <Typography variant="h4" fontWeight="500">
                                 {`${(props.price.sale !== undefined) ? props.price.sale : props.price.original}만원`}
                             </Typography>
                         </Box>

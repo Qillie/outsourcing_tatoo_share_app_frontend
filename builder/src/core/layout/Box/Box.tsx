@@ -174,10 +174,10 @@ const Box = (props: IBox) => {
 
             if (props.shadowType == "0") {
                 style.default.shadowOpacity = 0.2
-                style.default.shadowRadius = 5
+                style.default.shadowRadius = 10
                 style.default.shadowOffset = {
-                    width: 7,
-                    height: 7
+                    width: 5,
+                    height: 5
                 }
             }
         }
