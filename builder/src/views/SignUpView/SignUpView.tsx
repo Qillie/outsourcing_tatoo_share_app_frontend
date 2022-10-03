@@ -10,6 +10,9 @@ import { Box } from "../../core/layout";
 //* Import interfaces
 import ISignUpView from "./interfaces/ISignUpView"
 
+//* Import contexts
+import { SignUpContext } from "./components/SignUpContext";
+
 const SignUpView = (props: ISignUpView) => {
     //* Modules
 
@@ -34,7 +37,45 @@ const SignUpView = (props: ISignUpView) => {
 
     return (
         <Box px={14} pb={250} flexDirection="column">
-            <Outlet />
+            <SignUpContext.Provider value={{
+                serviceTermAgreement,
+                setServiceTermAgreement,
+            
+                privacyTermAgreement,
+                setPrivacyTermAgreement,
+            
+                userName,
+                setUserName,
+            
+                password,
+                setPassword,
+                
+                passwordConfirm,
+                setPasswordConfirm,
+            
+                email,
+                setEmail,
+            
+                phoneNumber,
+                setPhoneNumber,
+            
+                primaryAddress,
+                setPrimaryAddress,
+            
+                zipcode,
+                setZipcode,
+            
+                detailedAddress,
+                setDetailedAddress,
+            
+                birthday,
+                setBirthday,
+            
+                gender,
+                setGender,
+            }}>
+                <Outlet />
+            </SignUpContext.Provider>
         </Box>
     )
 }

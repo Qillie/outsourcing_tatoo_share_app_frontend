@@ -16,7 +16,12 @@ interface IIconButton {
     /**
      * Button palette
      */
-    buttonPalette?: TConvertableColor
+    buttonPalette?: TConvertableColor | "black" | "grey"
+
+    /**
+     * Variant
+     */
+    variant?: "outlined" | "contained"
 
     /**
      * Margin style props

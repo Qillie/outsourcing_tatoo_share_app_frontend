@@ -11,12 +11,29 @@ import { IconButton } from "../../../core/input";
 //* Import interfaces
 import ITermsView from "../interfaces/ITermsView"
 
+//* Import contexts
+import { SignUpContext } from "../components/SignUpContext";
+
+
 const TermsView = (props: ITermsView) => {
     //* Modules
+
+    //* Received contexts
+    const { 
+        serviceTermAgreement, setServiceTermAgreement, 
+        privacyTermAgreement, setPrivacyTermAgreement 
+    } = React.useContext(SignUpContext)
 
     //* States
     const [serviceTerm, setServiceTerm] = React.useState<string>("")
     const [privacyTerm, setPrivacyTerm] = React.useState<string>("")
+
+    //* Functions
+    const onClickToggleButton = (value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+        setter(!value)
+
+        console.log(value)
+    }
 
     return (
         <ScrollView style={{height: "100%", paddingTop: 20}}>
@@ -35,6 +52,16 @@ const TermsView = (props: ITermsView) => {
                                 iconName="check"
                                 iconSize={25}
                                 buttonSize={40}
+                                buttonPalette={(serviceTermAgreement) ? "primary" : "black"}
+                                variant={(serviceTermAgreement) ? "outlined" : "contained"}
+                                onClick={
+                                    () => {
+                                        onClickToggleButton(
+                                            serviceTermAgreement,
+                                            setServiceTermAgreement
+                                        )
+                                    }
+                                }
                             />
                         </Box>
 
