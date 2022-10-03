@@ -7,6 +7,12 @@ import TSignUpContext from "../interfaces/TSignUpContext"
 
 export const SignUpContext = React.createContext<TSignUpContext>(
     {
+        serviceTermAgreement: false,
+        setServiceTermAgreement: () => {},
+
+        privacyTermAgreement: false,
+        setPrivacyTermAgreement: () => {},
+
         userName: "",
         setUserName: () => {},
 

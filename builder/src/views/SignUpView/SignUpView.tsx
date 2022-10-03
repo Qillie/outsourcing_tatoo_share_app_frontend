@@ -13,7 +13,14 @@ import ISignUpView from "./interfaces/ISignUpView"
 const SignUpView = (props: ISignUpView) => {
     //* Modules
 
-    //* States
+    /**
+     * States
+     */ 
+    //* Terms
+    const [serviceTermAgreement, setServiceTermAgreement] = React.useState<boolean>(false)
+    const [privacyTermAgreement, setPrivacyTermAgreement] = React.useState<boolean>(false)
+
+    //* User info
     const [userName, setUserName] = React.useState<string>("")
     const [password, setPassword] = React.useState<string>("")
     const [passwordConfirm, setPasswordConfirm] = React.useState<string>("")

@@ -10,7 +10,8 @@ import { PlannedContentView } from "../views/PlannedContentView"
 import { PlannedContentDetailsView } from "../views/PlannedContentDetailsView"
 import { MagazineContentView } from "../views/MagazineContentView"
 import { RankingsView } from "../views/RankingsView"
-import { SignUpView } from '../views/SignUpView'
+import { SignUpView, TermsView, UserInfoView } from '../views/SignUpView'
+
 
 const routeConfig: IRouteLeaf[] = [
     {
@@ -74,7 +75,22 @@ const routeConfig: IRouteLeaf[] = [
         description: "회원가입 화면",
         path: "/sign_up",
         element: <SignUpView />,
-        children: []
+        children: [
+            {
+                name: "약관 동의",
+                description: "약관 동의 화면",
+                path: "",
+                element: <UserInfoView />,
+                children: []
+            },
+            {
+                name: "유저 정보 입력",
+                description: "유저 정보 입력 화면",
+                path: "",
+                element: <UserInfoView />,
+                children: []
+            }
+        ]
     }
 ]
 

@@ -1,4 +1,10 @@
 type TSignUpContext = {
+    serviceTermAgreement: boolean,
+    setServiceTermAgreement: React.Dispatch<React.SetStateAction<boolean>>,
+
+    privacyTermAgreement: boolean,
+    setPrivacyTermAgreement: React.Dispatch<React.SetStateAction<boolean>>,
+
     userName: string,
     setUserName: React.Dispatch<React.SetStateAction<string>>,
 

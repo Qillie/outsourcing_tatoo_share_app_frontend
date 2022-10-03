@@ -14,7 +14,8 @@ const TermsView = (props: ITermsView) => {
     //* Modules
 
     //* States
-    const [userName, setUserName] = React.useState<string>("")
+    const [serviceTerm, setServiceTerm] = React.useState<string>("")
+    const [privacyTerm, setPrivacyTerm] = React.useState<string>("")
 
     return (
         <ScrollView style={{height: "100%", paddingTop: 20}}>
