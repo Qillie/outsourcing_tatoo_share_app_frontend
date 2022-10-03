@@ -25,6 +25,7 @@ const TermsView = (props: ITermsView) => {
     } = React.useContext(SignUpContext)
 
     //* States
+    const [agreeAllTerms, setAgreeAllTerms] = React.useState<boolean>(false)
     const [serviceTerm, setServiceTerm] = React.useState<string>("")
     const [privacyTerm, setPrivacyTerm] = React.useState<string>("")
 
@@ -38,22 +39,55 @@ const TermsView = (props: ITermsView) => {
     return (
         <ScrollView style={{height: "100%", paddingTop: 20}}>
             <Box px={14} pb={250} flexDirection="column">
-                {/* Agree all */}
+                {/* Agree all terms */}
                 <Box>
+                    <Box alignY={"center"}>
+                        {/* Toggle button */}
+                        <Box mr={10}>
+                            <IconButton 
+                                iconName="check"
+                                iconSize={23}
+                                buttonSize={32}
+                                buttonPalette={(agreeAllTerms) ? "primary" : "grey"}
+                                variant={(agreeAllTerms) ? "contained" : "outlined"}
+                                onClick={
+                                    () => {
+                                        onClickToggleButton(
+                                            agreeAllTerms,
+                                            setAgreeAllTerms
+                                        )
+                                    }
+                                }
+                            />
+                        </Box>
 
+                        {/* Title */}
+                        <Box>
+                            <Typography
+                                variant="h5"
+                            >
+                                이용약관, 개인정보 수집 및 이용, 서비스 이용약관 동의에 모두 동의합니다.
+                            </Typography>
+                        </Box>
+                    </Box>
+
+                    {/* term info */}
+                    <Box>
+
+                    </Box>
                 </Box>
 
                 {/* Service term */}
                 <Box>
-                    <Box>
+                    <Box alignY={"center"}>
                         {/* Toggle button */}
-                        <Box>
+                        <Box mr={10}>
                             <IconButton 
                                 iconName="check"
-                                iconSize={25}
-                                buttonSize={40}
-                                buttonPalette={(serviceTermAgreement) ? "primary" : "black"}
-                                variant={(serviceTermAgreement) ? "outlined" : "contained"}
+                                iconSize={20}
+                                buttonSize={28}
+                                buttonPalette={(serviceTermAgreement) ? "primary" : "grey"}
+                                variant={(serviceTermAgreement) ? "contained" : "outlined"}
                                 onClick={
                                     () => {
                                         onClickToggleButton(
@@ -67,7 +101,9 @@ const TermsView = (props: ITermsView) => {
 
                         {/* Title */}
                         <Box>
-                            <Typography>
+                            <Typography
+                                variant="h5"
+                            >
                                 서비스 이용약관 동의
                             </Typography>
                         </Box>
@@ -81,9 +117,40 @@ const TermsView = (props: ITermsView) => {
 
                 {/* Privacy term */}
                 <Box>
-                    <Typography>
-                        개인정보 수집 및 이용 동의
-                    </Typography>
+                    <Box alignY={"center"}>
+                        {/* Toggle button */}
+                        <Box mr={10}>
+                            <IconButton 
+                                iconName="check"
+                                iconSize={20}
+                                buttonSize={28}
+                                buttonPalette={(privacyTermAgreement) ? "primary" : "grey"}
+                                variant={(privacyTermAgreement) ? "contained" : "outlined"}
+                                onClick={
+                                    () => {
+                                        onClickToggleButton(
+                                            privacyTermAgreement,
+                                            setPrivacyTermAgreement
+                                        )
+                                    }
+                                }
+                            />
+                        </Box>
+
+                        {/* Title */}
+                        <Box>
+                            <Typography
+                                variant="h5"
+                            >
+                                개인정보 수집 및 이용 동의
+                            </Typography>
+                        </Box>
+                    </Box>
+
+                    {/* term info */}
+                    <Box>
+
+                    </Box>
                 </Box>
 
                 {/* Controller section */}

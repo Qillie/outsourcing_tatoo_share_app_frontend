@@ -125,7 +125,7 @@ const IconButton = (props: IIconButton) => {
 
         } else {
             if (props.variant == "outlined") {
-                return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : ThemeCoreSingleton.paletteManager.getColor("black")
+                return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette) : "grey"
 
             } else {
                 return "white"
@@ -145,9 +145,7 @@ const IconButton = (props: IIconButton) => {
     //* Life cycles
     React.useEffect(() => {
         setButtonStyle(setStyle())
-
-        console.log(buttonStyle)
-    }, [])
+    }, [props.variant, props.buttonPalette])
 
     return (
         <Pressable

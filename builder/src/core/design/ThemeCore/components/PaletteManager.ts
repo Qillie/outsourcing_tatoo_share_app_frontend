@@ -190,8 +190,8 @@ class PaletteManager {
                     targetColor = this.palette[target]
 
                 } else if (target == "grey") {
-                    if (level !== undefined && this.palette["grey"] !== undefined) {
-                        targetColor = this.palette["grey"][level]
+                    if (this.palette["grey"] !== undefined) {
+                        targetColor = this.palette["grey"][(level !== undefined) ? level : "700"]
                     }
                 } else {
                     const color = this.palette[target]
