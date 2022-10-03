@@ -33,11 +33,9 @@ const SignUpView = (props: ISignUpView) => {
     const [gender, setGender] = React.useState<string>("")
 
     return (
-        <ScrollView style={{height: "100%", paddingTop: 20}}>
-            <Box px={14} pb={250} flexDirection="column">
-                <Outlet />
-            </Box>
-        </ScrollView>
+        <Box px={14} pb={250} flexDirection="column">
+            <Outlet />
+        </Box>
     )
 }
 

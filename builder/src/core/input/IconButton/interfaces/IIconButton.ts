@@ -1,11 +1,23 @@
 //* Import intefaces
 import { GestureResponderEvent } from "react-native";
+import TConvertableColor from "../../../design/ThemeCore/interfaces/palette/TConvertableColor";
 
 interface IIconButton {
     iconName: string
     background?: string
     fontColor?: string
     iconSize?: number
+
+    /**
+     * Button size
+     */
+    buttonSize?: number
+
+    /**
+     * Button palette
+     */
+    buttonPalette?: TConvertableColor
+
     /**
      * Margin style props
      */

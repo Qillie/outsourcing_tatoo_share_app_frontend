@@ -11,40 +11,6 @@ import { Box } from "../../layout"
 import IIconButton from "./interfaces/IIconButton"
 
 const IconButton = (props: IIconButton) => {
-    //* States
-    const setStyle = () => {
-        //* Set base style
-        let baseStyle: ViewStyle = setBaseStyle()
-
-        let style:{ 
-            default: ViewStyle,
-            hover: ViewStyle,
-            action: ViewStyle,
-            disabled: ViewStyle,
-            activate: ViewStyle
-        } = {
-            default: {},
-            hover: {},
-            action: {},
-            disabled: {},
-            activate: {}
-        }
-
-        //* Set default
-        style.default = setDefault(Object.assign(style.default, baseStyle))
-
-        //* Set hover
-        style.hover = setHover(Object.assign(style.hover, baseStyle))
-
-        //* Set action
-        style.action = setAction(Object.assign(style.action, baseStyle))
-
-        //* Set disabled
-        style.disabled = setDisabled(Object.assign(style.disabled, baseStyle))
-
-        return StyleSheet.create(style)
-    }
-
     const setDefault = (style: ViewStyle) => {
         return style
     }
@@ -54,6 +20,9 @@ const IconButton = (props: IIconButton) => {
     }
 
     const setAction = (style: ViewStyle) => {
+        //* Color
+        style.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "dark") : "transparent"
+
         return style
     }
 
@@ -84,13 +53,51 @@ const IconButton = (props: IIconButton) => {
     const setBaseStyle = () => {
         let baseStyle: ViewStyle = {}
 
-        baseStyle.borderRadius = 30
-        baseStyle.width = 50
-        baseStyle.height = 50
+        //* Layouts
+        baseStyle.borderRadius = (props.buttonSize !== undefined) ? (props.buttonSize / 2) : 25
+        baseStyle.width = (props.buttonSize !== undefined) ? props.buttonSize : 50
+        baseStyle.height = (props.buttonSize !== undefined) ? props.buttonSize : 50
         baseStyle.justifyContent = "center"
         baseStyle.alignItems = "center"
 
+        //* Color
+        baseStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+ 
         return baseStyle
+    }
+
+    //* States
+    const setStyle = () => {
+        //* Set base style
+        let baseStyle: ViewStyle = setBaseStyle()
+
+        let style:{ 
+            default: ViewStyle,
+            hover: ViewStyle,
+            action: ViewStyle,
+            disabled: ViewStyle,
+            activate: ViewStyle
+        } = {
+            default: {},
+            hover: {},
+            action: {},
+            disabled: {},
+            activate: {}
+        }
+
+        //* Set default
+        style.default = setDefault(Object.assign(baseStyle, style.default))
+
+        //* Set hover
+        style.hover = setHover(Object.assign(baseStyle, style.hover))
+
+        //* Set action
+        style.action = setAction(Object.assign(baseStyle, style.action))
+
+        //* Set disabled
+        style.disabled = setDisabled(Object.assign(baseStyle, style.disabled))
+
+        return StyleSheet.create(style)
     }
 
     //* States
@@ -118,9 +125,7 @@ const IconButton = (props: IIconButton) => {
             }
             style={
                 ({pressed}) => [
-                    {
-                        backgroundColor: pressed ? "white" : "white"
-                    },
+                    buttonStyle.action,
                     buttonStyle.default 
                 ]
             }

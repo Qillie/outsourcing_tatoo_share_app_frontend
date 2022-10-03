@@ -79,14 +79,14 @@ const routeConfig: IRouteLeaf[] = [
             {
                 name: "약관 동의",
                 description: "약관 동의 화면",
-                path: "",
-                element: <UserInfoView />,
+                path: "terms",
+                element: <TermsView />,
                 children: []
             },
             {
                 name: "유저 정보 입력",
                 description: "유저 정보 입력 화면",
-                path: "",
+                path: "user_info",
                 element: <UserInfoView />,
                 children: []
             }
