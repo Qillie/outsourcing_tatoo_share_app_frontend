@@ -30,6 +30,10 @@ const SettingsView = (props: ISettingsView) => {
         {
             title: "고객센터",
             link: ""
+        },
+        {
+            title: "회원가입",
+            link: "/sign_up"
         }
     ])
 
