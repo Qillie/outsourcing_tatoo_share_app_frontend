@@ -23,6 +23,7 @@ interface ITextField {
     row?: number
 
     disabled?: boolean
+    fullWidth?: boolean
 }
 
 export default ITextField

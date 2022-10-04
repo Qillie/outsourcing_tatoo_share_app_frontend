@@ -25,8 +25,8 @@ const SignUpView = (props: ISignUpView) => {
 
     //* User info
     const [userName, setUserName] = React.useState<string>("")
+    const [fullName, setFullName] = React.useState<string>("")
     const [password, setPassword] = React.useState<string>("")
-    const [passwordConfirm, setPasswordConfirm] = React.useState<string>("")
     const [email, setEmail] = React.useState<string>("")
     const [phoneNumber, setPhoneNumber] = React.useState<string>("")
     const [primaryAddress, setPrimaryAddress] = React.useState<string>("")
@@ -50,8 +50,8 @@ const SignUpView = (props: ISignUpView) => {
                 password,
                 setPassword,
                 
-                passwordConfirm,
-                setPasswordConfirm,
+                fullName,
+                setFullName,
             
                 email,
                 setEmail,

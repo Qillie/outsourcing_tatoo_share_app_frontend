@@ -16,11 +16,11 @@ export const SignUpContext = React.createContext<TSignUpContext>(
         userName: "",
         setUserName: () => {},
 
+        fullName: "",
+        setFullName: () => {},
+
         password: "",
         setPassword: () => {},
-        
-        passwordConfirm: "",
-        setPasswordConfirm: () => {},
 
         email: "",
         setEmail: () => {},

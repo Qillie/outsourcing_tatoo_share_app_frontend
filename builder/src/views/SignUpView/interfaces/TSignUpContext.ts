@@ -8,11 +8,11 @@ type TSignUpContext = {
     userName: string,
     setUserName: React.Dispatch<React.SetStateAction<string>>,
 
+    fullName: string,
+    setFullName: React.Dispatch<React.SetStateAction<string>>,
+
     password: string,
     setPassword: React.Dispatch<React.SetStateAction<string>>,
-    
-    passwordConfirm: string,
-    setPasswordConfirm: React.Dispatch<React.SetStateAction<string>>,
 
     email: string,
     setEmail: React.Dispatch<React.SetStateAction<string>>,

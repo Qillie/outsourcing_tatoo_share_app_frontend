@@ -41,11 +41,15 @@ const TextField = (props: ITextField) => {
         }
 
         // style.default.paddingHorizontal = 6
-        style.default.padding = 7
+        style.default.padding = 12
         style.default.borderWidth = 1
-        style.default.borderColor = "#bdbdbd"
+        style.default.borderColor = ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "500")
         style.default.borderRadius = 4
         style.default.fontSize = ThemeCoreSingleton.typograhpyManager.getFontSize("body1")
+
+        if (props.fullWidth == true) {
+            style.default.width = "100%"
+        }
 
         return StyleSheet.create(style).default
     }
