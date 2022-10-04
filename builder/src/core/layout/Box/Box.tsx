@@ -57,6 +57,7 @@ const Box = (props: IBox) => {
         style.default.bottom = props.bottom
         style.default.position = props.position
         style.default.zIndex = props.zIndex
+        style.default.overflow = props.overflow
     }
 
     const setTransform = (style: { default: ViewStyle }) => {

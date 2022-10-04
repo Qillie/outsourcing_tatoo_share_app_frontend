@@ -1,6 +1,7 @@
 //* Import libraries
 import { GestureResponderEvent } from "react-native";
 import ITypography from "../../../display/Typography/interfaces/ITypography";
+import TConvertableColor from "../../../design/ThemeCore/interfaces/palette/TConvertableColor";
 
 interface IButton {
     iconName?: string
@@ -54,6 +55,14 @@ interface IButton {
      * Callbacks
      */
     onClick?: (event: GestureResponderEvent) => void
+
+    /**
+     * Button palette
+     */
+    buttonPalette?: TConvertableColor | "black" | "grey"
+
+    borderRadius?: number
+    fontColor?: string
 }
 
 export default IButton

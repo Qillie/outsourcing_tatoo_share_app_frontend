@@ -63,6 +63,7 @@ interface IBox {
     height?: string | number
     minWidth?: string | number
     minHeight?: string | number
+    overflow?: "hidden" | "scroll" | "visible"
 
     /**
      * Alignment style props

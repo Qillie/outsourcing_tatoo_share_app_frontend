@@ -28,7 +28,9 @@ const UserInfoView = (props: IUserInfoView) => {
     return (
         <ScrollView style={{height: "100%", paddingTop: 20}}>
             <Box px={14} pb={250} flexDirection="column">
-                
+                <Typography>
+                    asfdsfsdfasd
+                </Typography>
             </Box>
         </ScrollView>
     )

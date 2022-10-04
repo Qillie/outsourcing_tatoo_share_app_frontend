@@ -13,39 +13,6 @@ import IButton from "./interfaces/IButton"
 
 const Button = (props: IButton) => { 
     //* Functions
-    const setStyle = () => {
-        //* Set base style
-        let baseStyle: ViewStyle = setBaseStyle()
-
-        let style:{ 
-            default: ViewStyle,
-            hover: ViewStyle,
-            action: ViewStyle,
-            disabled: ViewStyle,
-            activate: ViewStyle
-        } = {
-            default: {},
-            hover: {},
-            action: {},
-            disabled: {},
-            activate: {}
-        }
-
-        //* Set default
-        style.default = setDefault(Object.assign(style.default, baseStyle))
-
-        //* Set hover
-        style.hover = setHover(Object.assign(style.hover, baseStyle))
-
-        //* Set action
-        style.action = setAction(Object.assign(style.action, baseStyle))
-
-        //* Set disabled
-        style.disabled = setDisabled(Object.assign(style.disabled, baseStyle))
-
-        return StyleSheet.create(style)
-    }
-    
     const setSize = () => {
         const size = (props.size !== undefined) ? props.size : "medium"
 
@@ -65,34 +32,126 @@ const Button = (props: IButton) => {
         return py
     }
 
-    const setVariation = () => {
+    const setTextColor = () => {
+        if (props.fontColor !== undefined || props.variant === undefined) {
+            return props.fontColor
 
-    }
-    
-    const setDefault = (style: ViewStyle) => {
-        return style
-    }
+        } else {
+            if (props.variant == "outlined") {
+                return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette) : "grey"
 
-    const setHover = (style: ViewStyle) => {
-        return style
-    }
-
-    const setAction = (style: ViewStyle) => {
-        return style
+            } else {
+                return "white"
+            }
+        }
     }
 
-    const setDisabled = (style: ViewStyle) => {
-        return style
+    const setDefault = () => {
+        //* Color
+        let defaultStyle: ViewStyle = {}
+
+        return defaultStyle
+    }
+
+    const setHover = () => {
+        //* Color
+        let hoverStyle: ViewStyle = {}
+
+        return hoverStyle
+    }
+
+    const setAction = () => {
+        //* Color
+        let actionStyle: ViewStyle = {}
+
+        actionStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "dark") : "transparent"
+
+        return actionStyle
+    }
+
+    const setDisabled = () => {
+        //* Color
+        let disabledStyle: ViewStyle = {}
+
+        //* Color
+        if (props.variant == "outlined") {
+            disabledStyle.borderWidth = 1
+            disabledStyle.borderColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "500") : "transparent"
+
+        } else if (props.variant == "contained") {
+            disabledStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "500") : "transparent"
+        }
+
+        return disabledStyle
     }
 
     const setBaseStyle = () => {
         let baseStyle: ViewStyle = {}
 
+        //* Layouts
         if (props.fullWidth == true) {
             baseStyle.width = "100%"
         }
 
+        baseStyle.justifyContent = "center"
+        baseStyle.alignItems = "center"
+        baseStyle.borderRadius = props.borderRadius
+
+        //* Color
+        if (props.variant == "outlined") {
+            baseStyle.borderWidth = 1
+            baseStyle.borderColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+
+        } else if (props.variant == "contained") {
+            baseStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+        }
+
         return baseStyle
+    }
+
+    const setStyle = () => {
+        //* Set base style
+        let baseStyle: ViewStyle = setBaseStyle()
+
+        let style:{ 
+            default: ViewStyle,
+            hover: ViewStyle,
+            action: ViewStyle,
+            disabled: ViewStyle,
+            activate: ViewStyle
+        } = {
+            default: {},
+            hover: {},
+            action: {},
+            disabled: {},
+            activate: {}
+        }
+
+        //* Set default
+        style.default = Object.assign({...baseStyle}, setDefault())
+
+        //* Set hover
+        style.hover = Object.assign({...baseStyle}, setHover())
+
+        //* Set action
+        style.action = Object.assign({...baseStyle}, setAction())
+
+        //* Set disabled
+        style.disabled = Object.assign({...baseStyle}, setDisabled())
+
+        return StyleSheet.create(style)
+    }
+
+    const setButtonStatusStyle = (pressed: boolean) => {
+        if (props.disabled == true) {
+            return (
+                buttonStyle.disabled
+            )
+        } else {
+            return (
+                (pressed) ? buttonStyle.action : buttonStyle.default
+            )
+        }
     }
 
     //* States
@@ -113,17 +172,14 @@ const Button = (props: IButton) => {
         <Pressable
             onPress={
                 (event) => {
-                    if (props.onClick !== undefined) {
+                    if (props.onClick !== undefined && props.disabled != true) {
                         props.onClick(event)
                     }
                 }
             }
             style={
                 ({pressed}) => [
-                    {
-                        backgroundColor: pressed ? "red" : "white"
-                    },
-                    buttonStyle.default 
+                    setButtonStatusStyle(pressed)
                 ]
             }
         >
@@ -159,7 +215,7 @@ const Button = (props: IButton) => {
                     </React.Fragment>
                 </Box>
                 
-                <Typography {...props.typographyProps}>
+                <Typography {...props.typographyProps} color={setTextColor()}>
                     { props.children }
                 </Typography>
             </Box>
