@@ -6,6 +6,7 @@ import { StyleSheet, TextInput, TextStyle } from "react-native"
 import { ThemeCoreSingleton } from "../../design"
 import { Typography } from "../../display"
 import { Box } from "../../layout"
+import UserInputCaption from "./components/UserInputCaption"
 
 //* Import interfaces
 import ITextField from "./interfaces/ITextField"
@@ -50,6 +51,7 @@ const TextField = (props: ITextField) => {
         if (props.fullWidth == true) {
             style.default.width = "100%"
         }
+        style.default.width = "100%"
 
         return StyleSheet.create(style).default
     }
@@ -75,7 +77,7 @@ const TextField = (props: ITextField) => {
     }, [])
 
     return (
-        <Box>
+        <Box flexDirection="column">
             <TextInput
                 editable={(props.disabled !== undefined) ? !(props.disabled) : true}
                 style={setStyle()}
@@ -96,6 +98,20 @@ const TextField = (props: ITextField) => {
                     }
                 }
             />
+
+            {/* Caption */}
+            <React.Fragment>
+            {
+                (props.inputCaptionConfig !== undefined) &&
+                <UserInputCaption 
+                    status={props.inputStatus}
+                    defaultMessage={props.inputCaptionConfig.defaultMessage}
+                    errorMessage={props.inputCaptionConfig.defaultMessage}
+                    requiredMessage={props.inputCaptionConfig.defaultMessage}
+                    passedMessage={props.inputCaptionConfig.defaultMessage}
+                />
+            }
+            </React.Fragment>
         </Box>
     )
 }
