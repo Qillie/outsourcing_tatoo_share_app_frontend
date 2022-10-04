@@ -95,8 +95,18 @@ const TextField = (props: ITextField) => {
                         } else if (isSetValueNumber(props.setValue)) {
                             props.setValue(Number(text))
                         }
+
+                        if (props.onChange !== undefined) {
+                            props.onChange(text)
+                        }
                     }
                 }
+
+                onBlur={(event) => {
+                    if (props.onBlur !== undefined) {
+                        props.onBlur(event.nativeEvent.text)
+                    }
+                }}
             />
 
             {/* Caption */}
@@ -106,9 +116,9 @@ const TextField = (props: ITextField) => {
                 <UserInputCaption 
                     status={props.inputStatus}
                     defaultMessage={props.inputCaptionConfig.defaultMessage}
-                    errorMessage={props.inputCaptionConfig.defaultMessage}
-                    requiredMessage={props.inputCaptionConfig.defaultMessage}
-                    passedMessage={props.inputCaptionConfig.defaultMessage}
+                    errorMessage={props.inputCaptionConfig.errorMessage}
+                    requiredMessage={props.inputCaptionConfig.requiredMessage}
+                    passedMessage={props.inputCaptionConfig.passedMessage}
                 />
             }
             </React.Fragment>

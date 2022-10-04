@@ -1,5 +1,5 @@
 interface IUserInputStatus {
-    status: "default" | "passed" | "required" | "error" | "error2"
+    status: "default" | "passed" | "required" | "required2" | "error" | "error2"
 }
 
 export default IUserInputStatus

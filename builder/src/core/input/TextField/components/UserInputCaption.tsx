@@ -2,6 +2,9 @@ import React from "react"
 import { Typography } from "../../../display"
 import { Box } from "../../../layout"
 
+//* Import modules
+import ThemeCoreSingleton from '../../../design/ThemeCore/ThemeCoreSingleton';
+
 //* Import interfaces
 import IUserInputCaption from "../interfaces/IUserInputCaption"
 import IUserInputStatus from "../interfaces/IUserInputStatus"
@@ -38,6 +41,8 @@ const UserInputCaption = (props: IUserInputCaption) => {
             }
 
         } else if (JSON.stringify(targetStatus) == JSON.stringify({status: "passed"})) {
+            console.log(props.passedMessage)
+
             if (props.passedMessage !== undefined) {
                 targetMessage = props.passedMessage
             }
@@ -53,13 +58,13 @@ const UserInputCaption = (props: IUserInputCaption) => {
             colorString = "grey.700"
             
         } else if (JSON.stringify(targetStatus) == JSON.stringify({status: "required"}) || JSON.stringify(targetStatus) == JSON.stringify({status: "required2"})) {
-            colorString = "error"
+            colorString = ThemeCoreSingleton.paletteManager.getColor("error", "main")
 
         } else if (JSON.stringify(targetStatus) == JSON.stringify({status: "error"}) || JSON.stringify(targetStatus) == JSON.stringify({status: "error2"})) {
-            colorString = "error"
+            colorString = ThemeCoreSingleton.paletteManager.getColor("error", "main")
 
         } else if (JSON.stringify(targetStatus) == JSON.stringify({status: "passed"})) {
-            colorString = "success"
+            colorString = ThemeCoreSingleton.paletteManager.getColor("success", "main")
         }
 
         return colorString

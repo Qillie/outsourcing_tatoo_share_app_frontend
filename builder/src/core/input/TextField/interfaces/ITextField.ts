@@ -32,6 +32,9 @@ interface ITextField {
      */
     inputCaptionConfig?: Partial<IUserInputCaption>
     inputStatus?: IUserInputStatus
+
+    onBlur?: (text: string) => void
+    onChange?: (text: string) => void
 }
 
 export default ITextField
