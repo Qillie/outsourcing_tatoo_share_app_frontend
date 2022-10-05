@@ -22,7 +22,8 @@ const UserInfoView = (props: IUserInfoView) => {
     const navigate = useNavigate()
     const regex = new RegexManager()
     const communicator = new Communicator({
-        FIND_ALL: {path: "/api/auth/find_one", method: "get"}
+        FIND_ALL: {path: "/api/auth/find_one", method: "get"},
+        CREATE: {path: "/api/auth/create", method: "post"}
     },
     {
         FIND_ALL: {
@@ -30,11 +31,24 @@ const UserInfoView = (props: IUserInfoView) => {
                 userName: "USER_NAME",
             },
             RESPONSE_OPTION_KEY_LIST: {}
+        },
+        CREATE: {
+            CREATE_OPTION_KEY_LIST: {
+                birthday: "BIRTHDAY",
+                userName: "USER_NAME",
+                fullName: "FULL_NAME",
+                password: "PASSWORD",
+                email: "EMAIL",
+                phoneNumber: "CELLPHONE_NUMBER",
+                termAgreement: "TERM_AGREEMENT"
+            }
         }
     })
 
     //* Received contexts
-    const { 
+    const {
+        serviceTermAgreement,
+        privacyTermAgreement,
         userName, setUserName,
         fullName, setFullName,
         password, setPassword,
@@ -122,7 +136,6 @@ const UserInfoView = (props: IUserInfoView) => {
                 setEmailInputStatus({status: "required"})
             }
             
-
             allInputValidated = false
         }
 
@@ -136,6 +149,29 @@ const UserInfoView = (props: IUserInfoView) => {
         }
 
         return allInputValidated
+    }
+
+    const sendSignUpRequest = () => {
+        //* Double check
+        communicator.create(
+            {
+                birthday: new Date(),
+                userName: userName,
+                fullName: fullName,
+                password: password,
+                email: email,
+                phoneNumber: phoneNumber,
+                termAgreement: JSON.stringify({SERVICE: serviceTermAgreement, PRIVACY: privacyTermAgreement})
+            },
+            (response) => {
+                if (response.data.result == true) {
+                    navigate("/sign_in")
+                }
+            },
+            (error) => {
+                console.log(JSON.stringify(error))
+            }
+        )
     }
 
     return (
@@ -171,11 +207,9 @@ const UserInfoView = (props: IUserInfoView) => {
                                             20
                                         )
 
-                                        if (userNameValidationResult == true) {
-                                            setUserNameInputStatus({status: "default"})
-
-                                        } else {
+                                        if (userNameValidationResult == false) {
                                             setUserNameInputStatus({status: "error"})
+
                                         }
                                     }
                                 }}
@@ -239,7 +273,9 @@ const UserInfoView = (props: IUserInfoView) => {
                         maxLength={10}
                         inputStatus={fullNameInputStatus}
                         inputCaptionConfig={{
-                            defaultMessage: ""
+                            defaultMessage: "",
+                            errorMessage: "잘못된 형식의 이름입니다. 다시 입력해주세요.",
+                            requiredMessage: "이름을 입력해주세요."
                         }}
                         onBlur={(text) => {
                             if (text.length == 0) {
@@ -261,7 +297,7 @@ const UserInfoView = (props: IUserInfoView) => {
                 </Box>
 
                 {/* Password */}
-                <Box flexDirection="column">
+                <Box flexDirection="column" mb={12}>
                     {/* Label */}
                     <Box
                         mb={6}
@@ -273,6 +309,7 @@ const UserInfoView = (props: IUserInfoView) => {
 
                     {/* Input */}
                     <TextField
+                        textContentType={"password"}
                         fullWidth
                         value={password}
                         maxLength={20}
@@ -280,7 +317,10 @@ const UserInfoView = (props: IUserInfoView) => {
                         placeholder={"비밀번호를 입력해주세요."}
                         inputStatus={passwordInputStatus}
                         inputCaptionConfig={{
-                            defaultMessage: ""
+                            defaultMessage: "최소 8자리 이상 (영문, 숫자, 특수문자 포함)",
+                            errorMessage: "비밀번호 조건에 부합하지 않습니다.",
+                            requiredMessage: "비밀번호를 입력해주세요.",
+                            passedMessage: "사용 가능한 비밀번호입니다."
                         }}
                         onChange={
                             (text) => {
@@ -325,6 +365,7 @@ const UserInfoView = (props: IUserInfoView) => {
                 <Box flexDirection="column" mb={15}>
                     {/* Input */}
                     <TextField
+                        textContentType={"password"}
                         fullWidth
                         value={passwordConfirm}
                         maxLength={20}
@@ -332,7 +373,10 @@ const UserInfoView = (props: IUserInfoView) => {
                         placeholder={"비밀번호를 한번 더 입력해주세요."}
                         inputStatus={passwordConfirmInputStatus}
                         inputCaptionConfig={{
-                            defaultMessage: ""
+                            defaultMessage: "",
+                            errorMessage: "비밀번호가 일치하지 않습니다.",
+                            requiredMessage: "비밀번호가 일치하지 않습니다.",
+                            passedMessage: "비밀번호가 일치합니다."
                         }}
                         onBlur={(text) => {
                             if (passwordConfirm.length != 0) {
@@ -369,7 +413,9 @@ const UserInfoView = (props: IUserInfoView) => {
                         placeholder={"이메일을 입력해주세요."}
                         inputStatus={emailInputStatus}
                         inputCaptionConfig={{
-                            defaultMessage: ""
+                            defaultMessage: "",
+                            errorMessage: "이메일 형식이 올바르지 않습니다.",
+                            requiredMessage: "이메일을 입력해주세요.",
                         }}
                         onBlur={(text) => {
                             //* Check email if field is not empty
@@ -411,7 +457,8 @@ const UserInfoView = (props: IUserInfoView) => {
                         placeholder={"전화번호를 입력해주세요."}
                         inputStatus={phoneNumberInputStatus}
                         inputCaptionConfig={{
-                            defaultMessage: ""
+                            defaultMessage: "",
+                            requiredMessage: "휴대폰 번호를 입력해주세요."
                         }}
                         onBlur={(text) => {
                             if (text.length == 0) {
@@ -437,7 +484,7 @@ const UserInfoView = (props: IUserInfoView) => {
                     <Button
                         onClick={() => {
                             if (validateInputs() == true) {
-                                navigate("/sign_up/user_info")
+                                sendSignUpRequest()
                             }
                         }}
                         fullWidth

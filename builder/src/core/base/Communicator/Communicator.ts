@@ -51,10 +51,10 @@ class Communicator {
         try {
             if (this.configs.CREATE !== undefined && this.paths.CREATE !== undefined) {
                 //* Set payload
-                let requestPayload: {CREATE_OPTION: {[ MODEL_KEY: string ]: any}, SOURCE: {[ MODEL_KEY: string ]: any}} = {CREATE_OPTION: {}, SOURCE: payload}
+                let requestPayload: {CREATE_OPTION_KEY_LIST: {[ MODEL_KEY: string ]: any}, SOURCE: {[ MODEL_KEY: string ]: any}} = {CREATE_OPTION_KEY_LIST: {}, SOURCE: payload}
 
-                for (const [requestViewModelKey, requestModelKey] of Object.entries(this.configs["CREATE"]["CREATE_OPTION"])) {
-                    requestPayload["CREATE_OPTION"][requestModelKey] = payload[requestViewModelKey]
+                for (const [requestViewModelKey, requestModelKey] of Object.entries(this.configs["CREATE"]["CREATE_OPTION_KEY_LIST"])) {
+                    requestPayload["CREATE_OPTION_KEY_LIST"][requestModelKey] = payload[requestViewModelKey]
                 }
 
                 //* Send request

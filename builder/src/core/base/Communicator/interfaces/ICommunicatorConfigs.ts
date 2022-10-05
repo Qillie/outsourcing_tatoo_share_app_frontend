@@ -1,6 +1,6 @@
 interface ICommunicatorConfigs {
     CREATE?: {
-        CREATE_OPTION: {[VIEW_MODEL_KEY: string]: string}
+        CREATE_OPTION_KEY_LIST: {[VIEW_MODEL_KEY: string]: string}
     },
     FIND_ONE?: {
         FIND_OPTION_KEY_LIST: {[VIEW_MODEL_KEY: string]: string},

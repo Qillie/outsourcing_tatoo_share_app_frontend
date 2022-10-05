@@ -35,6 +35,8 @@ interface ITextField {
 
     onBlur?: (text: string) => void
     onChange?: (text: string) => void
+
+    textContentType?: "username" | "password"
 }
 
 export default ITextField

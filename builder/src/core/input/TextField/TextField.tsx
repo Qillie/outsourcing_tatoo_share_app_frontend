@@ -79,6 +79,8 @@ const TextField = (props: ITextField) => {
     return (
         <Box flexDirection="column">
             <TextInput
+                secureTextEntry={(props.textContentType == "password")}
+                textContentType={props.textContentType}
                 editable={(props.disabled !== undefined) ? !(props.disabled) : true}
                 style={setStyle()}
                 placeholder={props.placeholder}
