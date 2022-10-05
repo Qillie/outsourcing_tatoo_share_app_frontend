@@ -13,11 +13,13 @@ import { Thumbnail } from "../../core/display";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ThumbnailTypePost } from "../../modules";
 import { IconButton } from "../../core/input";
+import TabNative from "../../core/display/TabNative";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
 import VerticalThumbnailPost from "../../widgets/VerticalThumbnailPost";
 import IProduct from "../../widgets/CardProductPost/interfaces/IProduct";
+
 
 
 const MainView = (props: IMainView) => {
@@ -176,58 +178,60 @@ const MainView = (props: IMainView) => {
     return (
         <ScrollView>
             <Box pb={200} flexDirection="column">
-                <Tab
-                    tabContents={[
-                        {
-                            title: "장르",
-                            element: (
-                                <Box>
-                                    <HorizontalThumbnails 
-                                        itemPerRow={10}
-                                        maxRowLength={2}
-                                        viewItems={viewItems}
-                                    />
-                                </Box>
-                            )
-                        },
-                        {
-                            title: "주제",
-                            element: (
-                                <Box>
-                                    <HorizontalThumbnails 
-                                        itemPerRow={10}
-                                        maxRowLength={2}
-                                        viewItems={viewItems}
-                                    />
-                                </Box>
-                            )
-                        },
-                        {
-                            title: "부위",
-                            element: (
-                                <Box>
-                                    <HorizontalThumbnails 
-                                        itemPerRow={10}
-                                        maxRowLength={2}
-                                        viewItems={viewItems}
-                                    />
-                                </Box>
-                            )
-                        },
-                        {
-                            title: "지역",
-                            element: (
-                                <Box>
-                                    <HorizontalThumbnails 
-                                        itemPerRow={10}
-                                        maxRowLength={2}
-                                        viewItems={viewItems}
-                                    />
-                                </Box>
-                            )
-                        }
-                    ]}
-                />
+                <Box height={350}>
+                    <TabNative
+                        tabContents={[
+                            {
+                                title: "장르",
+                                element: (
+                                    <Box>
+                                        <HorizontalThumbnails 
+                                            itemPerRow={10}
+                                            maxRowLength={2}
+                                            viewItems={viewItems}
+                                        />
+                                    </Box>
+                                )
+                            },
+                            {
+                                title: "주제",
+                                element: (
+                                    <Box>
+                                        <HorizontalThumbnails 
+                                            itemPerRow={10}
+                                            maxRowLength={2}
+                                            viewItems={viewItems}
+                                        />
+                                    </Box>
+                                )
+                            },
+                            {
+                                title: "부위",
+                                element: (
+                                    <Box>
+                                        <HorizontalThumbnails 
+                                            itemPerRow={10}
+                                            maxRowLength={2}
+                                            viewItems={viewItems}
+                                        />
+                                    </Box>
+                                )
+                            },
+                            {
+                                title: "지역",
+                                element: (
+                                    <Box>
+                                        <HorizontalThumbnails 
+                                            itemPerRow={10}
+                                            maxRowLength={2}
+                                            viewItems={viewItems}
+                                        />
+                                    </Box>
+                                )
+                            }
+                        ]}
+                    />
+                </Box>
 
                 <Box flexDirection="column">
                     {/* Title */}

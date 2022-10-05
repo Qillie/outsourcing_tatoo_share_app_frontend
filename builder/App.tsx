@@ -80,20 +80,24 @@ const App = () => {
 	};
 
 	return (
-	<SafeAreaView style={{backgroundColor: ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200"), height: "100%"}}>
-		<View style={{backgroundColor: "white", width: "100%", height: "100%"}}>
-			<StatusBar
-				barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-				backgroundColor={backgroundStyle.backgroundColor}
-			/>
+		<React.Fragment>
+			<SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
 
-			<MemoryRouter>
-				<Provider store={ReduxStore}>
-					<ReduxContainer />
-				</Provider>
-			</MemoryRouter>
-		</View>
-	</SafeAreaView>
+			<SafeAreaView style={{flex: 1, backgroundColor: ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}}>
+				<View style={{backgroundColor: "white", width: "100%", height: "100%"}}>
+					<StatusBar
+						barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+						backgroundColor={backgroundStyle.backgroundColor}
+					/>
+
+					<MemoryRouter>
+						<Provider store={ReduxStore}>
+							<ReduxContainer />
+						</Provider>
+					</MemoryRouter>
+				</View>
+			</SafeAreaView>
+		</React.Fragment>
 	
 	);
 }

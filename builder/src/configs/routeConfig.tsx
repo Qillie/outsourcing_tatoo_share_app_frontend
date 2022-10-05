@@ -12,6 +12,7 @@ import { MagazineContentView } from "../views/MagazineContentView"
 import { RankingsView } from "../views/RankingsView"
 import { SignUpView, TermsView, UserInfoView } from '../views/SignUpView'
 import { SignInView } from "../views/SignInView"
+import { StoreOpeningView } from "../views/StoreOpeningView"
 
 
 const routeConfig: IRouteLeaf[] = [
@@ -94,12 +95,13 @@ const routeConfig: IRouteLeaf[] = [
         ]
     },
     {
-        name: "로그인",
-        description: "로그인 화면",
-        path: "/sign_in",
-        element: <SignInView />,
+        name: "상점 페이지 개설",
+        description: "상점 페이지 개설 화면",
+        path: "/store_opening",
+        element: <StoreOpeningView />,
         children: []
-    }
+    },
+
 ]
 
 export default routeConfig

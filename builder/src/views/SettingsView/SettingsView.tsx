@@ -38,6 +38,10 @@ const SettingsView = (props: ISettingsView) => {
         {
             title: "로그인",
             link: "/sign_in"
+        },
+        {
+            title: "페이지 개설",
+            link: "/store_opening"
         }
     ])
 

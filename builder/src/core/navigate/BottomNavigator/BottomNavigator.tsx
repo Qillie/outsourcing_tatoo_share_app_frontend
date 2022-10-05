@@ -27,7 +27,7 @@ const BottomNavigator = (props: IBottomNavigator) => {
         <Box
             position="absolute"
             bottom="0%"
-            py={30}
+            py={10}
             backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}
         >
             <Grid role={"container"} alignItems={"center"}>

@@ -38,7 +38,7 @@ const Button = (props: IButton) => {
 
         } else {
             if (props.variant == "outlined") {
-                return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette) : "grey"
+                return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "grey"
 
             } else {
                 return "white"
@@ -103,6 +103,8 @@ const Button = (props: IButton) => {
             baseStyle.borderColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
 
         } else if (props.variant == "contained") {
+            baseStyle.borderWidth = 1
+            baseStyle.borderColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
             baseStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
         }
 
@@ -166,7 +168,7 @@ const Button = (props: IButton) => {
     //* Life cycles
     React.useEffect(() => {
         setButtonStyle(setStyle())
-    }, [])
+    }, [props.variant])
 
     return (
         <Pressable

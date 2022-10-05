@@ -48,6 +48,12 @@ const TextField = (props: ITextField) => {
         style.default.borderRadius = 4
         style.default.fontSize = ThemeCoreSingleton.typograhpyManager.getFontSize("body1")
 
+        if (props.row !== undefined) {
+            style.default.paddingTop = 12
+            style.default.height = props.row * 10
+        }
+        
+
         if (props.fullWidth == true) {
             style.default.width = "100%"
         }
