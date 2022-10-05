@@ -5,6 +5,7 @@ import TFontVariant from './TFontVariant';
 interface ITypography {
     children?: string | React.ReactElement | number
     variant?: TFontVariant
+    fontSize?: number
     fontWeight?: TTypographyWeights
     color?: string
     textAlign?: "auto" | "center" | "justify" | "left" | "right"

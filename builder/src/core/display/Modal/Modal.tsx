@@ -17,17 +17,20 @@ const Modal = (props: IModal) => {
 
     //* Functions
     const openModal = () => {
-        setIsVisible(true)
+        if (props.setIsVisible !== undefined) {
+            props.setIsVisible(true)
+        } else {
+            setIsVisible(true)
+        }
     }
 
     const closeModal = () => {
-        setIsVisible(false)
+        if (props.setIsVisible !== undefined) {
+            props.setIsVisible(false)
+        } else {
+            setIsVisible(false)
+        }
     }
-
-    //* Life cycles
-    React.useEffect(() => {
-
-    }, [])
 
     return (
         <React.Fragment>
@@ -44,7 +47,12 @@ const Modal = (props: IModal) => {
 
             {/* Modal section */}
             <ReactNativeModal
-                isVisible={isVisible}
+                isVisible={
+                    (props.isVisible !== undefined) ?
+                    props.isVisible
+                    :
+                    isVisible
+                }
                 onBackdropPress={closeModal}
             >
                 <Box
@@ -57,6 +65,7 @@ const Modal = (props: IModal) => {
                     <Box alignX="right">
                         <IconButton
                             iconName="close"
+                            onClick={closeModal}
                         />
                     </Box>
 

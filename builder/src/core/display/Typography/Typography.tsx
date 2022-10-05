@@ -18,7 +18,11 @@ const Typography = (props: ITypography) => {
 
     //* Functions
     const setFontSize = (variant?: TFontVariant) => {
-        return ThemeCoreSingleton.typograhpyManager.getFontSize(variant)
+        if (props.fontSize !== undefined) {
+            return props.fontSize
+        } else {
+            return ThemeCoreSingleton.typograhpyManager.getFontSize(variant)
+        }
     }
 
     const setFontFamily = (fontWeight?: TTypographyWeights) => {

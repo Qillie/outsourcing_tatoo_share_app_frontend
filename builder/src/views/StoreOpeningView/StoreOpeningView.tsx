@@ -1,16 +1,19 @@
 //* Import libraries
 import React from "react"
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { Link, Outlet, useNavigate } from "react-router-native";
+import Postcode from '@actbase/react-daum-postcode';
+
+//* Import modules
 import { Communicator } from "../../core/base";
 import { Avatar, Divider, Modal, Typography } from "../../core/display";
 import { Button, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
-
-//* Import modules
+import { ThemeCoreSingleton } from "../../core/design";
 
 //* Import interfaces
 import IStoreOpeningView from "./interfaces/IStoreOpeningView"
+
 
 
 const StoreOpeningView = (props: IStoreOpeningView) => {
@@ -21,11 +24,10 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
      * States
      */
     //* User info
+    const [isVisible, setIsVisible] = React.useState<boolean>(false)
     const [mainService, setMainService] = React.useState<string | null>(null)
     const [pageName, setPageName] = React.useState<string>("")
     const [primaryAddress, setPrimaryAddress] = React.useState<string>("")
-    const [postcode, setPostcode] = React.useState<string>("")
-    const [detailAddress, setDetailAddress] = React.useState<string>("")
     const [useKakaoTalk, setUseKakaoTalk] = React.useState<boolean>(false)
     const [kakaoTalkLink, setKakaoTalkLink] = React.useState<string>("")
     const [useSms, setUseSms] = React.useState<boolean>(false)
@@ -134,21 +136,62 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                     {/* Input */}
                     <Box>
                         <Modal 
+                            isVisible={isVisible}
+                            setIsVisible={setIsVisible}
                             openerElement={
                                 (openModal) => {
                                     return (
-                                        <Button
-                                            onClick={openModal}
+                                        <Pressable
+                                            style={{
+                                                width: "100%"
+                                            }}
+                                            onPress={() => {
+                                                openModal()
+                                            }}
                                         >
-                                            asdf
-                                        </Button>
+                                            <Box 
+                                                borderColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "500")}
+                                                borderWidth={1}
+                                                borderRadius={4}
+                                                width={"100%"}
+                                                p={12}
+                                            >
+                                                <Typography
+                                                    fontSize={14}
+                                                    color={
+                                                        (primaryAddress.length == 0) ?
+                                                        ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
+                                                        :
+                                                        "black"
+                                                    }
+                                                >
+                                                    {
+                                                        (primaryAddress.length == 0) ?
+                                                        "활동 지역을 입력해주세요."
+                                                        :
+                                                        primaryAddress
+                                                    }
+                                                    
+                                                </Typography>
+                                            </Box>
+                                        </Pressable>
                                     )
                                 }
                             }
                         >
-                            <Text>
-                                Hello
-                            </Text>
+                            <Box px={20} width={"100%"}>
+                                <Postcode
+                                    style={{ width: "100%", height: 320 }}
+                                    jsOptions={{ animation: true }}
+                                    onSelected={data => {
+                                        setPrimaryAddress(data.address)
+                                        setIsVisible(false)
+                                    }} 
+                                    onError={function (error: unknown): void {
+                                        throw new Error("Function not implemented.");
+                                    }}                            
+                                />
+                            </Box>
                         </Modal>
                     </Box>
                 </Box>
