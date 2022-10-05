@@ -77,7 +77,7 @@ const TextField = (props: ITextField) => {
     }, [])
 
     return (
-        <Box flexDirection="column">
+        <Box flexDirection="column" width={"100%"}>
             <TextInput
                 secureTextEntry={(props.textContentType == "password")}
                 textContentType={props.textContentType}

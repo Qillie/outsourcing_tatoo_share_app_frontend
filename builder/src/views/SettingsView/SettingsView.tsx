@@ -34,6 +34,10 @@ const SettingsView = (props: ISettingsView) => {
         {
             title: "회원가입",
             link: "/sign_up/terms"
+        },
+        {
+            title: "로그인",
+            link: "/sign_in"
         }
     ])
 

@@ -46,6 +46,90 @@ class Communicator {
         return errorMessage
     }
 
+    //* Preset function
+    public async preset(presetFunctionKey: string, payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+        try {
+            if (this.configs.PRESET !== undefined && this.paths.PRESET !== undefined) {
+                console.log(presetFunctionKey)
+                console.log(presetFunctionKey in this.configs.PRESET)
+
+                if (this.configs.PRESET[presetFunctionKey] !== undefined && this.paths.PRESET[presetFunctionKey] !== undefined) {
+                    //* Get target path config
+                    const targetPathConfig = this.paths.PRESET[presetFunctionKey]
+
+                    //* Get target crud config
+                    const targetCrudConfig = this.configs.PRESET[presetFunctionKey]
+                    
+                    //* Set payload
+                    let requestPayload: {[OPTION_KEY: string]: {[ MODEL_KEY: string ]: any}} = {}
+                    
+                    for (const [optionKey, optionValue] of Object.entries(targetCrudConfig)) {
+                        // Set option key if it's empty
+                        if (!(optionKey in requestPayload)) {
+                            requestPayload[optionKey] = {}
+                        }
+
+                        // Connect view model - backend model 
+                        for (const [requestViewModelKey, requestModelKey] of Object.entries(optionValue)) {
+                            requestPayload[optionKey][requestModelKey] = payload[requestViewModelKey]
+                        }
+                    }
+
+                    //* Send request
+                    if (this.paths.PRESET[presetFunctionKey].method == "get") {
+                        await this.getData(
+                            requestPayload,
+                            this.paths.PRESET[presetFunctionKey].path,
+                            successCallback,
+                            failCallback,
+                        )
+
+                    } else if (this.paths.PRESET[presetFunctionKey].method == "post") {
+                        await this.postData(
+                            requestPayload,
+                            this.paths.PRESET[presetFunctionKey].path,
+                            successCallback,
+                            failCallback
+                        )
+
+                    } else if (this.paths.PRESET[presetFunctionKey].method == "put") {
+                        await this.putData(
+                            requestPayload,
+                            this.paths.PRESET[presetFunctionKey].path,
+                            successCallback,
+                            failCallback
+                        )
+
+                    } else if (this.paths.PRESET[presetFunctionKey].method == "delete") {
+                        await this.deleteData(
+                            requestPayload,
+                            this.paths.PRESET[presetFunctionKey].path,
+                            successCallback,
+                            failCallback
+                        )
+                    }
+
+                } else {
+                    let errorMessage = ''
+
+                    errorMessage = this.setErrorMessage(errorMessage, `${presetFunctionKey} in PRESET.configs`, this.configs.CREATE)
+                    errorMessage = this.setErrorMessage(errorMessage, `${presetFunctionKey} in PRESET.paths`, this.paths.CREATE)
+
+                    throw new Error(errorMessage)
+                }
+            } else {
+                let errorMessage = ''
+
+                errorMessage = this.setErrorMessage(errorMessage, "PRESET in configs", this.configs.CREATE)
+                errorMessage = this.setErrorMessage(errorMessage, "PRESET in paths", this.paths.CREATE)
+
+                throw new Error(errorMessage)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     //* Create function
     public async create(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         try {
