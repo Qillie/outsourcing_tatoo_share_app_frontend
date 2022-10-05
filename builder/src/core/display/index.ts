@@ -15,3 +15,6 @@ export * from './Avatar'
 
 export { default as Thumbnail } from './Thumbnail'
 export * from './Thumbnail'
+
+export { default as Modal } from './Modal'
+export * from './Modal'

@@ -3,7 +3,7 @@ import React from "react"
 import { ScrollView, Text, View } from 'react-native';
 import { Link, Outlet, useNavigate } from "react-router-native";
 import { Communicator } from "../../core/base";
-import { Avatar, Divider, Typography } from "../../core/display";
+import { Avatar, Divider, Modal, Typography } from "../../core/display";
 import { Button, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 
@@ -133,12 +133,23 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
                     {/* Input */}
                     <Box>
-                        <TextField
-                            fullWidth
-                            value={pageName}
-                            setValue={setPageName}
-                            placeholder={"페이지명을 입력해주세요."}
-                        />
+                        <Modal 
+                            openerElement={
+                                (openModal) => {
+                                    return (
+                                        <Button
+                                            onClick={openModal}
+                                        >
+                                            asdf
+                                        </Button>
+                                    )
+                                }
+                            }
+                        >
+                            <Text>
+                                Hello
+                            </Text>
+                        </Modal>
                     </Box>
                 </Box>
 
