@@ -54,6 +54,13 @@ const SignInView = (props: ISignInView) => {
                 }
 
                 console.log(token)
+
+                communicator.setMultipleDataInSecureStore([
+                    {key: "accessToken", value: token.accessToken },
+                    {key: "refreshToken", value: token.refreshToken }
+                ]).then(() => {
+                    navigate("/")
+                })
             },
             (error) => {
                 console.log(JSON.stringify(error))

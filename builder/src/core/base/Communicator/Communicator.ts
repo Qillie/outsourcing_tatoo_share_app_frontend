@@ -1,6 +1,7 @@
 //* Import libraries
 import axiosLibrary from "axios";
 import HttpsProxyAgent from "https-proxy-agent"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //* Import interfaces
 import TSuccessCallback from "./interfaces/TSuccessCallback";
@@ -21,6 +22,42 @@ class Communicator {
     constructor(paths: ICommunicatorPaths, configs: ICommunicatorConfigs) {
         this.paths = paths
         this.configs = configs
+    }
+
+    /**
+     * Function to store secure data (Like cookie or local storage ...)
+     * @param key 
+     * @param value 
+     */
+    public async setDataInSecureStore(key: string, value: string) {
+        await AsyncStorage.setItem(key, value);
+    }
+
+    /**
+     * Function to store secure data (Like cookie or local storage ...)
+     */
+     public async setMultipleDataInSecureStore(dataList: {key: string, value: string}[]) {
+        return await Promise.all(dataList.map(async (data) => {
+            return await AsyncStorage.setItem(data.key, data.value);
+        }))
+    }
+
+    /**
+     * Function to get secure data (Like cookie or local storage ...)
+     * @param key 
+     * @param value 
+     */
+    public async getDataFromSecureStore(key: string) {
+        return await AsyncStorage.getItem(key)
+    }
+
+    /**
+     * Function to remove secure data (Like cookie or local storage ...)
+     * @param key 
+     * @param value 
+     */
+     public async removeDataFromSecureStore(key: string) {
+        return await AsyncStorage.removeItem(key)
     }
 
     public convertToFormData(payload: {[key: string]: any}) {

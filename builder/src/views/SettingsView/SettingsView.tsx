@@ -132,7 +132,7 @@ const SettingsView = (props: ISettingsView) => {
                     <Box flexDirection="column">
                         {
                             configs.map((config) => (
-                                <Box flexDirection="column">
+                                <Box key={config.title} flexDirection="column">
                                     <Typography variant="body1">
                                         {
                                             config.title
