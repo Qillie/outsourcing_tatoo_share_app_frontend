@@ -1,13 +1,13 @@
 //* Import libraries
 import React from "react"
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { Link, Outlet, useNavigate } from "react-router-native";
 import Postcode from '@actbase/react-daum-postcode';
 
 //* Import modules
 import { Communicator } from "../../core/base";
 import { Avatar, Divider, Modal, Typography } from "../../core/display";
-import { Button, TextField } from "../../core/input";
+import { Button, IconButton, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 import { ThemeCoreSingleton } from "../../core/design";
 
@@ -47,7 +47,71 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     }
 
     return (
-        <ScrollView style={{height: "100%", paddingTop: 20}}>
+        <ScrollView style={{height: "100%"}}>
+            {/* Image wrapper section */}
+            <Box
+                mb={60}
+                height={250}
+                flex={1}
+                alignX="center"
+                alignY="center"
+                backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "600")}
+            >
+                {/* 배경 이미지 */}
+                <Box
+                    width={"100%"}
+                    height={"100%"}
+                >
+                    
+                </Box>
+                
+                {/* Camera icon */}
+                <Box
+                    position="absolute"
+                    right={10}
+                    bottom={10}
+                >
+                    <IconButton
+                        variant={"contained"}
+                        background={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "100")}
+                        fontColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "900")}
+                        iconName="camera-alt"
+                        iconSize={22}
+                        buttonSize={36}
+                    />
+                </Box>
+
+                {/* Thumbnail */}
+                <Box
+                    position="absolute"
+                    left={"50%"}
+                    bottom={0}
+                >
+                    <Box
+                        position="relative"
+                        width={90}
+                        height={90}
+                        borderRadius={45}
+                        backgroundColor={"white"}
+                        translateX={-45}
+                        translateY={17.5}
+                        alignX={"center"}
+                        alignY={"center"}
+                    >
+                        <Box
+                            width={80}
+                            height={80}
+                            borderRadius={40}
+                            backgroundColor={"red"}
+                        >
+                            
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+
+            {/* 프로필 이미지 */}
+
             <Box px={14} pb={250} flexDirection="column">
                 {/* 주력 서비스 */}
                 <Box flexDirection="column" mb={25}>

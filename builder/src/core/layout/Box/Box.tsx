@@ -61,11 +61,19 @@ const Box = (props: IBox) => {
     }
 
     const setTransform = (style: { default: ViewStyle }) => {
+        let translation: ({translateX: number} | {translateY: number})[] = []
+
         if (props.translateX !== undefined) {
-            style.default.transform = [{translateX: props.translateX}]
+            translation.push({translateX: props.translateX})
         }
 
-        
+        if (props.translateY !== undefined) {
+            translation.push({translateY: props.translateY})
+        }
+
+        if (translation.length != 0) {
+            style.default.transform = translation
+        }
     }
 
     const setMargin = (style: { default: ViewStyle }) => {

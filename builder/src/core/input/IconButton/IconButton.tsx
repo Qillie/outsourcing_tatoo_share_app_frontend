@@ -61,6 +61,15 @@ const IconButton = (props: IIconButton) => {
         return py
     }
 
+    const handleBackgroundColor = () => {
+        if (props.background !== undefined) {
+            console.log(props.background)
+            return props.background
+        } else {
+            return (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+        }
+    }
+
     const setBaseStyle = () => {
         let baseStyle: ViewStyle = {}
 
@@ -74,10 +83,10 @@ const IconButton = (props: IIconButton) => {
         //* Color
         if (props.variant == "outlined") {
             baseStyle.borderWidth = 1
-            baseStyle.borderColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+            baseStyle.borderColor = handleBackgroundColor()
 
         } else if (props.variant == "contained") {
-            baseStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "main") : "transparent"
+            baseStyle.backgroundColor = handleBackgroundColor()
         }
  
         return baseStyle

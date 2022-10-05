@@ -89,6 +89,7 @@ interface IBox {
      * Transforms
      */
     translateX?: number
+    translateY?: number
 
     /**
      * Callbacks
