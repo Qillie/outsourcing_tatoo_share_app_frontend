@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { ScrollView, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native"
 import ReactNativeModal from "react-native-modal";
 
 //* Import modules
@@ -13,7 +13,13 @@ import IModal from "./interfaces/IModal"
 
 const Modal = (props: IModal) => {
     //* States
+    /**
+     * State to control visibility
+     */
     const [isVisible, setIsVisible] = React.useState<boolean>(false)
+
+    const [modalStyle, setModalStyle] = React.useState<StyleProp<ViewStyle>>({})
+    const [contentBoxStyle, setContentBoxStyle] = React.useState<{height?: string | number}>()
 
     //* Functions
     const openModal = () => {
@@ -32,8 +38,47 @@ const Modal = (props: IModal) => {
         }
     }
 
+    const setModalType = () => {
+        if (props.variant === undefined || props.variant == "basic") {
+            //* Set modal style
+            let basicTypeModalStyle: StyleProp<ViewStyle> = {}
+            setModalStyle(basicTypeModalStyle)
+
+            //* Set content box style
+            let basicTypeModalContentStyle: {height?: string | number} = {
+                height: "50%"
+            }
+
+            setContentBoxStyle(basicTypeModalContentStyle)
+
+        } else if (props.variant == "drawer") {
+            //* Set modal style
+            let drawerTypeModalStyle: StyleProp<ViewStyle> = {
+                margin: 0,
+                justifyContent: "flex-end"
+            }
+
+            setModalStyle(drawerTypeModalStyle)
+
+            //* Set content box style
+            let drawerTypeModalContentStyle: {height?: string | number} = {
+                height: "90%"
+            }
+
+            setContentBoxStyle(drawerTypeModalContentStyle)
+        }
+    }
+
+    //* Hooks
+    /**
+     * Hook to set modal style
+     */
+    React.useEffect(() => {
+        setModalType()
+    }, [])
+
     return (
-        <React.Fragment>
+        <View style={{flex: 1}}>
             {/* Modal opener section */}
             {
                 (props.openerElement !== undefined) && (
@@ -47,6 +92,7 @@ const Modal = (props: IModal) => {
 
             {/* Modal section */}
             <ReactNativeModal
+                style={modalStyle}
                 isVisible={
                     (props.isVisible !== undefined) ?
                     props.isVisible
@@ -57,9 +103,9 @@ const Modal = (props: IModal) => {
             >
                 <Box
                     backgroundColor="white"
-                    minHeight={400}
                     flexDirection={"column"}
                     borderRadius={7}
+                    {...contentBoxStyle}
                 >
                     {/* Close button */}
                     <Box alignX="right">
@@ -74,7 +120,7 @@ const Modal = (props: IModal) => {
                     </Box>
                 </Box>
             </ReactNativeModal>
-        </React.Fragment>
+        </View>
     )
 }
 

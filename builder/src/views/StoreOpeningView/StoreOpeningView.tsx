@@ -24,7 +24,6 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
      * States
      */
     //* User info
-    const [isVisible, setIsVisible] = React.useState<boolean>(false)
     const [mainService, setMainService] = React.useState<string | null>(null)
     const [pageName, setPageName] = React.useState<string>("")
     const [primaryAddress, setPrimaryAddress] = React.useState<string>("")
@@ -41,6 +40,11 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     const [agreeTerm, setAgreeTerm] = React.useState<string>("")
     const [tattooistServiceTerm, setTattooistServiceTerm] = React.useState<string>("")
 
+    //* Modal states 
+    const [isPostCodeModalVisible, setPostCodeModalIsVisible] = React.useState<boolean>(false)
+    const [isBannerRegisterModalVisible, setBannerRegisterModalIsVisible] = React.useState<boolean>(false)
+    const [isUserThumbnailModalVisible, setUserThumbnailModalIsVisible] = React.useState<boolean>(false)
+
     //* Functions
     const sendCreateStoreRequest = () => {
         
@@ -48,6 +52,19 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
     return (
         <ScrollView style={{height: "100%"}}>
+            {/* Banner register modal */}
+            <Modal
+                variant="drawer"
+                isVisible={isBannerRegisterModalVisible}
+                setIsVisible={setBannerRegisterModalIsVisible}
+            ></Modal>
+
+            {/* User thumbnail modal */}
+            <Modal 
+                isVisible={isUserThumbnailModalVisible}
+                setIsVisible={setUserThumbnailModalIsVisible}
+            ></Modal>
+
             {/* Image wrapper section */}
             <Box
                 mb={60}
@@ -78,6 +95,9 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                         iconName="camera-alt"
                         iconSize={22}
                         buttonSize={36}
+                        onClick={() => {
+                            setBannerRegisterModalIsVisible(true)
+                        }}
                     />
                 </Box>
 
@@ -105,6 +125,24 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                             backgroundColor={"red"}
                         >
                             
+                            {/* Camera icon */}
+                            <Box
+                                position="absolute"
+                                right={0}
+                                bottom={0}
+                            >
+                                <IconButton
+                                    variant={"contained"}
+                                    background={"rgba(245, 245, 245, 0.8)"}
+                                    fontColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "900")}
+                                    iconName="camera-alt"
+                                    iconSize={18}
+                                    buttonSize={26}
+                                    onClick={() => {
+                                        setUserThumbnailModalIsVisible(true)
+                                    }}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
@@ -200,8 +238,9 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                     {/* Input */}
                     <Box>
                         <Modal 
-                            isVisible={isVisible}
-                            setIsVisible={setIsVisible}
+                            variant="drawer"
+                            isVisible={isPostCodeModalVisible}
+                            setIsVisible={setPostCodeModalIsVisible}
                             openerElement={
                                 (openModal) => {
                                     return (
@@ -243,13 +282,13 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                 }
                             }
                         >
-                            <Box px={20} width={"100%"}>
+                            <Box px={10} width={"100%"}>
                                 <Postcode
-                                    style={{ width: "100%", height: 320 }}
+                                    style={{ width: "100%", height: 600 }}
                                     jsOptions={{ animation: true }}
                                     onSelected={data => {
                                         setPrimaryAddress(data.address)
-                                        setIsVisible(false)
+                                        setPostCodeModalIsVisible(false)
                                     }} 
                                     onError={function (error: unknown): void {
                                         throw new Error("Function not implemented.");
