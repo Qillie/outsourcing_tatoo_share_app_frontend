@@ -9,9 +9,11 @@ import Typography from "../Typography"
 
 //* Import interfaces
 import IThumbnail from "./interfaces/IThumbnail"
+import { ImageSourcePropType } from "react-native";
 
 const Thumbnail = (props: IThumbnail) => {
     //* States
+    const [wrapperSize, setWrapperSize] = React.useState<{width: number, height: number} | undefined>(undefined)
 
     //* Functions
     const setSize = () => {
@@ -56,14 +58,14 @@ const Thumbnail = (props: IThumbnail) => {
         style.ratio.flex = 0.5
         style.ratio.flexDirection="column"
         style.ratio.width = "100%"
+        style.ratio.height = "100%"
         style.ratio.position = "relative"
-
         style.ratio.paddingTop = calcRatio(selectedRatio)
 
         return StyleSheet.create(style).ratio
     }
 
-    const setStyle = () => {
+    const setStyle = (width: number, height: number) => {
         let style:{ default: ImageStyle } = { default: {} }
 
         //* Set basic styles
@@ -72,6 +74,9 @@ const Thumbnail = (props: IThumbnail) => {
         style.default.left = 0
         style.default.bottom = 0
         style.default.right = 0
+
+        style.default.width = width
+        style.default.height = height
 
         style.default.justifyContent='center'
         style.default.alignItems='center'
@@ -86,9 +91,19 @@ const Thumbnail = (props: IThumbnail) => {
         return StyleSheet.create(style).default
     }
 
-    //* Life cycles
-    React.useEffect(() => {
-    }, [])
+    const setImageSource = () => {
+        let imageSource: undefined | ImageSourcePropType = undefined
+
+        if (typeof props.src == "string") {
+            imageSource = {
+                uri: props.src
+            }
+        } else {
+            imageSource = props.src
+        }
+
+        return imageSource
+    }
 
     return (
         <View
@@ -96,13 +111,22 @@ const Thumbnail = (props: IThumbnail) => {
         >
             <View
                 style={setRatio()}
+                onLayout={(event) =>
+                    setWrapperSize({
+                        width: event.nativeEvent.layout.width,
+                        height: event.nativeEvent.layout.height
+                    })
+                }
             >
-                <Image
-                    style={setStyle()}
-                    source={{
-                        uri: props.src
-                    }}
-                />
+                {
+                    (wrapperSize !== undefined) && (
+                        <Image
+                            style={setStyle(wrapperSize.width, wrapperSize.height)}
+                            source={setImageSource()}
+                            resizeMode={"cover"}
+                        />
+                    )
+                }
             </View>
             
             {

@@ -5,25 +5,31 @@ import { Link, Outlet, useNavigate } from "react-router-native";
 import Postcode from '@actbase/react-daum-postcode';
 
 //* Import modules
-import { Communicator } from "../../core/base";
-import { Avatar, Divider, Modal, Typography } from "../../core/display";
+import { PermissionManager } from "../../core/base";
+import { Avatar, Divider, Modal, Thumbnail, Typography } from "../../core/display";
 import { Button, IconButton, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 import { ThemeCoreSingleton } from "../../core/design";
 
 //* Import interfaces
 import IStoreOpeningView from "./interfaces/IStoreOpeningView"
+import { PhotoIdentifier } from "@react-native-camera-roll/camera-roll";
 
 
 
 const StoreOpeningView = (props: IStoreOpeningView) => {
     //* Modules
     const navigate = useNavigate()
+    const permission = new PermissionManager()
 
     /**
      * States
      */
     //* User info
+    // Thumbnail
+    const [profileThumbnail, setProfileThumbnail] = React.useState<PhotoIdentifier | null>(null)
+
+    // Basic
     const [mainService, setMainService] = React.useState<string | null>(null)
     const [pageName, setPageName] = React.useState<string>("")
     const [primaryAddress, setPrimaryAddress] = React.useState<string>("")
@@ -45,10 +51,33 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     const [isBannerRegisterModalVisible, setBannerRegisterModalIsVisible] = React.useState<boolean>(false)
     const [isUserThumbnailModalVisible, setUserThumbnailModalIsVisible] = React.useState<boolean>(false)
 
+    //* Photos
+    const [photos, setPhotos] = React.useState<PhotoIdentifier[]>([])
+    const [selectedPhotoIndex, setSelectedPhotoIndex] = React.useState<number | null>(null)
+
     //* Functions
     const sendCreateStoreRequest = () => {
         
     }
+
+    const onClickThumbnailImageUpload = () => {
+        //* Get photo library permission
+        permission.getPhotos().then((result) => {
+            //* Open modal
+            if (result !== null) {
+                result.edges.map((edge) => {
+                    console.log(edge.node.image)
+                })
+
+                setPhotos(result.edges)
+                setUserThumbnailModalIsVisible(true)
+            }
+        })
+    }
+
+    //* Hooks
+    React.useEffect(() => {
+    }, [])
 
     return (
         <ScrollView style={{height: "100%"}}>
@@ -60,10 +89,77 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
             ></Modal>
 
             {/* User thumbnail modal */}
-            <Modal 
+            <Modal
+                onClose={() => {
+                    setSelectedPhotoIndex(null)
+                }}
+                title="사진"
+                headerElement={
+                    (closeModal) => {
+                        return (
+                            <Box pr={17}>
+                                <Button
+                                    onClick={() => {
+                                        if (selectedPhotoIndex !== null) {
+                                            setProfileThumbnail(photos[selectedPhotoIndex])
+                                            closeModal()
+                                        }
+                                    }}
+                                    fontColor={
+                                        (selectedPhotoIndex !== null) ?
+                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                        :
+                                        ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
+                                    }
+                                    typographyProps={{
+                                        variant: "h5"
+                                    }}
+                                >
+                                    확인
+                                </Button>
+                            </Box>
+                        )
+                    }
+                }
+                variant="drawer"
                 isVisible={isUserThumbnailModalVisible}
                 setIsVisible={setUserThumbnailModalIsVisible}
-            ></Modal>
+            >
+                <Grid role="container" spacing={0.5}>
+                {
+                    photos.map((photo, photoIndex) => (
+                        <Grid role="item" xs={4}>
+                            <Box>
+                                <Thumbnail 
+                                    src={photo.node.image}
+                                />
+
+                                {/* Selector */}
+                                <Box
+                                    position={"absolute"}
+                                    right={5}
+                                    top={5}
+                                >
+                                    <IconButton 
+                                        iconName="check"
+                                        iconSize={20}
+                                        buttonSize={28}
+                                        buttonPalette={(selectedPhotoIndex == photoIndex) ? "primary" : "grey"}
+                                        variant={"contained"}
+                                        onClick={
+                                            () => {
+                                                setSelectedPhotoIndex(photoIndex)
+                                            }
+                                        }
+                                    />
+                                </Box>
+                            </Box>
+                            
+                        </Grid>
+                    ))
+                }
+                </Grid>
+            </Modal>
 
             {/* Image wrapper section */}
             <Box
@@ -138,9 +234,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                     iconName="camera-alt"
                                     iconSize={18}
                                     buttonSize={26}
-                                    onClick={() => {
-                                        setUserThumbnailModalIsVisible(true)
-                                    }}
+                                    onClick={onClickThumbnailImageUpload}
                                 />
                             </Box>
                         </Box>
@@ -338,6 +432,24 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                             placeholder={"http://www.instagram.com/"}
                         />
                     </Box>
+                </Box>
+
+                {/* Controller section */}
+                <Box>
+                    <Button
+                        onClick={sendCreateStoreRequest}
+                        fullWidth
+                        // disabled={disableNextButton()}
+                        variant="contained"
+                        buttonPalette="primary"
+                        borderRadius={5}
+                        typographyProps={{
+                            variant: "h6"
+                        }}
+                        size={"large"}
+                    >
+                        생성하기
+                    </Button>
                 </Box>
             </Box>
         </ScrollView>

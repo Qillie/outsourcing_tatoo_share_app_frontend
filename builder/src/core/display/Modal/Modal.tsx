@@ -7,9 +7,11 @@ import ReactNativeModal from "react-native-modal";
 import { ThemeCoreSingleton } from "../../design"
 import { Box, Grid } from "../../layout"
 import { Button, IconButton } from "../../input"
+import Typography from "../Typography";
 
 //* Import interfaces
 import IModal from "./interfaces/IModal"
+
 
 const Modal = (props: IModal) => {
     //* States
@@ -92,6 +94,11 @@ const Modal = (props: IModal) => {
 
             {/* Modal section */}
             <ReactNativeModal
+                onModalWillHide={() => {
+                    if (props.onClose !== undefined) {
+                        props.onClose()
+                    }
+                }}
                 style={modalStyle}
                 isVisible={
                     (props.isVisible !== undefined) ?
@@ -108,11 +115,54 @@ const Modal = (props: IModal) => {
                     {...contentBoxStyle}
                 >
                     {/* Close button */}
-                    <Box alignX="right">
-                        <IconButton
-                            iconName="close"
-                            onClick={closeModal}
-                        />
+                    <Box alignX="space-between" alignY="center">
+                        <Box
+                            width={"33.333%"}
+                            height={"100%"}
+                        >
+                            <IconButton
+                                iconName="close"
+                                onClick={closeModal}
+                            />
+                        </Box>
+
+                        <Box
+                            width={"33.333%"}
+                            height={"100%"}
+                            alignX="center"
+                            alignY="center"
+                        >
+                            {/* Title section */}
+                            <React.Fragment>
+                            {
+                                (props.title !== undefined) && (
+                                    <Typography
+                                        variant="h4"
+                                    >
+                                        {props.title}
+                                    </Typography>
+                                )
+                            }
+                            </React.Fragment>
+                        </Box>
+
+                        <Box
+                            width={"33.333%"}
+                            height={"100%"}
+                            alignX="right"
+                            alignY="center"
+                        >
+                            {/* Confirm section */}
+                            <React.Fragment>
+                                {
+                                    (props.headerElement !== undefined) && (
+                                        props.headerElement(closeModal)
+                                    )
+                                }
+                            </React.Fragment>
+                        </Box>
+
+                        
                     </Box>
 
                     <Box overflow="scroll">

@@ -13,6 +13,10 @@
 		<string>NotoSansKR-Thin.otf</string>
 		<string>NanumMyeongjo.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+  	<string>Photo library usage</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo library for image</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko_KR</string>
 	<key>CFBundleDisplayName</key>
