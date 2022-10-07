@@ -3,6 +3,7 @@ import React from "react"
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { Link, Outlet, useNavigate } from "react-router-native";
 import Postcode from '@actbase/react-daum-postcode';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 //* Import modules
 import { PermissionManager } from "../../core/base";
@@ -10,11 +11,11 @@ import { Avatar, Divider, Modal, Thumbnail, Typography } from "../../core/displa
 import { Button, IconButton, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 import { ThemeCoreSingleton } from "../../core/design";
+import { ImagePicker } from "../../modules";
 
 //* Import interfaces
 import IStoreOpeningView from "./interfaces/IStoreOpeningView"
 import { PhotoIdentifier } from "@react-native-camera-roll/camera-roll";
-
 
 
 const StoreOpeningView = (props: IStoreOpeningView) => {
@@ -28,6 +29,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     //* User info
     // Thumbnail
     const [profileThumbnail, setProfileThumbnail] = React.useState<PhotoIdentifier | null>(null)
+    const [bannerImages, setBannerImages] = React.useState<PhotoIdentifier[]>([])
 
     // Basic
     const [mainService, setMainService] = React.useState<string | null>(null)
@@ -53,11 +55,28 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
     //* Photos
     const [photos, setPhotos] = React.useState<PhotoIdentifier[]>([])
-    const [selectedPhotoIndex, setSelectedPhotoIndex] = React.useState<number | null>(null)
+    const [selectedThumbnailPhotoIndex, setSelectedThumbnailPhotoIndex] = React.useState<number | null>(null)
+    const [selectedCoverPhotoIndexList, setSelectedCoverPhotoIndexList] = React.useState<number[]>([])
+    const [showPhotoListForCover, setShowPhotoListForCover] = React.useState<boolean>(false)
 
     //* Functions
     const sendCreateStoreRequest = () => {
         
+    }
+
+    const onClickBannerImageUpload = () => {
+        //* Get photo library permission
+        permission.getPhotos().then((result) => {
+            //* Open modal
+            if (result !== null) {
+                result.edges.map((edge) => {
+                    console.log(edge.node.image)
+                })
+
+                setPhotos(result.edges)
+                setBannerRegisterModalIsVisible(true)
+            }
+        })
     }
 
     const onClickThumbnailImageUpload = () => {
@@ -81,17 +100,133 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
     return (
         <ScrollView style={{height: "100%"}}>
-            {/* Banner register modal */}
+            {/* Cover photo register modal */}
             <Modal
+                onClose={() => {
+                    setSelectedThumbnailPhotoIndex(null)
+                    setShowPhotoListForCover(false)
+                }}
+                title={(showPhotoListForCover) ? "사진" : "커버사진"} 
+                headerElement={
+                    (closeModal) => {
+                        return (
+                            <Box pr={17}>
+                                <Button
+                                    onClick={() => {
+                                        if (showPhotoListForCover) {
+                                            if (selectedThumbnailPhotoIndex !== null) {
+                                                const clonedSelectedCoverPhotoIndexList = [...selectedCoverPhotoIndexList]
+                                                clonedSelectedCoverPhotoIndexList.push(selectedThumbnailPhotoIndex)
+
+                                                setSelectedCoverPhotoIndexList(clonedSelectedCoverPhotoIndexList)
+                                                setShowPhotoListForCover(false)
+                                                setSelectedThumbnailPhotoIndex(null)
+                                            }
+                                        } else {
+                                            closeModal()
+                                        }
+                                    }}
+                                    fontColor={
+                                        (selectedThumbnailPhotoIndex !== null) ?
+                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                        :
+                                        ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
+                                    }
+                                    typographyProps={{
+                                        variant: "h5"
+                                    }}
+                                >
+                                    확인
+                                </Button>
+                            </Box>
+                        )
+                    }
+                }
                 variant="drawer"
                 isVisible={isBannerRegisterModalVisible}
                 setIsVisible={setBannerRegisterModalIsVisible}
-            ></Modal>
+            >
+                <Box flex={1} flexDirection={"column"} px={(showPhotoListForCover) ? 0 : 10}>
+                    <React.Fragment>
+                        {
+                            selectedCoverPhotoIndexList.map((selectedCoverPhotoIndex) => (
+                                <Box
+                                    hidden={showPhotoListForCover}
+                                    mb={10}
+                                >
+                                    <Thumbnail
+                                        height={230}
+                                        borderRadius={10}
+                                        src={photos[selectedCoverPhotoIndex].node.image}
+                                    />
+                                </Box>
+                            ))
+                        }
+                    </React.Fragment>
+
+                    <React.Fragment>
+                        {
+                            (selectedCoverPhotoIndexList.length < 5) && (
+                                <React.Fragment>
+                                    {
+                                        (showPhotoListForCover == false) ?
+                                        <Box
+                                            onClick={(e) => {
+                                                setShowPhotoListForCover(true)
+                                            }}
+                                            alignX="center" 
+                                            alignY="center" 
+                                            height={230} 
+                                            width={"100%"}
+                                            borderRadius={10}
+                                            backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}
+                                        >
+                                            <Box flexDirection="column">
+                                                <Box alignX="center">
+                                                    <Icon 
+                                                        name={"camera-alt"} 
+                                                        size={45} 
+                                                        color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "900")}
+                                                    />
+                                                </Box>
+
+                                                <Box alignX="center">
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                                                    >
+                                                        멋진 타투 작품을 공유해주세요
+                                                    </Typography>
+                                                </Box>
+
+                                                <Box alignX="center">
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                                                    >
+                                                        {`(${selectedCoverPhotoIndexList.length}/5)`}
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        :
+                                        <ImagePicker
+                                            photos={photos}
+                                            selectedImageIndex={selectedThumbnailPhotoIndex}
+                                            setSelectedImageIndex={setSelectedThumbnailPhotoIndex}
+                                        />
+                                    }
+                                </React.Fragment>
+                            )
+                        }
+                    </React.Fragment>
+                </Box>
+            </Modal>
 
             {/* User thumbnail modal */}
             <Modal
                 onClose={() => {
-                    setSelectedPhotoIndex(null)
+                    setSelectedThumbnailPhotoIndex(null)
                 }}
                 title="사진"
                 headerElement={
@@ -100,13 +235,13 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                             <Box pr={17}>
                                 <Button
                                     onClick={() => {
-                                        if (selectedPhotoIndex !== null) {
-                                            setProfileThumbnail(photos[selectedPhotoIndex])
+                                        if (selectedThumbnailPhotoIndex !== null) {
+                                            setProfileThumbnail(photos[selectedThumbnailPhotoIndex])
                                             closeModal()
                                         }
                                     }}
                                     fontColor={
-                                        (selectedPhotoIndex !== null) ?
+                                        (selectedThumbnailPhotoIndex !== null) ?
                                         ThemeCoreSingleton.paletteManager.getColor("primary", "main")
                                         :
                                         ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
@@ -125,40 +260,11 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                 isVisible={isUserThumbnailModalVisible}
                 setIsVisible={setUserThumbnailModalIsVisible}
             >
-                <Grid role="container" spacing={0.5}>
-                {
-                    photos.map((photo, photoIndex) => (
-                        <Grid role="item" xs={4}>
-                            <Box>
-                                <Thumbnail 
-                                    src={photo.node.image}
-                                />
-
-                                {/* Selector */}
-                                <Box
-                                    position={"absolute"}
-                                    right={5}
-                                    top={5}
-                                >
-                                    <IconButton 
-                                        iconName="check"
-                                        iconSize={20}
-                                        buttonSize={28}
-                                        buttonPalette={(selectedPhotoIndex == photoIndex) ? "primary" : "grey"}
-                                        variant={"contained"}
-                                        onClick={
-                                            () => {
-                                                setSelectedPhotoIndex(photoIndex)
-                                            }
-                                        }
-                                    />
-                                </Box>
-                            </Box>
-                            
-                        </Grid>
-                    ))
-                }
-                </Grid>
+                <ImagePicker
+                    photos={photos}
+                    selectedImageIndex={selectedThumbnailPhotoIndex}
+                    setSelectedImageIndex={setSelectedThumbnailPhotoIndex}
+                />
             </Modal>
 
             {/* Image wrapper section */}
@@ -191,9 +297,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                         iconName="camera-alt"
                         iconSize={22}
                         buttonSize={36}
-                        onClick={() => {
-                            setBannerRegisterModalIsVisible(true)
-                        }}
+                        onClick={onClickBannerImageUpload}
                     />
                 </Box>
 
@@ -220,7 +324,22 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                             borderRadius={40}
                             backgroundColor={"red"}
                         >
-                            
+                            {/* Thumbnail image */}
+                            <React.Fragment>
+                            {
+                                (profileThumbnail !== null) && (
+                                    <Box>
+                                        <Thumbnail
+                                            width={80}
+                                            height={80}
+                                            borderRadius={40}
+                                            src={profileThumbnail.node.image}
+                                        />
+                                    </Box>
+                                )
+                            }
+                            </React.Fragment>
+
                             {/* Camera icon */}
                             <Box
                                 position="absolute"
@@ -241,8 +360,6 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                     </Box>
                 </Box>
             </Box>
-
-            {/* 프로필 이미지 */}
 
             <Box px={14} pb={250} flexDirection="column">
                 {/* 주력 서비스 */}

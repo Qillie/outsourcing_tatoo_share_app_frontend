@@ -1,4 +1,4 @@
-import { LayoutChangeEvent, ViewProps } from "react-native";
+import { GestureResponderEvent, LayoutChangeEvent, ViewProps } from "react-native";
 
 interface IBox {
     children?: React.ReactElement[] | React.ReactElement
@@ -95,6 +95,7 @@ interface IBox {
      * Callbacks
      */
     onLayout?: (event: LayoutChangeEvent) => void
+    onClick?: (event: GestureResponderEvent) => void
 
     /**
      * Shadow

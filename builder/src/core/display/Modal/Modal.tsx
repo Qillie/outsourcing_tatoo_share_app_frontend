@@ -11,6 +11,7 @@ import Typography from "../Typography";
 
 //* Import interfaces
 import IModal from "./interfaces/IModal"
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const Modal = (props: IModal) => {
@@ -164,10 +165,12 @@ const Modal = (props: IModal) => {
 
                         
                     </Box>
-
-                    <Box overflow="scroll">
+                    
+                    
+                    <ScrollView>
                         {props.children}
-                    </Box>
+                    </ScrollView>
+                    
                 </Box>
             </ReactNativeModal>
         </View>

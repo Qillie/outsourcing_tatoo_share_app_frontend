@@ -1,6 +1,6 @@
 //* Import libraries
 import React from "react"
-import { StyleSheet, View, ViewStyle } from "react-native"
+import { Pressable, StyleSheet, View, ViewStyle } from "react-native"
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -215,18 +215,43 @@ const Box = (props: IBox) => {
     }, [])
 
     return (
-        <View
-            onLayout={(e) => {
-                if (props.onLayout !== undefined) {
-                    props.onLayout(e)
-                }
-            }}
-            style={setStyle()}
-        >
+        <React.Fragment>
             {
-                props.children
+                (props.onClick !== undefined) ?
+                <Pressable
+                    onLayout={(e) => {
+                        if (props.onLayout !== undefined) {
+                            props.onLayout(e)
+                        }
+                    }}
+                    style={setStyle()}
+                    onPress={
+                        (event) => {
+                            if (props.onClick !== undefined) {
+                                props.onClick(event)
+                            }
+                        }
+                    }
+                >
+                    {
+                        props.children
+                    }
+                </Pressable>
+                :
+                <View
+                    onLayout={(e) => {
+                        if (props.onLayout !== undefined) {
+                            props.onLayout(e)
+                        }
+                    }}
+                    style={setStyle()}
+                >
+                    {
+                        props.children
+                    }
+                </View>
             }
-        </View>
+        </React.Fragment>
     )
 }
 

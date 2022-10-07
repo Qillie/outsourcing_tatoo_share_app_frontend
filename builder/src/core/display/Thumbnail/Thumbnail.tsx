@@ -13,7 +13,7 @@ import { ImageSourcePropType } from "react-native";
 
 const Thumbnail = (props: IThumbnail) => {
     //* States
-    const [wrapperSize, setWrapperSize] = React.useState<{width: number, height: number} | undefined>(undefined)
+    const [wrapperSize, setWrapperSize] = React.useState<{width: number | string, height: number | string} | undefined>(undefined)
 
     //* Functions
     const setSize = () => {
@@ -65,7 +65,7 @@ const Thumbnail = (props: IThumbnail) => {
         return StyleSheet.create(style).ratio
     }
 
-    const setStyle = (width: number, height: number) => {
+    const setStyle = (width: number | string, height: number | string) => {
         let style:{ default: ImageStyle } = { default: {} }
 
         //* Set basic styles
@@ -113,8 +113,8 @@ const Thumbnail = (props: IThumbnail) => {
                 style={setRatio()}
                 onLayout={(event) =>
                     setWrapperSize({
-                        width: event.nativeEvent.layout.width,
-                        height: event.nativeEvent.layout.height
+                        width: (props.width !== undefined) ? props.width : event.nativeEvent.layout.width,
+                        height: (props.height !== undefined) ? props.height : event.nativeEvent.layout.height
                     })
                 }
             >
