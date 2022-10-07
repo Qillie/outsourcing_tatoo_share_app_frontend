@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 //* Import modules
 import { PermissionManager } from "../../core/base";
-import { Avatar, Divider, Modal, Thumbnail, Typography } from "../../core/display";
+import { Avatar, Divider, Modal, Thumbnail, Typography, Accordion } from "../../core/display";
 import { Button, IconButton, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 import { ThemeCoreSingleton } from "../../core/design";
@@ -57,11 +57,30 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     const [photos, setPhotos] = React.useState<PhotoIdentifier[]>([])
     const [selectedThumbnailPhotoIndex, setSelectedThumbnailPhotoIndex] = React.useState<number | null>(null)
     const [selectedCoverPhotoIndexList, setSelectedCoverPhotoIndexList] = React.useState<number[]>([])
+    const [fixedCoverPhotoIndexList, setFixedCoverPhotoIndexList] = React.useState<number[]>([])
     const [showPhotoListForCover, setShowPhotoListForCover] = React.useState<boolean>(false)
 
     //* Functions
     const sendCreateStoreRequest = () => {
         
+    }
+
+    const setCoverModalHeaderColor = () => {
+        let color: string = ""
+
+        if (showPhotoListForCover) {
+            color = (selectedThumbnailPhotoIndex !== null) ?
+            ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+            :
+            ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
+        } else {
+            color = (selectedCoverPhotoIndexList.length != 0) ? 
+            ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+            :
+            ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
+        }
+
+        return color
     }
 
     const onClickBannerImageUpload = () => {
@@ -105,6 +124,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                 onClose={() => {
                     setSelectedThumbnailPhotoIndex(null)
                     setShowPhotoListForCover(false)
+                    setSelectedCoverPhotoIndexList([])
                 }}
                 title={(showPhotoListForCover) ? "사진" : "커버사진"} 
                 headerElement={
@@ -123,15 +143,12 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                                 setSelectedThumbnailPhotoIndex(null)
                                             }
                                         } else {
+                                            const clonedSelectedCoverPhotoIndexList = [...selectedCoverPhotoIndexList]
+                                            setFixedCoverPhotoIndexList(fixedCoverPhotoIndexList.concat(clonedSelectedCoverPhotoIndexList))
                                             closeModal()
                                         }
                                     }}
-                                    fontColor={
-                                        (selectedThumbnailPhotoIndex !== null) ?
-                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
-                                        :
-                                        ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "400")
-                                    }
+                                    fontColor={setCoverModalHeaderColor()}
                                     typographyProps={{
                                         variant: "h5"
                                     }}
@@ -149,7 +166,45 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                 <Box flex={1} flexDirection={"column"} px={(showPhotoListForCover) ? 0 : 10}>
                     <React.Fragment>
                         {
-                            selectedCoverPhotoIndexList.map((selectedCoverPhotoIndex) => (
+                            fixedCoverPhotoIndexList.map((fixedCoverPhotoIndex, elementIndex) => (
+                                <Box
+                                    hidden={showPhotoListForCover}
+                                    mb={10}
+                                >
+                                    <Thumbnail
+                                        height={230}
+                                        borderRadius={10}
+                                        src={photos[fixedCoverPhotoIndex].node.image}
+                                    />
+
+                                    <Box
+                                        position="absolute"
+                                        top={8}
+                                        right={8}
+                                    >
+                                        <IconButton
+                                            variant={"contained"}
+                                            background={"rgba(0, 0, 0, 0.6)"}
+                                            fontColor={"white"}
+                                            iconName="close"
+                                            iconSize={22}
+                                            buttonSize={30}
+                                            onClick={() => {
+                                                let clonedFixedCoverPhotoIndexList = [...fixedCoverPhotoIndexList]
+                                                clonedFixedCoverPhotoIndexList.splice(elementIndex, 1)
+
+                                                setFixedCoverPhotoIndexList(clonedFixedCoverPhotoIndexList)
+                                            }}
+                                        />
+                                    </Box>
+                                </Box>
+                            ))
+                        }
+                    </React.Fragment>
+
+                    <React.Fragment>
+                        {
+                            selectedCoverPhotoIndexList.map((selectedCoverPhotoIndex, elementIndex) => (
                                 <Box
                                     hidden={showPhotoListForCover}
                                     mb={10}
@@ -159,6 +214,27 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                         borderRadius={10}
                                         src={photos[selectedCoverPhotoIndex].node.image}
                                     />
+
+                                    <Box
+                                        position="absolute"
+                                        top={5}
+                                        right={5}
+                                    >
+                                        <IconButton
+                                            variant={"contained"}
+                                            background={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "100")}
+                                            fontColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "900")}
+                                            iconName="close"
+                                            iconSize={22}
+                                            buttonSize={36}
+                                            onClick={() => {
+                                                let clonedSelectedCoverPhotoIndexList = [...selectedCoverPhotoIndexList]
+                                                clonedSelectedCoverPhotoIndexList.splice(elementIndex, 1)
+
+                                                setSelectedCoverPhotoIndexList(clonedSelectedCoverPhotoIndexList)
+                                            }}
+                                        />
+                                    </Box>
                                 </Box>
                             ))
                         }
@@ -166,7 +242,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
                     <React.Fragment>
                         {
-                            (selectedCoverPhotoIndexList.length < 5) && (
+                            ((selectedCoverPhotoIndexList.length + fixedCoverPhotoIndexList.length) < 5) && (
                                 <React.Fragment>
                                     {
                                         (showPhotoListForCover == false) ?
@@ -204,7 +280,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                                         variant="h5"
                                                         color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
                                                     >
-                                                        {`(${selectedCoverPhotoIndexList.length}/5)`}
+                                                        {`(${selectedCoverPhotoIndexList.length + fixedCoverPhotoIndexList.length}/5)`}
                                                     </Typography>
                                                 </Box>
                                             </Box>
@@ -278,10 +354,17 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
             >
                 {/* 배경 이미지 */}
                 <Box
+                    position={"absolute"}
                     width={"100%"}
-                    height={"100%"}
                 >
-                    
+                    {
+                        (fixedCoverPhotoIndexList.length != 0) && (
+                            <Thumbnail
+                                height={250}
+                                src={photos[fixedCoverPhotoIndexList[0]].node.image}
+                            />
+                        )
+                    }
                 </Box>
                 
                 {/* Camera icon */}
@@ -292,7 +375,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                 >
                     <IconButton
                         variant={"contained"}
-                        background={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "100")}
+                        background={"rgba(245, 245, 245, 0.8)"}
                         fontColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "900")}
                         iconName="camera-alt"
                         iconSize={22}
@@ -322,12 +405,25 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                             width={80}
                             height={80}
                             borderRadius={40}
-                            backgroundColor={"red"}
+                            backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "300")}
                         >
                             {/* Thumbnail image */}
                             <React.Fragment>
                             {
-                                (profileThumbnail !== null) && (
+                                (profileThumbnail === null) ?
+                                    <Box 
+                                        width={80}
+                                        height={80}
+                                        alignX="center"
+                                        alignY="center"
+                                    >
+                                        <Icon 
+                                            name={"person"} 
+                                            size={70} 
+                                            color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "800")}
+                                        />
+                                    </Box>    
+                                :
                                     <Box>
                                         <Thumbnail
                                             width={80}
@@ -336,7 +432,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                             src={profileThumbnail.node.image}
                                         />
                                     </Box>
-                                )
+                                
                             }
                             </React.Fragment>
 
@@ -362,6 +458,23 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
             </Box>
 
             <Box px={14} pb={250} flexDirection="column">
+                <Accordion 
+                    contents={[
+                        {
+                            header: (
+                                <Box>
+                                    <Typography>A</Typography>
+                                </Box>
+                            ), 
+                            detail: (
+                                <Box>
+                                    <Typography>A</Typography>
+                                </Box>
+                            )
+                        }
+                    ]}
+                />
+
                 {/* 주력 서비스 */}
                 <Box flexDirection="column" mb={25}>
                     {/* Label */}

@@ -18,3 +18,7 @@ export * from './Thumbnail'
 
 export { default as Modal } from './Modal'
 export * from './Modal'
+
+export { default as Accordion } from './Accordion'
+export * from './Accordion'
+
