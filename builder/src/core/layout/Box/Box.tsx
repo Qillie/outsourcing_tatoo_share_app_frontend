@@ -192,6 +192,7 @@ const Box = (props: IBox) => {
 
     const setFlex = (style: { default: ViewStyle }) => {
         style.default.flex = props.flex
+        style.default.flexWrap = props.flexWrap
         style.default.flexDirection = (props.flexDirection !== undefined) ? props.flexDirection : "row"
         style.default.flexGrow = props.flexGrow
     }
@@ -201,7 +202,7 @@ const Box = (props: IBox) => {
             style.default.shadowColor = "black"
 
             if (props.shadowType == "0") {
-                style.default.shadowOpacity = 0.2
+                style.default.shadowOpacity = 0.3
                 style.default.shadowRadius = 10
                 style.default.shadowOffset = {
                     width: 5,

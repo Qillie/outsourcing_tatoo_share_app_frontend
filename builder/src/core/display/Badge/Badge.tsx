@@ -4,6 +4,7 @@ import { Image, ImageStyle, StyleSheet, Text, ViewStyle, View } from "react-nati
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
+import { Box } from "../../layout"
 import Typography from "../Typography"
 
 //* Import interfaces
@@ -18,7 +19,9 @@ const Badge = (props: IBadge) => {
             paddingHorizontal: 5,
             paddingVertical: 3,
             backgroundColor: ThemeCoreSingleton.paletteManager.palette?.grey?.[300],
-            borderRadius: 10
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center"
         }}
 
         //* Set basic styles
@@ -38,6 +41,8 @@ const Badge = (props: IBadge) => {
             style.badge.borderRadius = props.borderRadius
         }
 
+        style.badge.minWidth = props.minWidth
+
         return StyleSheet.create(style).badge
     }
 
@@ -49,12 +54,14 @@ const Badge = (props: IBadge) => {
         <View
             style={setBadgeStyle()}
         >
-            <Typography
-                variant={(props.fontVariant !== undefined) ? props.fontVariant : "subtitle2"}
-                color={(props.fontColor !== undefined) ? props.fontColor : ThemeCoreSingleton.paletteManager.palette?.black}
-            >
-                {props.children}
-            </Typography>
+            <Box onClick={props.onClick}>
+                <Typography
+                    variant={(props.fontVariant !== undefined) ? props.fontVariant : "subtitle2"}
+                    color={(props.fontColor !== undefined) ? props.fontColor : ThemeCoreSingleton.paletteManager.palette?.black}
+                >
+                    {props.children}
+                </Typography>
+            </Box>
         </View>
     )
 }

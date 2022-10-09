@@ -9,6 +9,8 @@ interface IBadge {
     borderRadius?: number
     fontVariant?: TFontVariant
     fontColor?: string
+    onClick?: () => void
+    minWidth?: number
 }
 
 export default IBadge

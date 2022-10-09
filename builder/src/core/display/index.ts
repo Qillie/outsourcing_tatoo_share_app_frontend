@@ -22,3 +22,5 @@ export * from './Modal'
 export { default as Accordion } from './Accordion'
 export * from './Accordion'
 
+export { default as Carousel } from './Carousel'
+export * from './Carousel'

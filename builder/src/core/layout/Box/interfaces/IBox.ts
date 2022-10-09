@@ -84,6 +84,7 @@ interface IBox {
     flexGrow?: number
     flexDirection?: "row" | "column"
     flex?: number
+    flexWrap?: "wrap" | "nowrap"
 
     /**
      * Transforms

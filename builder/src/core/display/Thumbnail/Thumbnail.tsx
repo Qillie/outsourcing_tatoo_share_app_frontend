@@ -135,6 +135,7 @@ const Thumbnail = (props: IThumbnail) => {
                         width="100%"
                         height="100%"
                         position="absolute"
+                        borderRadius={props.borderRadius}
                         backgroundColor={`rgba(0, 0, 0, ${(props.labelBackgroundOpacity !== undefined) ? props.labelBackgroundOpacity : 0.5})`}
                         alignX={"center"}
                         alignY={"center"}

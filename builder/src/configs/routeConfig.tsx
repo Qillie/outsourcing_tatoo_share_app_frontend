@@ -13,6 +13,7 @@ import { RankingsView } from "../views/RankingsView"
 import { SignUpView, TermsView, UserInfoView } from '../views/SignUpView'
 import { SignInView } from "../views/SignInView"
 import { StoreOpeningView } from "../views/StoreOpeningView"
+import { QuoteRequestView } from "../views/QuoteRequestView"
 
 
 const routeConfig: IRouteLeaf[] = [
@@ -101,6 +102,13 @@ const routeConfig: IRouteLeaf[] = [
         element: <StoreOpeningView />,
         children: []
     },
+    {
+        name: "구매자 견적서",
+        description: "구매자 견적서 화면",
+        path: "/quote_request",
+        element: <QuoteRequestView />,
+        children: []
+    }
 
 ]
 

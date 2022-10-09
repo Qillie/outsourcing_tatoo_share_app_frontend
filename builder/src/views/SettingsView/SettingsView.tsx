@@ -42,6 +42,10 @@ const SettingsView = (props: ISettingsView) => {
         {
             title: "페이지 개설",
             link: "/store_opening"
+        },
+        {
+            title: "구매자 견적 작성",
+            link: "/quote_request"
         }
     ])
 
