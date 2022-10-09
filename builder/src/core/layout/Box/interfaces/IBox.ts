@@ -1,7 +1,7 @@
 import { GestureResponderEvent, LayoutChangeEvent, ViewProps } from "react-native";
 
 interface IBox {
-    children?: React.ReactElement[] | React.ReactElement | (React.ReactElement | false)
+    children?: (React.ReactElement | (React.ReactElement | false)) | (React.ReactElement | (React.ReactElement | false | undefined))[]
     viewProps?: ViewProps
 
     /**
@@ -90,6 +90,9 @@ interface IBox {
      */
     translateX?: number
     translateY?: number
+    rotateX?: number
+    rotateY?: number
+    rotateZ?: number
 
     /**
      * Callbacks

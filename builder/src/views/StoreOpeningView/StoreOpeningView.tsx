@@ -35,9 +35,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     const [mainService, setMainService] = React.useState<string | null>(null)
     const [pageName, setPageName] = React.useState<string>("")
     const [primaryAddress, setPrimaryAddress] = React.useState<string>("")
-    const [useKakaoTalk, setUseKakaoTalk] = React.useState<boolean>(false)
     const [kakaoTalkLink, setKakaoTalkLink] = React.useState<string>("")
-    const [useSms, setUseSms] = React.useState<boolean>(false)
     const [phoneNumber, setPhoneNumber] = React.useState<string>("")
     const [useCreditCard, setUseCreditCard] = React.useState<boolean>(false)
     const [isMaleArtist, setIsMaleArtist] = React.useState<boolean>(false)
@@ -45,8 +43,12 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     const [isParkingAvailable, setIsParkingAvailable] = React.useState<boolean>(false)
     const [introduce, setIntroduce] = React.useState<string>("")
     const [instagramAddress, setInstagramAddress] = React.useState<string>("")
-    const [agreeTerm, setAgreeTerm] = React.useState<string>("")
     const [tattooistServiceTerm, setTattooistServiceTerm] = React.useState<string>("")
+
+    //* Accordion
+    const [selectedCommunicationMethod, setSelectedCommunicationMethod] = React.useState<number[]>([])
+    const [selectedAdditionalInfoAccordion, setSelectedAdditionalInfoAccordion] = React.useState<number[]>([])
+    const [agreeTerm, setAgreeTerm] = React.useState<string>("")
 
     //* Modal states 
     const [isPostCodeModalVisible, setPostCodeModalIsVisible] = React.useState<boolean>(false)
@@ -458,23 +460,6 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
             </Box>
 
             <Box px={14} pb={250} flexDirection="column">
-                <Accordion 
-                    contents={[
-                        {
-                            header: (
-                                <Box>
-                                    <Typography>A</Typography>
-                                </Box>
-                            ), 
-                            detail: (
-                                <Box>
-                                    <Typography>A</Typography>
-                                </Box>
-                            )
-                        }
-                    ]}
-                />
-
                 {/* 주력 서비스 */}
                 <Box flexDirection="column" mb={25}>
                     {/* Label */}
@@ -620,6 +605,196 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                 />
                             </Box>
                         </Modal>
+                    </Box>
+                </Box>
+                
+                {/* 상담 방식 */}
+                <Box flexDirection="column" mb={25}>
+                    {/* Label */}
+                    <Box mb={15}>
+                        <Typography variant="h5" fontWeight="500">
+                            상담방식
+                        </Typography>
+                    </Box>
+                    
+                    <Box>
+                        <Accordion 
+                            active={selectedCommunicationMethod}
+                            setActive={setSelectedCommunicationMethod}
+                            contents={[
+                                {
+                                    key: "kakaotalk",
+                                    header: (
+                                        <Box
+                                            width={"100%"}
+                                            alignY={"center"}
+                                            alignX={"space-between"}
+                                        >
+                                            <Box>
+                                                <Typography
+                                                    variant={"h6"}
+                                                    fontWeight={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? 
+                                                        "500"
+                                                        :
+                                                        "400"
+                                                    }
+                                                    color={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? 
+                                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                                        :
+                                                        "black"
+                                                    }
+                                                >
+                                                    카카오톡 오픈 채팅
+                                                </Typography>
+                                            </Box>
+
+                                            <Box>
+                                                <IconButton 
+                                                    iconName="check"
+                                                    iconSize={17}
+                                                    buttonSize={22}
+                                                    buttonPalette={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? "primary" : "grey"}
+                                                    variant={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? "contained" : "outlined"}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    ), 
+                                    detail: (
+                                        <Box>
+                                            <TextField
+                                                fullWidth
+                                                value={kakaoTalkLink}
+                                                setValue={setKakaoTalkLink}
+                                                placeholder={"여기에 카카오톡 오픈채팅 링크를 붙여넣으세요."}
+                                            />
+                                        </Box>
+                                    )
+                                },
+                                {
+                                    key: "sms",
+                                    header: (
+                                        <Box
+                                            width={"100%"}
+                                            alignY={"center"}
+                                            alignX={"space-between"}
+                                        >
+                                            <Box>
+                                                <Typography
+                                                    variant={"h6"}
+                                                    fontWeight={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? 
+                                                        "500"
+                                                        :
+                                                        "400"
+                                                    }
+                                                    color={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? 
+                                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                                        :
+                                                        "black"
+                                                    }
+                                                >
+                                                    문자
+                                                </Typography>
+                                            </Box>
+
+                                            <Box>
+                                                <IconButton 
+                                                    iconName="check"
+                                                    iconSize={17}
+                                                    buttonSize={22}
+                                                    buttonPalette={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? "primary" : "grey"}
+                                                    variant={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? "contained" : "outlined"}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    ), 
+                                    detail: (
+                                        <Box>
+                                            <TextField
+                                                fullWidth
+                                                value={phoneNumber}
+                                                setValue={setPhoneNumber}
+                                                placeholder={"휴대폰 번호를 입력해주세요."}
+                                            />
+                                        </Box>
+                                    )
+                                }
+                            ]}
+                        />
+                    </Box>
+
+                    <Box>
+                        <Accordion
+                            useArrow={true}
+                            active={selectedAdditionalInfoAccordion}
+                            setActive={setSelectedAdditionalInfoAccordion}
+                            contents={[
+                                {
+                                    key: "additionalInfo",
+                                    header: (
+                                        <Box
+                                            width={"100%"}
+                                            alignY={"center"}
+                                            alignX={"space-between"}
+                                        >
+                                            <Box>
+                                                <Typography
+                                                    variant={"h6"}
+                                                    fontWeight={(JSON.stringify(selectedAdditionalInfoAccordion) === JSON.stringify([0])) ? 
+                                                        "500"
+                                                        :
+                                                        "400"
+                                                    }
+                                                    color={(JSON.stringify(selectedAdditionalInfoAccordion) === JSON.stringify([0])) ? 
+                                                        ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                                        :
+                                                        "black"
+                                                    }
+                                                >
+                                                    부가정보
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    ), 
+                                    detail: (
+                                        <Box width={"100%"} flexDirection={"column"}>
+                                            {
+                                                [
+                                                    {key: "카드 결제", value: useCreditCard, setValue: setUseCreditCard},
+                                                    {key: "여성 아티스트", value: isMaleArtist, setValue: setIsMaleArtist},
+                                                    {key: "남성 아티스트", value: isFemaleArtist, setValue: setIsFemaleArtist},
+                                                    {key: "주차 가능", value: isParkingAvailable, setValue: setIsParkingAvailable}
+
+                                                ].map((element) => (
+                                                    <Box key={element.key} mb={15} width={"100%"} alignY="center" alignX="space-between">
+                                                        <Box>
+                                                            <Typography
+                                                                variant={"h6"}
+                                                                fontWeight={"400"}
+                                                            >
+                                                                {element.key}
+                                                            </Typography>
+                                                        </Box>
+
+                                                        <Box>
+                                                            <IconButton 
+                                                                iconName="check"
+                                                                iconSize={17}
+                                                                buttonSize={22}
+                                                                buttonPalette={(element.value) ? "primary" : "grey"}
+                                                                variant={(element.value) ? "contained" : "outlined"}
+                                                                onClick={() => {
+                                                                    element.setValue(!element.value)
+                                                                }}
+                                                            />
+                                                        </Box>
+                                                    </Box>
+                                                ))
+                                            }
+                                        </Box>
+                                    )
+                                }
+                            ]}
+                        />
                     </Box>
                 </Box>
 

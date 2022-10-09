@@ -1,7 +1,7 @@
 //* Import libraries
 import React from "react"
-import { Image, ImageStyle, StyleSheet, Text, ViewStyle, View } from "react-native"
 import AccordionLibrary from 'react-native-collapsible/Accordion';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -16,28 +16,80 @@ const Accordion = (props: IAccordion) => {
     const [active, setActive] = React.useState<number[]>([])
 
     //* Functions
+    const checkIsActive = (key: string) => {
+        let isActive: boolean = false
+
+        if (props.active !== undefined) {
+            if (props.active.length != 0) {
+                props.active.map((index) => {
+                    if (props.contents[index].key == key) {
+                        isActive = true
+                    }
+                })
+            }
+        } else {
+            if (active.length != 0) {
+                active.map((index) => {
+                    if (props.contents[index].key == key) {
+                        isActive = true
+                    }
+                })
+            }
+        }
+
+        return isActive
+    }
+
     const renderHeader = (content: TAccordionContent) => {
         return (
             <React.Fragment>
-                {
-                    content.header
-                }
+                <Box 
+                    flexDirection="row"
+                    width={"100%"} 
+                    py={(props.headerPadding !== undefined) ? props.headerPadding : 10}
+                >
+                    <Box width={(props.useArrow) ? "90%" : "100%"}>
+                        {
+                            content.header
+                        }
+                    </Box>
+                    
+                    {
+                        (props.useArrow) && (
+                            <Box width={"10%"} alignX={"right"}>
+                                <Box
+                                    rotateZ={(checkIsActive(content.key) ? 180 : undefined)}
+                                >
+                                    <Icon
+                                        name={"keyboard-arrow-down"} 
+                                        size={25} 
+                                        color={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "800")}
+                                    />
+                                </Box>
+                            </Box>
+                        )
+                    }
+                </Box>
             </React.Fragment>
         )
     }
 
     const renderContent = (content: TAccordionContent) => {
         return (
-            <React.Fragment>
+            <Box width={"100%"} pt={(props.openedGap !== undefined) ? props.openedGap : 15} pb={10}>
                 {
                     content.detail
                 }
-            </React.Fragment>
+            </Box>
         )
     }
 
     const onChangeAccordion = (activeSections: number[]) => {
-        setActive(activeSections)
+        if (props.setActive !== undefined) {
+            props.setActive(activeSections)
+        } else {
+            setActive(activeSections)
+        }
     }
 
     //* Life cycles
@@ -46,7 +98,7 @@ const Accordion = (props: IAccordion) => {
 
     return (
         <AccordionLibrary
-            activeSections={active}
+            activeSections={(props.active !== undefined) ? props.active : active}
             sections={props.contents}
             renderHeader={renderHeader}
             renderContent={renderContent}

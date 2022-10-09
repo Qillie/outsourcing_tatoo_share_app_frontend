@@ -61,7 +61,14 @@ const Box = (props: IBox) => {
     }
 
     const setTransform = (style: { default: ViewStyle }) => {
-        let translation: ({translateX: number} | {translateY: number})[] = []
+        let translation: (
+                {translateX: number} | 
+                {translateY: number} |
+                {rotateX: string} |
+                {rotateY: string} |
+                {rotateZ: string}
+            )[] 
+        = []
 
         if (props.translateX !== undefined) {
             translation.push({translateX: props.translateX})
@@ -69,6 +76,18 @@ const Box = (props: IBox) => {
 
         if (props.translateY !== undefined) {
             translation.push({translateY: props.translateY})
+        }
+
+        if (props.rotateX !== undefined) {
+            translation.push({rotateX: `${props.rotateX}deg`})
+        }
+
+        if (props.rotateY !== undefined) {
+            translation.push({rotateY: `${props.rotateY}deg`})
+        }
+
+        if (props.rotateZ !== undefined) {
+            translation.push({rotateZ: `${props.rotateZ}deg`})
         }
 
         if (translation.length != 0) {
