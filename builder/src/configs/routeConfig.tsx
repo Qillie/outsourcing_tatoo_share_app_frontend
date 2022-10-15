@@ -26,6 +26,7 @@ const routeConfig: IRouteLeaf[] = [
         children: []
     },
     {
+        key: "settings",
         name: "환경설정",
         description: "환경설정 화면",
         path: "/settings",

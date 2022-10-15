@@ -1,10 +1,12 @@
 //* Import libraries
 import { configureStore } from "@reduxjs/toolkit"
 import TopNavigatorSlice from '../../navigate/TopNavigator/components/TopNavigatorSlice';
+import UserTypeSlice from "../../../modules/ReduxContainer/UserTypeSlice";
 
 const ReduxStore = configureStore({
     reducer: {
-        topNavigator: TopNavigatorSlice.reducer
+        topNavigator: TopNavigatorSlice.reducer,
+        userType: UserTypeSlice.reducer
     }
 })
 

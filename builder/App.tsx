@@ -11,13 +11,6 @@ import {
 	View,
 } from 'react-native';
 
-import {
-	Colors,
-	DebugInstructions,
-	Header,
-	LearnMoreLinks,
-	ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { ReduxStore } from './src/core/base/ReduxCore';
 
@@ -32,6 +25,7 @@ import themeSheet from './src/configs/themes/themeSheet';
 import navigatorConfig from './src/configs/navigatorConfig';
 import { TReduxRootState } from './src/core/base/ReduxCore/ReduxCore';
 import TopNavigatorSlice from './src/core/navigate/TopNavigator/components/TopNavigatorSlice';
+import UserTypeSlice, { TUserType } from './src/modules/ReduxContainer/UserTypeSlice';
 
 
 //* Init themeCore
@@ -42,28 +36,46 @@ const ReduxContainer = () => {
 	const dispatch = useDispatch()
 	const topNavigatorState = useSelector<TReduxRootState>(state => state.topNavigator)
 	
+	/**
+	 * Redux slices
+	 */
+	//* Top navigator
+	const topNavigatorAction = TopNavigatorSlice.actions
 	const label = useSelector((state: TReduxRootState) => {
 		return state.topNavigator.label
 	})
-	
-	const actions = TopNavigatorSlice.actions
 
+	//* User type
+	const userTypeAction = UserTypeSlice.actions
+	const userType = useSelector((state: TReduxRootState) => {
+		return state.userType.type
+	})
+	
 	return (
 		<View style={{flex: 1}}>
 			<TopNavigator 
 				label={label}
 			/>
-
 			
 			<RouterCore 
 				routeTree={routeConfig}
+				outerArg={
+					{
+						settings: {
+							userType: userType,
+							setUserType: (type: "user" | "tattooist") => {
+								dispatch(userTypeAction.setUserType({type: type}))
+							}
+						}
+					}
+				}
 			/>
 
-			<BottomNavigator 
-				menu={navigatorConfig.menu}
+			<BottomNavigator
+				menu={(userType != "user") ? navigatorConfig.userMenu : navigatorConfig.tattooistMenu}
 				onClickNavBtnCallback={
 					(label) => {
-						dispatch(actions.setLabel({label: label}))
+						dispatch(topNavigatorAction.setLabel({label: label}))
 					}
 				}
 			/>

@@ -2,13 +2,16 @@
 import React from "react"
 import { ScrollView, Text, View } from 'react-native';
 import { Link } from "react-router-native";
+import { Switch } from "react-native-switch";
+
+//* Import modules
+import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
 import { Avatar, Divider, Typography } from "../../core/display";
 import { Box } from "../../core/layout";
 
-//* Import modules
-
 //* Import interfaces
 import ISettingsView from "./interfaces/ISettingsView"
+
 
 const SettingsView = (props: ISettingsView) => {
     //* Modules
@@ -48,10 +51,6 @@ const SettingsView = (props: ISettingsView) => {
             link: "/quote_request"
         },
         {
-            title: "작품 업로드",
-            link: "/work_upload"
-        },
-        {
             title: "리뷰 업로드",
             link: "/review_upload"
         }
@@ -87,7 +86,52 @@ const SettingsView = (props: ISettingsView) => {
     const [userName, setUserName] = React.useState<string>("JSA1231")
 
     return (
-        <ScrollView style={{height: "100%", paddingTop: 20}}>
+        <ScrollView style={{height: "100%"}}>
+            <Box
+                mb={20}
+                py={10}
+                px={15}
+                alignX={"space-between"}
+                width={"100%"} 
+                backgroundColor={(props.userType == "user") ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+            >
+                <Box>
+                    <Typography
+                        variant={"h5"} 
+                        fontWeight={"500"}
+                        color={"white"}
+                    >
+                        {
+                            (props.userType == "user") ?
+                            "고객으로 전환"
+                            :
+                            "타투이스트로 전환"
+                        }
+                    </Typography>
+                </Box>
+
+                <Box>
+                    {/* https://www.npmjs.com/package/react-native-switch */}
+                    <Switch
+                        activeText={""}
+                        inActiveText={""}
+                        backgroundActive={ThemeCoreSingleton.paletteManager.getColor("primary", "light")}
+                        value={(props.userType == "user")}
+                        onValueChange={
+                            (val) => {
+                                if (props.setUserType !== undefined) {
+                                    if (props.userType == "user") {
+                                        props.setUserType("tattooist")
+                                    } else {
+                                        props.setUserType("user")
+                                    }
+                                }
+                            }
+                        }
+                    />
+                </Box>
+            </Box>
+
             <Box px={14} pb={250} flexDirection="column">
                 {/* Thumbnail */}
                 <Box alignY="center">

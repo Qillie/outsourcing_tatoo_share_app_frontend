@@ -23,6 +23,11 @@ interface IRouteLeaf {
     element: React.ReactElement | undefined
 
     /**
+     * Args
+     */
+    key?: string
+
+    /**
      * Target route's child element
      */
     children: IRouteLeaf[]

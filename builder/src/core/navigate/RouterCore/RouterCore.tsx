@@ -9,6 +9,20 @@ import IRouterCore from "./interfaces/IRouterCore"
 const RouterCore = (props: IRouterCore) => {
     //* Functions
     /**
+     * Function to set arg in router
+     */
+    const setArgInElement = (key?: string, element?: React.ReactElement) => {
+        if (props.outerArg !== undefined && key !== undefined && element !== undefined) {
+            const targetArg = props.outerArg[key]
+
+            return React.cloneElement(element, targetArg)
+
+        } else {
+            return element
+        }
+    }
+
+    /**
      * Function to create route leaf element reculsively
      * @param routeBranch 
      * @returns 
@@ -29,7 +43,7 @@ const RouterCore = (props: IRouterCore) => {
                     {
                         key: routeLeaf.path, 
                         path: routeLeaf.path, 
-                        element: routeLeaf.element
+                        element: setArgInElement(routeLeaf.key, routeLeaf.element)
                     },
                     parentRouteLeafContainer
                 )
@@ -41,7 +55,7 @@ const RouterCore = (props: IRouterCore) => {
                     {
                         key: routeLeaf.path, 
                         path: routeLeaf.path, 
-                        element: routeLeaf.element
+                        element: setArgInElement(routeLeaf.key, routeLeaf.element)
                     }
                 )
             }
