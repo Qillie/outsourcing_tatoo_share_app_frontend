@@ -10,6 +10,7 @@ import {
 	useColorScheme,
 	View,
 } from 'react-native';
+import { useNavigate } from 'react-router-native';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { ReduxStore } from './src/core/base/ReduxCore';
@@ -18,14 +19,18 @@ import { ReduxStore } from './src/core/base/ReduxCore';
 import { RouterCore, TopNavigator } from './src/core/navigate';
 import { ThemeCoreSingleton } from './src/core/design';
 import { BottomNavigator } from './src/core/navigate';
+import Communicator from './src/core/base/Communicator/Communicator';
 
 //* Import configs
 import routeConfig from './src/configs/routeConfig';
 import themeSheet from './src/configs/themes/themeSheet';
 import navigatorConfig from './src/configs/navigatorConfig';
 import { TReduxRootState } from './src/core/base/ReduxCore/ReduxCore';
+
+//* Import redux slices
 import TopNavigatorSlice from './src/core/navigate/TopNavigator/components/TopNavigatorSlice';
-import UserTypeSlice, { TUserType } from './src/modules/ReduxContainer/UserTypeSlice';
+import UserTypeSlice from './src/modules/ReduxContainer/UserTypeSlice';
+import UserAuthSlice from './src/modules/ReduxContainer/UserAuthSlice';
 
 
 //* Init themeCore
@@ -33,7 +38,10 @@ ThemeCoreSingleton.setTheme(themeSheet)
 
 const ReduxContainer = () => {
 	//* Modules
+	const communicator = new Communicator()
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
 	const topNavigatorState = useSelector<TReduxRootState>(state => state.topNavigator)
 	
 	/**
@@ -50,6 +58,28 @@ const ReduxContainer = () => {
 	const userType = useSelector((state: TReduxRootState) => {
 		return state.userType.type
 	})
+
+	//* User auth
+	const userAuthAction = UserAuthSlice.actions
+	const userAuth = useSelector((state: TReduxRootState) => {
+		return {accessToken: state.userAuth.accessToken, refreshToken: state.userAuth.refreshToken} 
+	})
+
+	/**
+	 * Hook to check auth
+	 */
+	React.useEffect(() => {
+		communicator.getMultipleDataInSecureStore(["accessToken", "refreshToken"]).then((dataSet) => {
+			if (dataSet[0].value !== null && dataSet[1].value) {
+				userAuthAction.setUserAuth({
+					accessToken: dataSet[0].value,
+					refreshToken: dataSet[1].value
+				})
+			} else {
+				navigate("/sign_in")
+			}
+		})
+	}, [])
 	
 	return (
 		<View style={{flex: 1}}>

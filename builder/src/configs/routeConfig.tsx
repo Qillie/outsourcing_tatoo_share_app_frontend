@@ -15,6 +15,7 @@ import { StoreOpeningView } from "../views/StoreOpeningView"
 import { QuoteRequestView } from "../views/QuoteRequestView"
 import { WorkUploadView } from "../views/WorkUploadView"
 import { ReviewUploadView } from "../views/ReviewUploadView"
+import { SignInView } from '../views/SignInView';
 
 
 const routeConfig: IRouteLeaf[] = [
@@ -96,6 +97,13 @@ const routeConfig: IRouteLeaf[] = [
                 children: []
             }
         ]
+    },
+    {
+        name: "로그인",
+        description: "로그인 화면",
+        path: "/sign_in",
+        element: <SignInView />,
+        children: []
     },
     {
         name: "상점 페이지 개설",

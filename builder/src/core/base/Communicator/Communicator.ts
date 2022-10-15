@@ -16,10 +16,10 @@ const axios = axiosLibrary.create({
 
 class Communicator {
     //* Members
-    private paths: ICommunicatorPaths
-    private configs: ICommunicatorConfigs
+    private paths?: ICommunicatorPaths
+    private configs?: ICommunicatorConfigs
 
-    constructor(paths: ICommunicatorPaths, configs: ICommunicatorConfigs) {
+    constructor(paths?: ICommunicatorPaths, configs?: ICommunicatorConfigs) {
         this.paths = paths
         this.configs = configs
     }
@@ -36,7 +36,7 @@ class Communicator {
     /**
      * Function to store secure data (Like cookie or local storage ...)
      */
-     public async setMultipleDataInSecureStore(dataList: {key: string, value: string}[]) {
+    public async setMultipleDataInSecureStore(dataList: {key: string, value: string}[]) {
         return await Promise.all(dataList.map(async (data) => {
             return await AsyncStorage.setItem(data.key, data.value);
         }))
@@ -49,6 +49,18 @@ class Communicator {
      */
     public async getDataFromSecureStore(key: string) {
         return await AsyncStorage.getItem(key)
+    }
+
+    /**
+     * Function to get secure data (Like cookie or local storage ...)
+     */
+    public async getMultipleDataInSecureStore(keyList: string[]) {
+        const dataSet = await Promise.all(keyList.map(async (key) => {
+            const data = {key: key, value: await AsyncStorage.getItem(key)}
+            return data
+        }))
+
+        return dataSet
     }
 
     /**
@@ -86,7 +98,7 @@ class Communicator {
     //* Preset function
     public async preset(presetFunctionKey: string, payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         try {
-            if (this.configs.PRESET !== undefined && this.paths.PRESET !== undefined) {
+            if (this.configs?.PRESET !== undefined && this.paths?.PRESET !== undefined) {
                 console.log(presetFunctionKey)
                 console.log(presetFunctionKey in this.configs.PRESET)
 
@@ -157,8 +169,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "PRESET in configs", this.configs.CREATE)
-                errorMessage = this.setErrorMessage(errorMessage, "PRESET in paths", this.paths.CREATE)
+                errorMessage = this.setErrorMessage(errorMessage, "PRESET in configs", this.configs?.CREATE)
+                errorMessage = this.setErrorMessage(errorMessage, "PRESET in paths", this.paths?.CREATE)
 
                 throw new Error(errorMessage)
             }
@@ -170,7 +182,7 @@ class Communicator {
     //* Create function
     public async create(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         try {
-            if (this.configs.CREATE !== undefined && this.paths.CREATE !== undefined) {
+            if (this.configs?.CREATE !== undefined && this.paths?.CREATE !== undefined) {
                 //* Set payload
                 let requestPayload: {CREATE_OPTION_KEY_LIST: {[ MODEL_KEY: string ]: any}, SOURCE: {[ MODEL_KEY: string ]: any}} = {CREATE_OPTION_KEY_LIST: {}, SOURCE: payload}
 
@@ -188,8 +200,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "CREATE in configs", this.configs.CREATE)
-                errorMessage = this.setErrorMessage(errorMessage, "CREATE in paths", this.paths.CREATE)
+                errorMessage = this.setErrorMessage(errorMessage, "CREATE in configs", this.configs?.CREATE)
+                errorMessage = this.setErrorMessage(errorMessage, "CREATE in paths", this.paths?.CREATE)
 
                 throw new Error(errorMessage)
             }
@@ -201,7 +213,7 @@ class Communicator {
     //* Find one function
     public async findOne (payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         try {
-            if (this.configs.FIND_ONE !== undefined && this.paths.FIND_ONE !== undefined) {
+            if (this.configs?.FIND_ONE !== undefined && this.paths?.FIND_ONE !== undefined) {
                 //* Set payload
                 let requestFindOptionPayload: {[ MODEL_KEY: string ]: any} = {}
                 let requestResponseOptionPayload: {[ MODEL_KEY: string ]: any} = {}
@@ -232,8 +244,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "FIND_ONE in configs", this.configs.FIND_ONE)
-                errorMessage = this.setErrorMessage(errorMessage, "FIND_ONE in paths", this.paths.FIND_ONE)
+                errorMessage = this.setErrorMessage(errorMessage, "FIND_ONE in configs", this.configs?.FIND_ONE)
+                errorMessage = this.setErrorMessage(errorMessage, "FIND_ONE in paths", this.paths?.FIND_ONE)
 
                 throw new Error(errorMessage)
             }
@@ -245,7 +257,7 @@ class Communicator {
     //* Find all function
     public async findAll(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback){
         try {
-            if (this.configs.FIND_ALL !== undefined && this.paths.FIND_ALL !== undefined) {
+            if (this.configs?.FIND_ALL !== undefined && this.paths?.FIND_ALL !== undefined) {
                 //* Set payload
                 let requestFindOptionPayload: {[ MODEL_KEY: string ]: any} = {}
                 let requestResponseOptionPayload: {[ MODEL_KEY: string ]: any} = {}
@@ -276,8 +288,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "FIND_ALL in configs", this.configs.FIND_ALL)
-                errorMessage = this.setErrorMessage(errorMessage, "FIND_ALL in paths", this.paths.FIND_ALL)
+                errorMessage = this.setErrorMessage(errorMessage, "FIND_ALL in configs", this.configs?.FIND_ALL)
+                errorMessage = this.setErrorMessage(errorMessage, "FIND_ALL in paths", this.paths?.FIND_ALL)
 
                 throw new Error(errorMessage)
             }
@@ -289,7 +301,7 @@ class Communicator {
     //* Update function
     public async update(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback){
         try {
-            if (this.configs.UPDATE !== undefined && this.paths.UPDATE !== undefined) {
+            if (this.configs?.UPDATE !== undefined && this.paths?.UPDATE !== undefined) {
                 //* Set each options
                 let requestFindOptionPayload: {[ MODEL_KEY: string ]: any} = {}
                 let requestUpdateOptionPayload: {[ MODEL_KEY: string ]: any} = {}
@@ -322,8 +334,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "UPDATE in configs", this.configs.UPDATE)
-                errorMessage = this.setErrorMessage(errorMessage, "UPDATE in paths", this.paths.UPDATE)
+                errorMessage = this.setErrorMessage(errorMessage, "UPDATE in configs", this.configs?.UPDATE)
+                errorMessage = this.setErrorMessage(errorMessage, "UPDATE in paths", this.paths?.UPDATE)
 
                 throw new Error(errorMessage)
             }
@@ -335,7 +347,7 @@ class Communicator {
     //* Delete function
     public async delete(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback){
         try {
-            if (this.configs.DELETE !== undefined && this.paths.DELETE !== undefined) {
+            if (this.configs?.DELETE !== undefined && this.paths?.DELETE !== undefined) {
                 //* Set each options
                 let requestFindOptionPayload: {[ MODEL_KEY: string ]: any} = {}
                 let requestUpdateOptionPayload: {[ MODEL_KEY: string ]: any} = {}
@@ -367,8 +379,8 @@ class Communicator {
             } else {
                 let errorMessage = ''
 
-                errorMessage = this.setErrorMessage(errorMessage, "DELETE in configs", this.configs.DELETE)
-                errorMessage = this.setErrorMessage(errorMessage, "DELETE in paths", this.paths.DELETE)
+                errorMessage = this.setErrorMessage(errorMessage, "DELETE in configs", this.configs?.DELETE)
+                errorMessage = this.setErrorMessage(errorMessage, "DELETE in paths", this.paths?.DELETE)
 
                 throw new Error(errorMessage)
             }

@@ -93,11 +93,11 @@ const SettingsView = (props: ISettingsView) => {
                 px={15}
                 alignX={"space-between"}
                 width={"100%"} 
-                backgroundColor={(props.userType == "user") ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "700")}
+                backgroundColor={(props.userType == "user") ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "800")}
             >
                 <Box>
                     <Typography
-                        variant={"h5"} 
+                        variant={"h5"}
                         fontWeight={"500"}
                         color={"white"}
                     >
