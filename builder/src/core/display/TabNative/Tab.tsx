@@ -1,7 +1,7 @@
 //* Import libraries
 import React from "react"
-import { ScrollView, StyleSheet, Text } from "react-native"
-import { SceneMap, TabView } from "react-native-tab-view"
+import { Animated, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { NavigationState, SceneMap, SceneRendererProps, TabView } from "react-native-tab-view"
 
 //* Import modules
 import { ThemeCoreSingleton } from "../../design"
@@ -10,6 +10,7 @@ import { Button } from "../../input"
 
 //* Import interfaces
 import ITab from "./interfaces/ITab"
+import Typography from "../Typography"
 
 
 const Tab = (props: ITab) => {
@@ -46,6 +47,80 @@ const Tab = (props: ITab) => {
         return SceneMap(scene)
     }
 
+    const renderTabBar = ((
+        props: SceneRendererProps & {
+        navigationState: NavigationState<{
+            key: string;
+            title: string;
+        }>;
+    }) => {
+        const inputRange = props.navigationState.routes.map((x, i) => i)
+
+        return (
+            <React.Fragment>
+                <View style={styles.tabBar}>
+                    {props.navigationState.routes.map((route, i) => {
+                        const opacity = props.position.interpolate({
+                                inputRange,
+                                outputRange: inputRange.map((inputIndex) =>
+                                inputIndex === i ? 1 : 0.5
+                            ),
+                        });
+
+                        return (
+                            <Box
+                                flex={1}
+                                alignX={'center'}
+                                px={16}
+                                pt={16}
+                                pb={12}
+                                onClick={() => {
+                                    setSelectedTabIndex(i)
+                                }}
+                                borderBottomColor={
+                                    (selectedTabIndex == i) ?
+                                    ThemeCoreSingleton.paletteManager.getColor("primary", "main")
+                                    :
+                                    undefined
+                                }
+                                borderBottomWidth={
+                                    (selectedTabIndex == i) ?
+                                    3
+                                    :
+                                    undefined
+                                }
+                            >
+                                <Typography
+                                    fontWeight={
+                                        (selectedTabIndex == i) ?
+                                        "500"
+                                        :
+                                        "400"
+                                    }
+                                    color={
+                                        (selectedTabIndex == i) ?
+                                        "black"
+                                        :
+                                        ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "600")
+                                    }
+                                    variant={"h6"}
+                                >
+                                    {route.title}
+                                </Typography>
+                            </Box>
+                            // <TouchableOpacity
+                            //     style={styles.tabItem}
+                            //     onPress={() => setSelectedTabIndex(i)}
+                            // >
+                            //     <Animated.Text style={{ opacity }}>{route.title}</Animated.Text>
+                            // </TouchableOpacity>
+                        );
+                    })}
+                </View>
+            </React.Fragment>
+       )
+    })
+
     //* Life cycles
     React.useEffect(() => {
 
@@ -62,9 +137,25 @@ const Tab = (props: ITab) => {
                 }
                 renderScene={setRenderScene()}
                 onIndexChange={setSelectedTabIndex}
+                renderTabBar={renderTabBar}
             />
         </React.Fragment>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    tabBar: {
+      flexDirection: 'row',
+      paddingTop: StatusBar.currentHeight,
+    },
+    tabItem: {
+      flex: 1,
+      alignItems: 'center',
+      padding: 16,
+    },
+  });
 
 export default Tab
