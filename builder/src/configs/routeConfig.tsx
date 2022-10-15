@@ -11,9 +11,10 @@ import { PlannedContentDetailsView } from "../views/PlannedContentDetailsView"
 import { MagazineContentView } from "../views/MagazineContentView"
 import { RankingsView } from "../views/RankingsView"
 import { SignUpView, TermsView, UserInfoView } from '../views/SignUpView'
-import { SignInView } from "../views/SignInView"
 import { StoreOpeningView } from "../views/StoreOpeningView"
 import { QuoteRequestView } from "../views/QuoteRequestView"
+import { WorkUploadView } from "../views/WorkUploadView"
+import { ReviewUploadView } from "../views/ReviewUploadView"
 
 
 const routeConfig: IRouteLeaf[] = [
@@ -108,7 +109,21 @@ const routeConfig: IRouteLeaf[] = [
         path: "/quote_request",
         element: <QuoteRequestView />,
         children: []
-    }
+    },
+    {
+        name: "작품 업로드",
+        description: "작품 업로드 화면",
+        path: "/work_upload",
+        element: <WorkUploadView />,
+        children: []
+    },
+    {
+        name: "리뷰 업로드",
+        description: "리뷰 업로드 화면",
+        path: "/review_upload",
+        element: <ReviewUploadView />,
+        children: []
+    },
 
 ]
 

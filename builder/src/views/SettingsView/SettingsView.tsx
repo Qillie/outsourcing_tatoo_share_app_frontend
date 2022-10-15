@@ -46,6 +46,14 @@ const SettingsView = (props: ISettingsView) => {
         {
             title: "구매자 견적 작성",
             link: "/quote_request"
+        },
+        {
+            title: "작품 업로드",
+            link: "/work_upload"
+        },
+        {
+            title: "리뷰 업로드",
+            link: "/review_upload"
         }
     ])
 
