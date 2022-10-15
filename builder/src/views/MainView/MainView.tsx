@@ -12,7 +12,7 @@ import { Tab } from "../../core/display";
 import { Thumbnail } from "../../core/display";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ThumbnailTypePost } from "../../modules";
-import { IconButton } from "../../core/input";
+import { IconButton, LinkButton } from "../../core/input";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -234,7 +234,7 @@ const MainView = (props: IMainView) => {
 
                 <Box flexDirection="column">
                     {/* Title */}
-                    <Link to="">
+                    <LinkButton to="">
                         <Box px={16} py={16} alignX={"space-between"} alignY={"center"}>
                             <Box flexDirection="column">
                                 <Typography variant={"h4"} fontWeight={"500"}>
@@ -248,7 +248,7 @@ const MainView = (props: IMainView) => {
 
                             <IconButton iconSize={25} iconName="arrow-forward-ios" fontColor={ThemeCoreSingleton.paletteManager.getColor("black")} />
                         </Box>
-                    </Link>
+                    </LinkButton>
 
                     <Box>
                         <VerticalThumbnailPost
@@ -258,7 +258,7 @@ const MainView = (props: IMainView) => {
                     
                     <Divider my={10}></Divider>
 
-                    <Link to="">
+                    <LinkButton to="">
                         <Box my={6}>
                             <Box width={"100%"} alignX="center">
                                 <Box mr={4}>
@@ -279,7 +279,7 @@ const MainView = (props: IMainView) => {
                                 </Typography>
                             </Box>
                         </Box>
-                    </Link>
+                    </LinkButton>
                 </Box>
             </Box>
         </ScrollView>

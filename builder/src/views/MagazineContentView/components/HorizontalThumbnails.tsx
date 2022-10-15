@@ -1,7 +1,6 @@
 //* Import libraries
 import React from "react"
 import { Dimensions, ScrollView, Text, View } from 'react-native';
-import { Link } from "react-router-native";
 
 //* Import modules
 import { Typography } from "../../../core/display";
@@ -9,6 +8,7 @@ import { Grid, Box } from "../../../core/layout";
 import { Button, TextField } from "../../../core/input";
 import { Tab } from "../../../core/display";
 import { Thumbnail } from "../../../core/display";
+import { LinkButton } from "../../../core/input";
 
 //* Import interfaces
 import IHorizontalThumbnails from "../interfaces/IHorizontalThumbnails"
@@ -93,14 +93,14 @@ const HorizontalThumbnails = (props: IHorizontalThumbnails) => {
                                                 }
                                             }
                                         }>
-                                            <Link to={viewItem.link}>
+                                            <LinkButton to={viewItem.link}>
                                                 <Thumbnail
                                                     src={"https://reactnative.dev/img/tiny_logo.png"}
                                                     borderRadius={10}
                                                     label={viewItem.label}
                                                     labelBackgroundOpacity={0.5}
                                                 />
-                                            </Link>
+                                            </LinkButton>
                                         </Grid>
                                     ))
                                 }

@@ -1,5 +1,4 @@
 //* Import libraries
-import { Link } from "react-router-native"
 
 //* Import interfaces
 import ICardProductPost from "./interfaces/ICardProductPost"
@@ -10,10 +9,11 @@ import React from "react"
 import { ThemeCoreSingleton } from "../../core/design"
 import { Typography } from "../../core/display"
 import { Box } from "../../core/layout"
+import { LinkButton } from "../../core/input"
 
 const CardProductPost = (props: ICardProductPost) => {
     return (
-        <Link to={props.link}>
+        <LinkButton to={props.link}>
             <CardTypePost 
                 borderRadius={6} 
                 src={props.src} 
@@ -92,7 +92,7 @@ const CardProductPost = (props: ICardProductPost) => {
                     </Box>
                 </Box>
             </CardTypePost>
-        </Link>
+        </LinkButton>
     )
 }
 

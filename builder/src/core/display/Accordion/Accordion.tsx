@@ -98,6 +98,7 @@ const Accordion = (props: IAccordion) => {
 
     return (
         <AccordionLibrary
+            underlayColor={"none"}
             activeSections={(props.active !== undefined) ? props.active : active}
             sections={props.contents}
             renderHeader={renderHeader}

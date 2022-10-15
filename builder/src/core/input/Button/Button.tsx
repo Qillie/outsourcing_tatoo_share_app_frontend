@@ -64,7 +64,7 @@ const Button = (props: IButton) => {
         //* Color
         let actionStyle: ViewStyle = {}
 
-        actionStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "dark") : "transparent"
+        // actionStyle.backgroundColor = (props.buttonPalette !== undefined) ? ThemeCoreSingleton.paletteManager.getColor(props.buttonPalette, "dark") : 
 
         return actionStyle
     }

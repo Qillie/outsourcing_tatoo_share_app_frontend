@@ -389,7 +389,7 @@ class Communicator {
         }
     }
 
-    private async putData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async putData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
             axios.put(`${apiEndpointPath}`, payload)
@@ -410,7 +410,7 @@ class Communicator {
         }
     }
 
-    private async postData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async postData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
             axios.post(`${apiEndpointPath}`, payload)
@@ -431,7 +431,7 @@ class Communicator {
         }
     }
 
-    private async getData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async getData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
             axios.get(`${apiEndpointPath}`, {params: payload})
@@ -452,7 +452,7 @@ class Communicator {
         }
     }
 
-    private async deleteData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async deleteData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
             axios.put(`${apiEndpointPath}`, payload)

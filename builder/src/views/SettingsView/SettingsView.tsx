@@ -1,13 +1,14 @@
 //* Import libraries
 import React from "react"
 import { ScrollView, Text, View } from 'react-native';
-import { Link } from "react-router-native";
 import { Switch } from "react-native-switch";
 
 //* Import modules
 import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
 import { Avatar, Divider, Typography } from "../../core/display";
 import { Box } from "../../core/layout";
+import { LinkButton } from "../../core/input";
+import { Communicator } from "../../core/base";
 
 //* Import interfaces
 import ISettingsView from "./interfaces/ISettingsView"
@@ -15,6 +16,7 @@ import ISettingsView from "./interfaces/ISettingsView"
 
 const SettingsView = (props: ISettingsView) => {
     //* Modules
+    const communicator = new Communicator()
 
     //* States
     const [contents, setContents] = React.useState<{title: string, link: string}[]>([
@@ -84,6 +86,23 @@ const SettingsView = (props: ISettingsView) => {
     ])
 
     const [userName, setUserName] = React.useState<string>("JSA1231")
+
+    /**
+     * Hook to get user's tattooist page
+     */
+    React.useEffect(() => {
+        if (props.userType == "tattooist") {
+            communicator.getMultipleDataInSecureStore(["accessToken", "refreshToken"]).then((dataSet) => {
+                // communicator.getData(
+                //     {},
+                //     "",
+                //     (response) => {
+
+                //     }
+                // )
+            })
+        }
+    }, [props.userType])
 
     return (
         <ScrollView style={{height: "100%"}}>
@@ -166,13 +185,13 @@ const SettingsView = (props: ISettingsView) => {
                         {
                             contents.map((content) => (
                                 <Box flexDirection="column">
-                                    <Link to={content.link}>
+                                    <LinkButton to={content.link}>
                                         <Typography variant="body1">
                                             {
                                                 content.title
                                             }
                                         </Typography>
-                                    </Link>
+                                    </LinkButton>
 
                                     <Divider my={20} />
                                 </Box>

@@ -1,7 +1,6 @@
 //* Import libraries
 import React from "react"
 import { Dimensions, Image, ScrollView, Text, View } from 'react-native';
-import { Link } from "react-router-native";
 
 
 //* Import modules
@@ -14,6 +13,7 @@ import { Thumbnail } from "../../core/display";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ThumbnailTypePost } from "../../modules";
 import { IconButton } from "../../core/input";
+import { LinkButton } from "../../core/input";
 
 //* Import interfaces
 import IMagazineContentView from "./interfaces/IMagazineContentView"
@@ -65,7 +65,7 @@ const MagazineContentView = (props: IMagazineContentView) => {
                 <Box flexDirection="column">
                     {
                         contents.map((content) => (
-                            <Link to={content.link}>
+                            <LinkButton to={content.link}>
                                 <View
                                     style={{
                                         width: "100%",
@@ -126,7 +126,7 @@ const MagazineContentView = (props: IMagazineContentView) => {
                                         </Box>
                                     </Box>
                                 </View>
-                            </Link>
+                            </LinkButton>
                         ))
                     }
                 </Box>

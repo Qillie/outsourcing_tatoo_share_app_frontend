@@ -252,6 +252,7 @@ const Box = (props: IBox) => {
                             }
                         }
                     }
+                    
                 >
                     {
                         props.children

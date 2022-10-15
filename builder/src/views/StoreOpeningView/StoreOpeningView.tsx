@@ -655,6 +655,13 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                                     buttonSize={22}
                                                     buttonPalette={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? "primary" : "grey"}
                                                     variant={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])) ? "contained" : "outlined"}
+                                                    onClick={
+                                                        () => {
+                                                            const isSelected = JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0])
+
+                                                            setSelectedCommunicationMethod((isSelected) ? [] : [0])
+                                                        }
+                                                    }
                                                 />
                                             </Box>
                                         </Box>
@@ -703,6 +710,13 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                                                     buttonSize={22}
                                                     buttonPalette={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? "primary" : "grey"}
                                                     variant={(JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])) ? "contained" : "outlined"}
+                                                    onClick={
+                                                        () => {
+                                                            const isSelected = JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1])
+
+                                                            setSelectedCommunicationMethod((isSelected) ? [] : [1])
+                                                        }
+                                                    }
                                                 />
                                             </Box>
                                         </Box>
