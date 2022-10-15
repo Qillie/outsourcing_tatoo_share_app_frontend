@@ -83,7 +83,7 @@ const App = () => {
 		<React.Fragment>
 			<SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
 
-			<SafeAreaView style={{flex: 1, backgroundColor: ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}}>
+			<SafeAreaView style={{flex: 1, backgroundColor: ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "100")}}>
 				<View style={{backgroundColor: "white", width: "100%", height: "100%"}}>
 					<StatusBar
 						barStyle={isDarkMode ? 'light-content' : 'dark-content'}

@@ -9,7 +9,6 @@ import { Grid, Box } from "../../core/layout";
 import { Button, TextField } from "../../core/input";
 import { ThumbnailTypePost } from "../../modules";
 import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
-import TabNative from "../../core/display/TabNative";
 
 //* Import interfaces
 import IFavoritesView from "./interfaces/IFavoritesView"
@@ -51,7 +50,7 @@ const FavoritesView = (props: IFavoritesView) => {
 
     return (
         <React.Fragment>
-            <TabNative 
+            <Tab 
                 tabContents={[
                     {
                         title: "최근 본",

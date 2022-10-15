@@ -27,8 +27,9 @@ const BottomNavigator = (props: IBottomNavigator) => {
         <Box
             position="absolute"
             bottom="0%"
-            py={10}
-            backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "200")}
+            pt={0}
+            pb={0}
+            backgroundColor={ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "100")}
         >
             <Grid role={"container"} alignItems={"center"}>
                 {
@@ -36,10 +37,12 @@ const BottomNavigator = (props: IBottomNavigator) => {
                         <Grid role={"item"} xs={true} key={element.link}>
                             <Button
                                 typographyProps={{
-                                    fontWeight: "500",
-                                    color: (activated == elementIndex) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "600")
+                                    fontWeight: (activated == elementIndex) ? "500" : "400",
+                                    color: (activated == elementIndex) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "500"),
+                                    
                                 }}
-                                iconGap={6}
+                                fontColor={(activated == elementIndex) ? ThemeCoreSingleton.paletteManager.getColor("primary", "main") : ThemeCoreSingleton.paletteManager.getColor("grey", undefined, "600")}
+                                iconGap={2}
                                 iconDirection={"column"}
                                 iconName={element.iconName}
                                 fullWidth={true}

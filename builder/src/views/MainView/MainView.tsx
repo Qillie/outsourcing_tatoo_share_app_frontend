@@ -13,7 +13,6 @@ import { Thumbnail } from "../../core/display";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ThumbnailTypePost } from "../../modules";
 import { IconButton } from "../../core/input";
-import TabNative from "../../core/display/TabNative";
 
 //* Import interfaces
 import IMainView from "./interfaces/IMainView"
@@ -179,7 +178,7 @@ const MainView = (props: IMainView) => {
         <ScrollView>
             <Box pb={200} flexDirection="column">
                 <Box height={350}>
-                    <TabNative
+                    <Tab
                         tabContents={[
                             {
                                 title: "장르",
