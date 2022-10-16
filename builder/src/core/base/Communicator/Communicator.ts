@@ -187,8 +187,6 @@ class Communicator {
     public async create(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback, useForm?: boolean) {
         try {
             if (this.configs?.CREATE !== undefined && this.paths?.CREATE !== undefined) {
-                
-
                 //* Set payload
                 let requestPayload: {CREATE_OPTION_KEY_LIST: {[ MODEL_KEY: string ]: any}, SOURCE: {[ MODEL_KEY: string ]: any}} = {CREATE_OPTION_KEY_LIST: {}, SOURCE: payload}
 

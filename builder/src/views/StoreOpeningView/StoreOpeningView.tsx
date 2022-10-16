@@ -96,7 +96,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
             isParkingAvailable: boolean
             introduce: string
             instagramAddress: string
-            contact?: {type: string, value: string}
+            contact?: string
             thumbnailImage?: TWrappedImage
         } = {
             mainService: mainService,
@@ -111,16 +111,21 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
         }
 
         if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0]))) {
-            storeCreatePayload.contact = {
+            storeCreatePayload.contact = JSON.stringify({
                 type: "kakaotalk",
                 value: kakaoTalkLink
-            }
+            })
 
         } else if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1]))) {
-            storeCreatePayload.contact = {
+            storeCreatePayload.contact = JSON.stringify({
                 type: "phone",
                 value: phoneNumber
-            }
+            })
+        } else {
+            storeCreatePayload.contact = JSON.stringify({
+                type: "",
+                value: ""
+            })
         }
 
         if (profileThumbnail !== null) {
@@ -138,7 +143,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
         communicator.create(
             Object.assign(storeCreatePayload, wrappedBannerImageListDict),
             (response) => {
-                
+                navigate("/settings")
             },
             (error) => {
 
@@ -193,6 +198,47 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                 setUserThumbnailModalIsVisible(true)
             }
         })
+    }
+
+    const disableNextButton = () => {
+        let isDisabled = false
+
+        if (mainService === null) {
+            isDisabled = true
+        }
+
+        if (pageName.length == 0) {
+            isDisabled = true
+        }
+
+        if (primaryAddress.length == 0) {
+            isDisabled = true
+        }
+
+        if (introduce.length == 0) {
+            isDisabled = true
+        }
+
+        if (profileThumbnail === null) {
+            isDisabled = true
+        }
+
+        if (fixedCoverPhotoIndexList.length == 0) {
+            isDisabled = true
+        }
+
+        if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0]))) {
+            if (kakaoTalkLink.length == 0) {
+                isDisabled = true
+            }
+
+        } else if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1]))) {
+            if (phoneNumber.length == 0) {
+                isDisabled = true
+            }
+        }
+
+        return isDisabled
     }
 
     //* Hooks
@@ -938,7 +984,7 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
                     <Button
                         onClick={sendCreateStoreRequest}
                         fullWidth
-                        // disabled={disableNextButton()}
+                        disabled={disableNextButton()}
                         variant="contained"
                         buttonPalette="primary"
                         borderRadius={5}

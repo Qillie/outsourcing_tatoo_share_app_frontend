@@ -5,7 +5,7 @@ import { Switch } from "react-native-switch";
 
 //* Import modules
 import ThemeCoreSingleton from '../../core/design/ThemeCore/ThemeCoreSingleton';
-import { Avatar, Divider, Typography } from "../../core/display";
+import { Avatar, Divider, Typography, Alert } from "../../core/display";
 import { Box } from "../../core/layout";
 import { LinkButton } from "../../core/input";
 import { Communicator } from "../../core/base";
@@ -86,23 +86,25 @@ const SettingsView = (props: ISettingsView) => {
     ])
 
     const [userName, setUserName] = React.useState<string>("JSA1231")
+    const [showCreateTattooistPageAlert, setShowCreateTattooistPageAlert] = React.useState<boolean>(true)
 
+    //* Functions
     /**
-     * Hook to get user's tattooist page
+     * Function to switch user type
      */
-    React.useEffect(() => {
-        if (props.userType == "tattooist") {
-            communicator.getMultipleDataInSecureStore(["accessToken", "refreshToken"]).then((dataSet) => {
-                // communicator.getData(
-                //     {},
-                //     "",
-                //     (response) => {
+    const onClickUserTypeChangeSwitch = (val: boolean) => {
+        if (props.setUserType !== undefined) {
+            if (props.userType == "user") {
+                props.setUserType("tattooist")
 
-                //     }
-                // )
-            })
+                //* Check if tattoist has own page
+                setShowCreateTattooistPageAlert(true)
+                
+            } else {
+                props.setUserType("user")
+            }
         }
-    }, [props.userType])
+    }
 
     return (
         <ScrollView style={{height: "100%"}}>
@@ -136,17 +138,7 @@ const SettingsView = (props: ISettingsView) => {
                         inActiveText={""}
                         backgroundActive={ThemeCoreSingleton.paletteManager.getColor("primary", "light")}
                         value={(props.userType == "user")}
-                        onValueChange={
-                            (val) => {
-                                if (props.setUserType !== undefined) {
-                                    if (props.userType == "user") {
-                                        props.setUserType("tattooist")
-                                    } else {
-                                        props.setUserType("user")
-                                    }
-                                }
-                            }
-                        }
+                        onValueChange={onClickUserTypeChangeSwitch}
                     />
                 </Box>
             </Box>
@@ -229,6 +221,11 @@ const SettingsView = (props: ISettingsView) => {
                 <Box>
                     
                 </Box>
+
+                <Alert
+                show={true}
+                setShow={setShowCreateTattooistPageAlert}
+            />
             </Box>
         </ScrollView>
     )
