@@ -12,14 +12,37 @@ import { Button, IconButton, TextField } from "../../core/input";
 import { Box, Grid } from "../../core/layout";
 import { ThemeCoreSingleton } from "../../core/design";
 import { ImagePicker } from "../../modules";
+import Communicator from '../../core/base/Communicator/Communicator';
 
 //* Import interfaces
 import IStoreOpeningView from "./interfaces/IStoreOpeningView"
 import { PhotoIdentifier } from "@react-native-camera-roll/camera-roll";
+import TWrappedImage from '../../core/base/Communicator/interfaces/TWrappedImage';
 
 
 const StoreOpeningView = (props: IStoreOpeningView) => {
     //* Modules
+    const communicator = new Communicator({
+        CREATE: {path: "/api/tattooist_page/create", method: "post"}
+    },
+    {
+        CREATE: {
+            CREATE_OPTION_KEY_LIST: {
+                mainService: "TATTOOIST_PAGE_MAIN_SERVICE",
+                pageName: "PAGE_NAME",
+                primaryAddress: "TATTOOIST_PAGE_PRIMARY_ADDRESS",
+                useCreditCard: "USE_CREDIT_CARD",
+                isMaleArtist: "IS_MALE_ARTIST",
+                isFemaleArtist: "IS_FEMALE_ARTIST",
+                isParkingAvailable: "IS_PARKING_AVAILABLE",
+                introduce: "INTRODUCE",
+                instagramAddress: "INSTAGRAM_ADDRESS",
+                contact: "CONTACT",
+                thumbnailImage: "THUMBNAIL_IMAGE_PATH",
+                bannerImageList: "BANNER_IMAGE_PATH_LIST"
+            }
+        }
+    })
     const navigate = useNavigate()
     const permission = new PermissionManager()
 
@@ -29,7 +52,6 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
     //* User info
     // Thumbnail
     const [profileThumbnail, setProfileThumbnail] = React.useState<PhotoIdentifier | null>(null)
-    const [bannerImages, setBannerImages] = React.useState<PhotoIdentifier[]>([])
 
     // Basic
     const [mainService, setMainService] = React.useState<string | null>(null)
@@ -64,7 +86,65 @@ const StoreOpeningView = (props: IStoreOpeningView) => {
 
     //* Functions
     const sendCreateStoreRequest = () => {
+        const storeCreatePayload: {
+            mainService: string | null
+            pageName: string
+            primaryAddress: string
+            useCreditCard: boolean
+            isMaleArtist: boolean 
+            isFemaleArtist: boolean
+            isParkingAvailable: boolean
+            introduce: string
+            instagramAddress: string
+            contact?: {type: string, value: string}
+            thumbnailImage?: TWrappedImage
+        } = {
+            mainService: mainService,
+            pageName: pageName,
+            primaryAddress: primaryAddress,
+            useCreditCard: useCreditCard,
+            isMaleArtist: isMaleArtist,
+            isFemaleArtist: isFemaleArtist,
+            isParkingAvailable: isParkingAvailable,
+            introduce: introduce,
+            instagramAddress: instagramAddress
+        }
+
+        if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([0]))) {
+            storeCreatePayload.contact = {
+                type: "kakaotalk",
+                value: kakaoTalkLink
+            }
+
+        } else if ((JSON.stringify(selectedCommunicationMethod) === JSON.stringify([1]))) {
+            storeCreatePayload.contact = {
+                type: "phone",
+                value: phoneNumber
+            }
+        }
+
+        if (profileThumbnail !== null) {
+            storeCreatePayload.thumbnailImage = communicator.wrapImage(profileThumbnail)
+        }
+
+        let bannerImageList: PhotoIdentifier[] = []
+
+        fixedCoverPhotoIndexList.map((index) => {
+            bannerImageList.push(photos[index])
+        })
+
+        const wrappedBannerImageListDict = communicator.wrapImageList("bannerImageList", bannerImageList)
         
+        communicator.create(
+            Object.assign(storeCreatePayload, wrappedBannerImageListDict),
+            (response) => {
+                
+            },
+            (error) => {
+
+            },
+            true
+        )
     }
 
     const setCoverModalHeaderColor = () => {

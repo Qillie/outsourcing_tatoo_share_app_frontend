@@ -2,12 +2,16 @@
 import axiosLibrary from "axios";
 import HttpsProxyAgent from "https-proxy-agent"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from "react-native";
 
 //* Import interfaces
 import TSuccessCallback from "./interfaces/TSuccessCallback";
 import TFailCallback from "./interfaces/TFailCallback";
 import ICommunicatorPaths from "./interfaces/ICommunicatorPaths";
 import ICommunicatorConfigs from "./interfaces/ICommunicatorConfigs"
+import { PhotoIdentifier } from "@react-native-camera-roll/camera-roll";
+import TWrappedImage from "./interfaces/TWrappedImage";
+
 
 //* Setup proxy
 const axios = axiosLibrary.create({
@@ -180,22 +184,45 @@ class Communicator {
     }
 
     //* Create function
-    public async create(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async create(payload: {[key: string]: any}, successCallback?: TSuccessCallback, failCallback?: TFailCallback, useForm?: boolean) {
         try {
             if (this.configs?.CREATE !== undefined && this.paths?.CREATE !== undefined) {
+                
+
                 //* Set payload
                 let requestPayload: {CREATE_OPTION_KEY_LIST: {[ MODEL_KEY: string ]: any}, SOURCE: {[ MODEL_KEY: string ]: any}} = {CREATE_OPTION_KEY_LIST: {}, SOURCE: payload}
 
                 for (const [requestViewModelKey, requestModelKey] of Object.entries(this.configs["CREATE"]["CREATE_OPTION_KEY_LIST"])) {
-                    requestPayload["CREATE_OPTION_KEY_LIST"][requestModelKey] = payload[requestViewModelKey]
+                    if (useForm == true) {
+                        if (requestViewModelKey in payload) {
+                            requestPayload["CREATE_OPTION_KEY_LIST"][requestModelKey] = payload[requestViewModelKey]
+                        } else {
+                            const targetRegex = new RegExp(`${requestViewModelKey}+\[[0-9]+\]`)
+
+                            for (const targetKey of Object.keys(payload)) {
+                                if (targetRegex.test(targetKey)) {
+                                    const keyIndexMatch = targetKey.match(/\[[0-9]+\]/);
+                                    
+                                    if (keyIndexMatch !== null) {
+                                        console.log(keyIndexMatch[0])
+                                        requestPayload["CREATE_OPTION_KEY_LIST"][`${requestModelKey}${keyIndexMatch[0]}`] = payload[targetKey]
+                                    }
+                                }
+                            }
+                        }
+
+                    } else {
+                        requestPayload["CREATE_OPTION_KEY_LIST"][requestModelKey] = payload[requestViewModelKey]
+                    }
                 }
 
                 //* Send request
                 await this.postData(
-                    requestPayload,
+                    (useForm == true) ? requestPayload["CREATE_OPTION_KEY_LIST"] : requestPayload, //* Convert form if use form is true
                     this.paths["CREATE"]["path"],
                     successCallback,
-                    failCallback
+                    failCallback,
+                    useForm
                 )
             } else {
                 let errorMessage = ''
@@ -389,42 +416,64 @@ class Communicator {
         }
     }
 
+    public async getAuthInfo() {
+        let authInfo: {
+            ACCESS_TOKEN?: string
+            REFRESH_TOKEN?: string
+        } = {}
+
+        const dataSet = await this.getMultipleDataInSecureStore(["accessToken", "refreshToken"])
+
+        if (dataSet[0].value !== null && dataSet[1].value) {
+            authInfo.ACCESS_TOKEN = dataSet[0].value
+            authInfo.REFRESH_TOKEN = dataSet[1].value
+        }
+
+        return authInfo
+    }
+
     public async putData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
-            axios.put(`${apiEndpointPath}`, payload)
-            .then((response) => {
-                if (successCallback !== undefined) {
-                    successCallback(response)
-                }
+            this.getAuthInfo().then((authInfo) => {
+                axios.put(`${apiEndpointPath}`, Object.assign(payload, authInfo))
+                .then((response) => {
+                    if (successCallback !== undefined) {
+                        successCallback(response)
+                    }
+                })
+                .catch((error) => {
+                    if (failCallback !== undefined) {
+                        failCallback(error)
+                    }
+                })
             })
-            .catch((error) => {
-                if (failCallback !== undefined) {
-                    failCallback(error)
-                }
-            })
-            
-            
         } catch (error) {
             console.error(error);
         }
     }
 
-    public async postData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
+    public async postData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback, useForm?: boolean) {
         //* Post data
         try {
-            axios.post(`${apiEndpointPath}`, payload)
-            .then((response) => {
-                if (successCallback !== undefined) {
-                    successCallback(response)
-                }
+            this.getAuthInfo().then((authInfo) => {
+                console.log(Object.assign(payload, authInfo))
+
+                axios.post(
+                    `${apiEndpointPath}`, 
+                    (useForm == true) ? this.setFormData(Object.assign(payload, authInfo)) : Object.assign(payload, authInfo),
+                )
+                .then((response) => {
+                    if (successCallback !== undefined) {
+                        successCallback(response)
+                    }
+                })
+                .catch((error) => {
+                    if (failCallback !== undefined) {
+                        failCallback(error)
+                    }
+                })
             })
-            .catch((error) => {
-                if (failCallback !== undefined) {
-                    failCallback(error)
-                }
-            })
-            
             
         } catch (error) {
             console.error(error);
@@ -434,18 +483,19 @@ class Communicator {
     public async getData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
-            axios.get(`${apiEndpointPath}`, {params: payload})
-            .then((response) => {
-                if (successCallback !== undefined) {
-                    successCallback(response)
-                }
+            this.getAuthInfo().then((authInfo) => {
+                axios.get(`${apiEndpointPath}`, {params: Object.assign(payload, authInfo)})
+                .then((response) => {
+                    if (successCallback !== undefined) {
+                        successCallback(response)
+                    }
+                })
+                .catch((error) => {
+                    if (failCallback !== undefined) {
+                        failCallback(error)
+                    }
+                })
             })
-            .catch((error) => {
-                if (failCallback !== undefined) {
-                    failCallback(error)
-                }
-            })
-            
             
         } catch (error) {
             console.error(error);
@@ -455,20 +505,72 @@ class Communicator {
     public async deleteData(payload: {[key: string]: any}, apiEndpointPath: string, successCallback?: TSuccessCallback, failCallback?: TFailCallback) {
         //* Post data
         try {
-            axios.put(`${apiEndpointPath}`, payload)
-            .then((response) => {
-                if (successCallback !== undefined) {
-                    successCallback(response)
-                }
-            })
-            .catch((error) => {
-                if (failCallback !== undefined) {
-                    failCallback(error)
-                }
+            this.getAuthInfo().then((authInfo) => {
+                axios.put(`${apiEndpointPath}`, Object.assign(payload, authInfo))
+                .then((response) => {
+                    if (successCallback !== undefined) {
+                        successCallback(response)
+                    }
+                })
+                .catch((error) => {
+                    if (failCallback !== undefined) {
+                        failCallback(error)
+                    }
+                })
             })
         } catch (error) {
             console.error(error);
         }
+    }
+
+    public wrapImage(target: PhotoIdentifier) {
+        if (target.node.image.filename !== null) {
+            //* Split file name
+            const splitFilename = target.node.image.filename.split(".")
+            
+            const wrappedPhoto: TWrappedImage = {
+                name: splitFilename[0],
+                type: splitFilename[1],
+                uri: Platform.OS === 'ios' ? target.node.image.uri.replace('file://', '') : target.node.image.uri,
+            }
+
+            return wrappedPhoto
+        } else {
+            throw new Error("Unvalid image")
+        }
+    }
+
+    public wrapImageList(imageListKey: string, targetList: PhotoIdentifier[]) {
+        let wrappedListDict: {[key: string]: TWrappedImage} = {}
+        
+        targetList.map((target, index) => {
+            if (target.node.image.filename !== null) {
+                //* Split file name
+                const splitFilename = target.node.image.filename.split(".")
+                
+                const wrappedPhoto: TWrappedImage = {
+                    name: splitFilename[0],
+                    type: splitFilename[1],
+                    uri: Platform.OS === 'ios' ? target.node.image.uri.replace('file://', '') : target.node.image.uri,
+                }
+    
+                wrappedListDict[`${imageListKey}[${index}]`] = wrappedPhoto
+            } else {
+                throw new Error("Unvalid image")
+            }
+        })
+
+        return wrappedListDict
+    }
+
+    public setFormData(payload: {[key: string]: any}) {
+        const formData = new FormData()
+
+        for (const [payloadKey, payloadValue] of Object.entries(payload)) {
+            formData.append(payloadKey, payloadValue)
+        }
+
+        return formData
     }
 }
 
